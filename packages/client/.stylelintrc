@@ -8,7 +8,5 @@
     "font-family-name-quotes": "always-unless-keyword",
     "no-empty-source": null
   },
-  "ignoreFiles": [
-    "dist/*"
-  ]
+  "ignoreFiles": ["dist/*"]
 }
