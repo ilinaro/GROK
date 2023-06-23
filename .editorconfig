@@ -3,3 +3,12 @@ root = true
 [*.{js,ts}]
 indent_style = space
 indent_size = 2
+
+# Unix-style newlines with
+end_of_line = lf
+
+# remove any whitespace characters preceding newline characters
+trim_trailing_whitespace = true
+
+# newline ending every file
+insert_final_newline = true
