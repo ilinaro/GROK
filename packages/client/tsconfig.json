@@ -2,7 +2,11 @@
   "compilerOptions": {
     "target": "ESNext",
     "useDefineForClassFields": true,
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
     "allowJs": false,
     "skipLibCheck": true,
     "esModuleInterop": false,
@@ -14,9 +18,50 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@/api/*": [
+        "src/api/*"
+      ],
+      "@/app/*": [
+        "src/app/*"
+      ],
+      "@/constants/*": [
+        "src/constants/*"
+      ],
+      "@/helpers/*": [
+        "src/helpers/*"
+      ],
+      "@/hooks/*": [
+        "src/hooks/*"
+      ],
+      "@/modules/*": [
+        "src/modules/*"
+      ],
+      "@/pages/*": [
+        "src/pages/*"
+      ],
+      "@/routes/*": [
+        "src/routes/*"
+      ],
+      "@/store/*": [
+        "src/store/*"
+      ],
+      "@/ui/*": [
+        "src/ui/*"
+      ],
+    }
   },
-  "include": ["src"],
-  "exclude": ["node_modules"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }
