@@ -16,9 +16,12 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "1.9.5",
     "dotenv": "16.0.2",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-redux": "8.1.1",
+    "react-router-dom": "6.13.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "5.16.5",
@@ -29,7 +32,9 @@
     "@typescript-eslint/eslint-plugin": "5.60.0",
     "@typescript-eslint/parser": "5.35.1",
     "@vitejs/plugin-react": "2.0.1",
-    "eslint": "8.23.0",
+    "eslint": "8.43.0",
+    "eslint-config-airbnb": "19.0.4",
+    "eslint-config-airbnb-typescript": "17.0.0",
     "eslint-config-prettier": "8.8.0",
     "eslint-plugin-import": "2.27.5",
     "eslint-plugin-jsx-a11y": "6.7.1",
