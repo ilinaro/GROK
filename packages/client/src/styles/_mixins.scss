@@ -1,0 +1,4 @@
+@mixin gradientBlue() {
+    background: -webkit-linear-gradient(90deg, #743ad5, #00b7ff);
+    background: linear-gradient(140deg, #743ad5, #00b7ff);
+}

@@ -1,18 +1,31 @@
-import { useEffect } from 'react'
-import './App.css'
+import { QueryClient, QueryClientProvider } from 'react-query';
+import React, { useState } from 'react';
+
+import { RouterProvider } from 'react-router-dom';
+import { Routers } from './routes';
 
 function App() {
-  useEffect(() => {
-    const fetchServerData = async () => {
-      const url = `http://localhost:${__SERVER_PORT__}`
-      const response = await fetch(url)
-      const data = await response.json()
-      console.log(data)
-    }
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            retry: 0,
+            staleTime: 1000,
+            // отключил потому что в основном, здесь все запросы по кнопке проходят, а не автоматом
+            refetchOnWindowFocus: false,
+          },
+        },
+      })
+  );
 
-    fetchServerData()
-  }, [])
-  return <div className="App">Вот тут будет жить ваше приложение :)</div>
+  return (
+    <React.StrictMode>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={Routers} />
+      </QueryClientProvider>
+    </React.StrictMode>
+  );
 }
 
-export default App
+export default App;
