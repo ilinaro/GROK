@@ -1,1 +1,2 @@
-export { Header } from './Header';
+export * from './PrimaryLayout';
+export * from './ProfileLayout';
