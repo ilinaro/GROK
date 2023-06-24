@@ -2,7 +2,7 @@
   "root": true,
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": "./packages/client/tsconfig.json",
+    "project": "tsconfig.json",
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
