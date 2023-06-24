@@ -8,5 +8,6 @@ export const useGetCSSVars = (type: string, arg: string): any => {
     }
   }, []);
 
+  // eslint-disable-next-line max-len
   return root ? getComputedStyle(root).getPropertyValue(`--${type}-${arg}`) || 'inherit' : 'inherit';
 };
