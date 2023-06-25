@@ -1,0 +1,17 @@
+.Ball {
+    border-radius: 99999px;
+    width: 190px;
+    height: 190px;
+    /* Linear */
+    background: linear-gradient(
+        96.4deg,
+        #ffc9c6 10.21%,
+        #ffa7b6 16.38%,
+        #ff6699 28.9%,
+        #ff3d87 38.03%,
+        #ff2e80 42.76%,
+        #9324d3 90.49%,
+        #9324d3 114.5%
+    );
+    transform: rotate(22.54deg);
+}

@@ -1,0 +1,11 @@
+.Start {
+    cursor: pointer;
+    margin: 200px auto;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    & > :nth-child(1n) {
+        margin-right: 25px;
+    }
+}

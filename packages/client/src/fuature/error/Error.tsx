@@ -6,7 +6,7 @@ type ErrorT = {};
 export const Error: React.FC<ErrorT> = () => {
   return (
     <div className={styles.Wrapper}>
-      <BodyNormal>Error Component</BodyNormal>
+      <BodyNormal>Error Component 500</BodyNormal>
     </div>
   );
 };
