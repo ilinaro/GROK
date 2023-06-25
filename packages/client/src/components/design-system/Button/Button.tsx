@@ -1,15 +1,14 @@
 import * as React from 'react';
 
 import clsx from 'clsx';
-import styles from './button.module.scss';
+import styles from './Button.module.scss';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size?: 'small' | 'medium' | 'large';
   fullWidth?: boolean;
   active?: boolean;
   border?: boolean;
-  borderColor?: 'green' | 'dark' | 'white';
-  color?: 'white-green' | 'green' | 'white';
+  color?: 'blue' | 'pink';
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -17,10 +16,9 @@ export const Button: React.FC<ButtonProps> = ({
   className,
   fullWidth,
   active,
-  color = 'green',
+  color = 'pink',
   size = 'medium',
   border = false,
-  borderColor = 'white',
   style,
   ...props
 }) => {
@@ -33,7 +31,6 @@ export const Button: React.FC<ButtonProps> = ({
         styles[`Button__${color}`],
         styles[`Button__${size}`],
         active && styles[`Button__${color}_active`],
-        borderColor && styles[`Button__border_${borderColor}`],
         className
       )}
     >
