@@ -1,0 +1,75 @@
+:root {
+	/* COLORS */
+	--color-white: #FFFFFF;
+	--color-red: #F23030;
+
+	--color-violet: #5830A5;
+
+	--color-pink: #D752AA;
+	--color-pink-hover: #b6348a;
+	--color-pink-focus: #cc3b9c;
+	--color-pink-active: #cc3b9c;
+	--color-pink-loading: #f747bc;
+
+	--color-blue: #6781F7;
+	--color-blue-hover: #3d56c5;
+
+	--color-gray: #8B97AE;
+
+
+	/* FONTS */
+	--font-body: "Roboto";
+
+	/* TYPOGRAPHY */
+	--font-size-10: 10px;
+	--font-size-12: 12px;
+	--font-size-14: 14px;
+	--font-size-base: 16px;
+	--font-size-18: 18px;
+	--font-size-20: 20px;
+	--font-size-24: 24px;
+	--font-size-32: 32px;
+	--font-size-48: 48px;
+	--font-size-64: 64px;
+
+	--line-height-14: 14px;
+	--line-height-16: 16px;
+
+	/* BORDERS */
+	--radius-2: 2px;
+	--radius-4: 4px;
+	--radius-6: 6px;
+	--radius-8: 8px;
+	--radius-10: 10px;
+	--radius-12: 12px;
+	--radius-14: 14px;
+	--radius-16: 16px;
+	--border: 1px solid var(--color-gray);
+
+	/* SPACING */
+	--spacing-neg-1: -8px;
+	--spacing-neg-2: -16px;
+	--spacing-neg-3: -24px;
+	--spacing-neg-4: -32px;
+	--spacing-neg-5: -40px;
+	--spacing-neg-6: -48px;
+	--spacing-neg-7: -56px;
+	--spacing-neg-8: -64px;
+	--spacing-neg-9: -72px;
+	--spacing-neg-10: -80px;
+	--spacing-neg-11: -88px;
+	--spacing-neg-12: -96px;
+
+	--spacing-1: 8px;
+	--spacing-2: 16px;
+	--spacing-3: 24px;
+	--spacing-4: 32px;
+	--spacing-5: 40px;
+	--spacing-6: 48px;
+	--spacing-7: 56px;
+	--spacing-8: 64px;
+	--spacing-9: 72px;
+	--spacing-10: 80px;
+	--spacing-11: 88px;
+	--spacing-12: 96px;
+}

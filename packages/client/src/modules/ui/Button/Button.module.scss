@@ -1,0 +1,124 @@
+.container {
+	display: flex;
+}
+
+.containerAlignCenter {
+	justify-content: center;
+}
+
+.containerAlignLeft {
+	justify-content: start;
+}
+
+.containerAlignRight {
+	justify-content: end;
+}
+
+.containerAlignStretch .button {
+	width: 100%;
+}
+
+.button {
+	font-family: var(--font-body);
+	font-size: var(--font-size-14);
+	line-height: var(--line-height-14);
+	font-weight: bold;
+	outline: 0 none;
+	color: var(--color-white);
+	border: solid 1px var(--color-pink);
+	border-radius: var(--radius-8);
+	background: var(--color-pink);
+	cursor: pointer;
+	transition-duration: 0.3s;
+	transition-timing-function: ease;
+	display: inline-block;
+
+	&:hover {
+		background: var(--color-pink-hover);
+		border-color: var(--color-pink-hover);
+	}
+
+	&:focus {
+		border-color: var(--color-pink-focus);
+	}
+
+	&:active {
+		background: var(--color-pink-active);
+	}
+}
+
+
+.buttonSizeS {
+	font-size: var(--font-size-12);
+	padding: var(--spacing-1) var(--spacing-2) var(--spacing-1) var(--spacing-2);
+}
+
+.buttonSizeM {
+	font-size: var(--font-size-14);
+	line-height: 22px;
+	padding: var(--spacing-1) var(--spacing-2);
+}
+
+.buttonSizeL {
+	font-size: var(--font-size-base);
+	padding: var(--spacing-2) var(--spacing-3);
+}
+
+.buttonSizeXl {
+	font-size: var(--font-size-18);
+	padding: var(--spacing-4);
+}
+
+.buttonDisabled {
+	cursor: not-allowed;
+	background: var(--color-grey);
+	border-color: var(--color-grey);
+
+	&:hover,
+	&:active {
+		background: var(--color-grey);
+	}
+
+	&:focus {
+		box-shadow: 0 0 0 3px rgba(185, 185, 185, 0.5);
+	}
+}
+
+.buttonLoading {
+	cursor: not-allowed;
+	background: var(--color-pink-loading);
+	border-color: var(--color-pink-loading);
+
+	&:hover,
+	&:active {
+		background: var(--color-pink-loading);
+	}
+
+	&:focus {
+		box-shadow: 0 0 0 3px rgba(185, 185, 185, 0.5);
+	}
+
+}
+
+.buttonContent {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.buttonContentText {
+	display: flex;
+}
+
+.buttonContentIcon {
+	margin-right: var(--spacing-1);
+	display: flex;
+
+	& svg path {
+		fill: var(--color-white);
+	}
+}
+
+.buttonBlock {
+	width: 100%;
+}
