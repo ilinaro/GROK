@@ -1,0 +1,38 @@
+.formInput {
+	width: 100%;
+
+	& .inputContainer {
+		position: relative;
+
+		& .input {
+			border-radius: 8px;
+			color: var(--color-white);
+			font-size: 14px;
+			background: var(--color-violet);
+			height: 100%;
+			outline: 0;
+			padding: 16px;
+			border: 1px solid var(--color-white-darken);
+			width: 100%;
+
+			&:focus~.placeholder,
+			input:not(:placeholder-shown)~.placeholder {
+				transform: translateY(-25px) translateX(5px) scale(0.8);
+			}
+		}
+
+		& .placeholder {
+			font-size: 14px;
+			position: absolute;
+			padding: 0 3px;
+			background-color: var(--color-violet);
+			color: var(--color-white-darken);
+			top: 16px;
+			left: 16px;
+			line-height: 20px;
+			pointer-events: none;
+			transform-origin: 0 50%;
+			transition: transform 200ms,
+		}
+	}
+}

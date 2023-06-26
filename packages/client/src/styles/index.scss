@@ -1,1 +1,6 @@
-@import "_variables.scss";
+@import "./reset.scss";
+@import "./globals.scss";
+@import "./variables";
+@import "./mixins";
+@import "./fonts";
+@import "./tools";

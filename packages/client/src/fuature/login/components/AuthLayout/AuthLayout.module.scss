@@ -1,0 +1,24 @@
+.Wrapper {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	// padding-top: 31px;
+	// margin-left: 49px;
+
+	.backgroundItem:first-child {
+		margin-top: 31px;
+		margin-left: 49px;
+	}
+
+	.backgroundItem:nth-child(2) {
+		margin-top: 31px;
+		margin-left: 58px;
+	}
+
+	.backgroundItem:last-child {
+		margin: auto 0 auto auto;
+		align-self: flex-end;
+
+	}
+
+}

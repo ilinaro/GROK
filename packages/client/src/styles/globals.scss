@@ -1,0 +1,89 @@
+body {
+  font-family: Roboto, Georgia, sans-serif;
+  font-weight: 400;
+  color: var(--color-black);
+  overflow-x: hidden;
+  margin-right: calc(-1 * (100vw - 100%));
+  background-color: var(--color-violet);
+  color: var(--color-white);
+}
+
+body * {
+  font-family: Roboto;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.textNoSelect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.boldText {
+  font-weight: 700;
+}
+.mediumText {
+  font-weight: 500;
+}
+.normalText {
+  font-weight: 400;
+}
+.lightText {
+  font-weight: 300;
+}
+
+input:active,
+input:hover,
+input:focus,
+button:hover,
+button:focus,
+button:active {
+  outline: 0;
+  outline-offset: 0;
+}
+
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+input[type='number'],
+input[type='number']:hover,
+input[type='number']:focus {
+  appearance: none;
+  -moz-appearance: textfield;
+}
+
+.ql-align-center {
+  text-align: center;
+}
+.ql-align-right {
+  text-align: right;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) and (min-width: 768px) and (max-width: 1024px) {
+  input,
+  textarea,
+  select select:focus,
+  textarea:focus,
+  input:focus {
+    font-size: 16px;
+  }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) and (max-width: 767px) {
+  input,
+  textarea,
+  select,
+  select:focus,
+  textarea:focus,
+  input:focus {
+    font-size: 16px;
+  }
+}

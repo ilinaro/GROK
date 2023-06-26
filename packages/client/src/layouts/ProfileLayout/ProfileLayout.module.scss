@@ -1,0 +1,26 @@
+.ProfileLayout {
+    height: 100vh;
+}
+
+.Head {
+    height: 92px;
+}
+
+.Body {
+    display: flex;
+}
+
+.Navigate {
+    padding-top: 40px;
+    width: 240px;
+    height: calc(100vh - 92px);
+}
+
+.Outlet {
+    background-color: var(--color-black-light);
+    width: 100%;
+    overflow: hidden;
+    margin-right: 20px;
+    border-radius: 20px 20px 0px 0px;
+    padding: 20px;
+}

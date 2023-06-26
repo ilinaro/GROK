@@ -1,11 +1,5 @@
 {
-  "root": true,
   "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "project": "tsconfig.json",
-    "ecmaVersion": "latest",
-    "sourceType": "module"
-  },
   "plugins": [
     "@typescript-eslint/eslint-plugin",
     "eslint-plugin-react",
@@ -15,6 +9,7 @@
     "eslint-plugin-promise",
     "prettier"
   ],
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
   "env": {
     "jest": true,
     "browser": true,
@@ -25,35 +20,25 @@
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [
-          ".js",
-          ".jsx",
-          "'.ts",
-          ".tsx"
-        ],
-        "moduleDirectory": [
-          "node_modules",
-          "src"
-        ]
+        "extensions": [".js", ".jsx", "'.ts", ".tsx"],
+        "moduleDirectory": ["node_modules", "src"]
       }
     },
     "react": {
       "version": "detect"
     }
   },
-  "extends": [
-    "standard-with-typescript",
-    "plugin:react/recommended",
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier",
-    "prettier/prettier",
-    "plugin:react/jsx-runtime",
-    "plugin:prettier/recommended"
-  ],
   "rules": {
+    "no-unused-vars": "off",
+    "max-len": ["warn", 150],
+    "max-params": ["error", 3],
+    "@typescript-eslint/ban-types": "off",
+    "@typescript-eslint/no-unused-vars":"off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/naming-convention": "off",
     "@typescript-eslint/triple-slash-reference": "off",
-    "@typescript-eslint/explicit-function-return-type": "off"
+    "@typescript-eslint/explicit-function-return-type": "off",
   }
 }

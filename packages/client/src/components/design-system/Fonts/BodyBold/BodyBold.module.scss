@@ -1,0 +1,18 @@
+.BodyBold {
+  display: inline-block;
+  line-height: 115%;
+  letter-spacing: 0em;
+  font-size: 16px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .BodyBold {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .BodyBold {
+    font-size: 14px;
+  }
+}

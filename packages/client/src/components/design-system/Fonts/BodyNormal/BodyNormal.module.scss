@@ -1,0 +1,18 @@
+.BodyNormal {
+  display: inline-block;
+  line-height: 120%;
+  letter-spacing: 0em;
+  font-size: 14px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .BodyNormal {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .BodyNormal {
+    font-size: 12px;
+  }
+}
