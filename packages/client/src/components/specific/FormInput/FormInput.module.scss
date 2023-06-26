@@ -4,19 +4,36 @@
 	& .inputContainer {
 		position: relative;
 
+		& input:-webkit-autofill,
+		input:-webkit-autofill:hover,
+		input:-webkit-autofill:focus,
+		textarea:-webkit-autofill,
+		textarea:-webkit-autofill:hover,
+		textarea:-webkit-autofill:focus,
+		select:-webkit-autofill,
+		select:-webkit-autofill:hover,
+		select:-webkit-autofill:focus {
+			border: 1px solid var(--color-white-darken);
+			-webkit-text-fill-color: var(--color-white);
+			-webkit-box-shadow: 0 0 0px 1000px var(--color-violet-darken) inset;
+			transition: background-color 5000s ease-in-out 0s;
+		}
+
 		& .input {
 			border-radius: 8px;
 			color: var(--color-white);
 			font-size: 14px;
-			background: var(--color-violet);
+			background: var(--color-violet-darken);
 			height: 100%;
 			outline: 0;
 			padding: 16px;
 			border: 1px solid var(--color-white-darken);
 			width: 100%;
 
+
+
 			&:focus~.placeholder,
-			input:not(:placeholder-shown)~.placeholder {
+			&:not(:placeholder-shown)~.placeholder {
 				transform: translateY(-25px) translateX(5px) scale(0.8);
 			}
 		}
@@ -25,7 +42,7 @@
 			font-size: 14px;
 			position: absolute;
 			padding: 0 3px;
-			background-color: var(--color-violet);
+			background-color: var(--color-violet-darken);
 			color: var(--color-white-darken);
 			top: 16px;
 			left: 16px;

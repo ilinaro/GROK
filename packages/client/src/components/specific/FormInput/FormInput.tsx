@@ -23,7 +23,7 @@ export const FormInput: React.FC<FormInputProps> = ({ name, label, type = 'text'
   return (
     <label className={styles.formInput} {...props}>
       <div className={styles.inputContainer}>
-        <input ref={ref} type={type} className={styles.input} {...inputProps} />
+        <input ref={ref} type={type} className={styles.input} placeholder=" " {...inputProps} />
         <span className={styles.placeholder}>{label}</span>
       </div>
       <BodyNormal color={'pink'} style={{ position: 'absolute', color: 'var(--color-pink)' }}>
