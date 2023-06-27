@@ -1,0 +1,57 @@
+.Container {
+    background-color: var(--color-violet);
+    display: flex;
+    align-items: center;
+    border-radius: 20px;
+    padding: 15px;
+    font-size: 30px;
+    gap: 40px;
+    position: relative;
+
+    @media (max-width: 768px) {
+        // Styles for screens up to 768px wide
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+    .Avatar {
+        display: block;
+        width: 90px;
+        height: 90px;
+        
+
+        img {
+            max-width: 100%;
+            border-radius: 50%;
+        }
+    }
+    
+    .Username {
+        width: 200px;
+    }
+
+    .TopPlace {
+        width: 170px;
+        height: 170px;
+        background-image: url('../../../../styles/images/leader.svg');
+        background-repeat: no-repeat;
+        position: absolute;
+        background-position: right;
+        right: 5%;
+
+        @media (max-width: 480px) {
+            // Styles for screens up to 768px wide
+            width: 50px;
+            height: 50px;
+            background-size: cover;
+            top: 10%;
+          }
+    }
+
+}
+
+.Winner {
+    background-image: url('../../../../styles/images/leaderVector.png');
+    background-repeat: no-repeat;
+    background-position: bottom right;
+}

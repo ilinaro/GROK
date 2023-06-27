@@ -4,8 +4,8 @@ import styles from './Logo.module.scss';
 
 export const Logo: React.FC = () => (
   <Link to="/">
-    <div className={styles.Logo}>
-      <Title color={'white'} weight={'medium'}>
+    <div className={styles.LogoContainer}>
+      <Title className={styles.Logo} color={'white'} weight={'bold'}>
         GROK
       </Title>
     </div>
