@@ -1,30 +1,27 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styles from './Navigate.module.scss';
+import clsx from 'clsx';
 
 type NavigateT = {};
 
 export const Navigate: React.FC<NavigateT> = () => {
   return (
-    <div className={styles.Navigate}>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Старт</Link>
-          </li>
-          <li>
-            <Link to="/leaders">Лидеры</Link>
-          </li>
-          <li>
-            <Link to="/profile">Профиль</Link>
-          </li>
-          <li>
-            <Link to="/progress">Прогресс</Link>
-          </li>
-          <li>
-            <Link to="/forum">Форум</Link>
-          </li>
-        </ul>
-      </nav>
-    </div>
+    <nav className={styles.Navigate}>
+      <NavLink className={({ isActive }) => clsx({ [styles.Active]: isActive }, styles.Home)} to="/">
+        Старт
+      </NavLink>
+      <NavLink className={({ isActive }) => clsx({ [styles.Active]: isActive }, styles.Leaders)} to="/leaders">
+        Лидеры
+      </NavLink>
+      <NavLink className={({ isActive }) => clsx({ [styles.Active]: isActive }, styles.Profile)} to="/profile">
+        Профиль
+      </NavLink>
+      <NavLink className={({ isActive }) => clsx({ [styles.Active]: isActive }, styles.Progress)} to="/progress">
+        Прогресс
+      </NavLink>
+      <NavLink className={({ isActive }) => clsx({ [styles.Active]: isActive }, styles.Forum)} to="/forum">
+        Форум
+      </NavLink>
+    </nav>
   );
 };
