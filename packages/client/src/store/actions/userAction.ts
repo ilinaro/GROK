@@ -1,4 +1,3 @@
-import { IUser } from '@core/models/user';
 import {
   SET_USER,
   SET_USER_LOAD,
@@ -14,10 +13,11 @@ import {
   DeleteUserACType,
   SetUserAuthACType,
   ClearUserErrorsACType,
+  User,
 } from '@store/types/userTypes';
 
 // Функции создатели экшенов
-export const setUserAC = (user: IUser): SetUserACType => ({ type: SET_USER, user });
+export const setUserAC = (user: User): SetUserACType => ({ type: SET_USER, user });
 export const setUserAuthAC = (): SetUserAuthACType => ({ type: SET_USER_AUTH });
 export const setUserLoadingAC = (loading: boolean): SetUserLoadingACType => ({ type: SET_USER_LOAD, loading });
 export const setUserErrorAC = (error: string): SetUserErrorACType => ({ type: SET_USER_ERROR, error });

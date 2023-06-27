@@ -1,4 +1,3 @@
-import { IUser } from '@core/models/user';
 import {
   SET_USER,
   SET_USER_AUTH,
@@ -21,7 +20,7 @@ export interface User {
 
 export type SetUserACType = {
   type: typeof SET_USER;
-  user: IUser;
+  user: User;
 };
 
 export type SetUserAuthACType = {

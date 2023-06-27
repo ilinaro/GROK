@@ -6,20 +6,44 @@ import styles from './LoginForm.module.scss';
 import { FormInput } from '@components/specific/FormInput/FormInput';
 import { useForm } from 'react-hook-form';
 import { RouteNames } from '@routes/routeNames';
+import { useState } from 'react';
+import { HidePassSVG } from '@components/design-system/SVG/HidePassSVG';
+import { ShowPassSVG } from '@components/design-system/SVG/ShowPassSVG';
 
 type LoginT = {};
 
+interface LoginFormT {
+  first_name: string;
+  second_name: string;
+  login: string;
+  email: string;
+  password: string;
+  phone: string;
+}
+
 export const LoginForm: React.FC<LoginT> = () => {
+  const [isPasswordShow, setIsPasswordShow] = useState(false);
+
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<LoginFormT>({
     defaultValues: {
       login: '',
       password: '',
     },
   });
+
+  const toggleShowPassword = () => setIsPasswordShow((prev) => !prev);
+
+  const showOrHidddenIcon = () => {
+    if (isPasswordShow) {
+      return <HidePassSVG onClick={toggleShowPassword} />;
+    } else {
+      return <ShowPassSVG onClick={toggleShowPassword} />;
+    }
+  };
 
   const onSubmit = () => {};
 
@@ -43,11 +67,12 @@ export const LoginForm: React.FC<LoginT> = () => {
         <FormInput
           name="password"
           label="Введите пароль"
-          type="password"
+          type={isPasswordShow ? 'text' : 'password'}
           control={control}
           rules={{
             required: 'Это поле обязательно',
           }}
+          rightAddon={showOrHidddenIcon()}
           style={{ marginTop: '22px' }}
         />
         <Button color={'pink'} style={{ marginTop: '22px' }} type="submit">
