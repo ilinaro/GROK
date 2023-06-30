@@ -17,39 +17,17 @@ export const Performance: React.FC<PerformanceT> = ({ onClose }) => {
   const handleToggle = () => {
     setStart((prev) => !prev);
   };
-  useEffect(() => {
-    if (count === 1) handleToggle(); // off
 
-    if (count === 2) handleToggle(); // on
-    if (count === 5) handleToggle(); // off
-
-    if (count === 6) handleToggle(); // on
-    if (count === 14) handleToggle(); // off
-
-    if (count === 15) handleToggle(); // on
-    if (count === 22) handleToggle(); // off
-
-    if (count > 22) {
-      onClose();
-      return;
-    }
-    const animationTimeout = setTimeout(() => {
-      setCount((prev) => prev + 1);
-    }, 1500);
-    return () => {
-      clearTimeout(animationTimeout);
-    };
-  }, [count]);
-
-  return (
-    <>
-      {count <= 1 && (
+  const performanceData = [
+    {
+      content: (
         <div className={clsx({ [styles.performance]: start }, { [styles.next]: !start })}>
           <Title>Представление GROK</Title>
         </div>
-      )}
-
-      {count >= 2 && count <= 5 && (
+      ),
+    },
+    {
+      content: (
         <div className={clsx({ [styles.performance]: start }, { [styles.next]: !start })}>
           <div className={styles.contentCentr}>
             <Subheader>
@@ -60,9 +38,10 @@ export const Performance: React.FC<PerformanceT> = ({ onClose }) => {
             </div>
           </div>
         </div>
-      )}
-
-      {count >= 6 && count <= 14 && (
+      ),
+    },
+    {
+      content: (
         <div className={clsx({ [styles.performance]: start }, { [styles.next]: !start })}>
           <div className={styles.contentCentr}>
             <Subheader>
@@ -78,9 +57,10 @@ export const Performance: React.FC<PerformanceT> = ({ onClose }) => {
             </div>
           </div>
         </div>
-      )}
-
-      {count >= 15 && count <= 22 && (
+      ),
+    },
+    {
+      content: (
         <div className={clsx({ [styles.performance]: start }, { [styles.next]: !start })}>
           <div className={styles.contentCentr}>
             <Subheader>
@@ -89,7 +69,41 @@ export const Performance: React.FC<PerformanceT> = ({ onClose }) => {
             </Subheader>
           </div>
         </div>
-      )}
+      ),
+    },
+  ];
+
+  useEffect(() => {
+    if (count > 22) {
+      onClose();
+      return;
+    }
+
+    if (count === 1) handleToggle(); // off
+
+    if (count === 3) handleToggle(); // on
+    if (count === 8) handleToggle(); // off
+
+    if (count === 10) handleToggle(); // on
+    if (count === 14) handleToggle(); // off
+
+    if (count === 16) handleToggle(); // on
+    if (count === 21) handleToggle(); // off
+
+    const animationTimeout = setTimeout(() => {
+      setCount((prev) => prev + 1);
+    }, 1000);
+    return () => {
+      clearTimeout(animationTimeout);
+    };
+  }, [count]);
+
+  return (
+    <>
+      {count < 2 && performanceData[0].content}
+      {count >= 2 && count < 9 && performanceData[1].content}
+      {count >= 9 && count < 15 && performanceData[2].content}
+      {count >= 15 && count < 22 && performanceData[3].content}
     </>
   );
 };
