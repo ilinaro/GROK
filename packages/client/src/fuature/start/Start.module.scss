@@ -1,6 +1,31 @@
-.Start {
+.content {
+    position: relative;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.question {
+    position: absolute;
+    right: 0;
+    top: 0;
+    border-radius: 99999px;
     cursor: pointer;
-    margin: 200px auto;
+    & > :nth-child(1n) {
+        transition: all 0.3s;
+        fill: var(--color-white);
+    }
+    &:hover {
+        & > :nth-child(1n) {
+            fill: var(--color-pink);
+        }
+    }
+
+}
+.start {
+    margin: 0 auto;
+    cursor: pointer;
     width: fit-content;
     display: flex;
     align-items: center;
@@ -8,4 +33,14 @@
     & > :nth-child(1n) {
         margin-right: 25px;
     }
+}
+
+.performance {
+    opacity: 0;
+    transition: 1s opacity;
+}
+
+.next {
+    opacity: 1;
+    transition: 1s opacity;
 }
