@@ -66,9 +66,10 @@ export const Performance: React.FC<PerformanceT> = ({ onClose }) => {
         <div className={clsx({ [styles.performance]: start }, { [styles.next]: !start })}>
           <div className={styles.contentCentr}>
             <Subheader>
-              Цель игры заключается в том, чтобы собрать порталы проходя лабиринт. Игрок может управлять платформой
+              Цель игры заключается в том, чтобы собрать порталы проходя лабиринт.
               <br />
-              нажимая клавиши на клавиатуре влево или вправо. Если у шарика закочатся жизни, игра заканчивается.
+              Игрок может управлять платформой нажимая клавиши на клавиатуре влево или вправо. Если у шарика закочатся
+              жизни, игра заканчивается.
             </Subheader>
             <div>
               <ArrowCircleLeft size={64} />
@@ -83,7 +84,7 @@ export const Performance: React.FC<PerformanceT> = ({ onClose }) => {
         <div className={clsx({ [styles.performance]: start }, { [styles.next]: !start })}>
           <div className={styles.contentCentr}>
             <Subheader>
-              Игроку предстоит пройти свозь трудные препятствия, собрать все порталы и найти выход. В начале игры,
+              Игроку предстоит пройти свозь трудные препятствия, собрать все порталы и найти выход. <br />В начале игры,
               игроку дается 3 жизни, их может пополнить, если найдет секретные места в лабиринте.
             </Subheader>
           </div>
