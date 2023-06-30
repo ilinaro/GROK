@@ -1,0 +1,23 @@
+.performance {
+    opacity: 0;
+    transition: 0.5s opacity;
+}
+
+.next {
+    opacity: 1;
+    transition: 0.5s opacity;
+}
+
+.contentCentr {
+    max-width: 800px;
+    flex-direction: column;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    & > :nth-child(1n) {
+        padding: 20px;
+        display: flex;
+        text-align: center;
+        justify-content: center;
+    }
+}

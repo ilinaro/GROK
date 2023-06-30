@@ -1,15 +1,11 @@
-import { BodyNormal } from '@components/design-system/Fonts';
-import { PrimaryLayout } from '@layouts/PrimaryLayout';
+import { AuthLayout } from 'fuature/login/components/AuthLayout';
+import { RegistrationForm } from './components';
 import styles from './Registration.module.scss';
 
-type RegistrationT = {};
-
-export const Registration: React.FC<RegistrationT> = () => {
+export const Registration: React.FC = () => {
   return (
-    <PrimaryLayout>
-      <div className={styles.Wrapper}>
-        <BodyNormal>Registration Component</BodyNormal>
-      </div>
-    </PrimaryLayout>
+    <AuthLayout>
+      <RegistrationForm />
+    </AuthLayout>
   );
 };

@@ -1,4 +1,13 @@
-export type SystemColor = 'violet' | 'violet-darken' | 'white' | 'blue' | 'pink' | 'yellow' | 'black' | 'black-light';
+export type SystemColor =
+  | 'violet'
+  | 'violet-darken'
+  | 'white-darken'
+  | 'white'
+  | 'blue'
+  | 'pink'
+  | 'yellow'
+  | 'black'
+  | 'black-light';
 
 export type SystemFontWeight = 'light' | 'normal' | 'medium' | 'bold';
 

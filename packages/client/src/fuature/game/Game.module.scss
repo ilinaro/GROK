@@ -1,0 +1,21 @@
+.Game {
+    position: relative;
+}
+
+.Pause {
+    width: 100px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+.Ball {
+    position: absolute;
+    top: 292px;
+    left: 50%;
+}
