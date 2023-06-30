@@ -67,6 +67,7 @@ export const Performance: React.FC<PerformanceT> = ({ onClose }) => {
           <div className={styles.contentCentr}>
             <Subheader>
               Цель игры заключается в том, чтобы собрать порталы проходя лабиринт. Игрок может управлять платформой
+              <br />
               нажимая клавиши на клавиатуре влево или вправо. Если у шарика закочатся жизни, игра заканчивается.
             </Subheader>
             <div>
