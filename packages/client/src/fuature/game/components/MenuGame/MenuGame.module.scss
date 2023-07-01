@@ -1,0 +1,60 @@
+.menu {
+    width: 100%;
+    background-color: #090f13d7;
+
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: absolute;
+
+    -webkit-backdrop-filter: blur(3px);
+    -moz-backdrop-filter: blur(3px);
+    -ms-backdrop-filter: blur(3px);
+    -o-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+}
+
+.pause {
+    cursor: default;
+    position: absolute;
+    top: 100px;
+}
+
+.gameOver {
+    cursor: default;
+    position: absolute;
+    top: 100px;
+    min-height: 200px;
+    width: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+.end {
+    cursor: default;
+    position: absolute;
+    top: 100px;
+    min-height: 200px;
+    width: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+.munuItem {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    & > :nth-child(1n) {
+        margin-bottom: 20px;
+        cursor: pointer;
+    }
+}

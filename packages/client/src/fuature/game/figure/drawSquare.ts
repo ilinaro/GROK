@@ -1,4 +1,4 @@
-import { Color } from './interface';
+import { Color } from '../interface';
 
 type DrawSquareT = {
   context: CanvasRenderingContext2D;
