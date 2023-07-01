@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 
-import { drawSquare } from '../figure';
+import ballImage from '../source/ball.png';
+import { drawBall } from '../figure';
 
 export const useSceneCanvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -17,17 +18,20 @@ export const useSceneCanvas = () => {
       }
     };
 
+    const ball = new Image();
+    ball.src = ballImage;
+
     const draw = () => {
       if (context) {
         const canvasWidth = canvas?.width || 0;
         const canvasHeight = canvas?.height || 0;
 
-        drawSquare({ context, canvasWidth, canvasHeight });
+        drawBall({ ball, context, canvasWidth, canvasHeight });
       }
     };
 
     resizeCanvas();
-    draw();
+    ball.onload = draw;
 
     window.addEventListener('resize', () => {
       resizeCanvas();
