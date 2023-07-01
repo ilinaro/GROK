@@ -1,7 +1,7 @@
 import { Title } from '@components/design-system/Fonts';
 import styles from './Leader.module.scss';
 import { leadersMock } from './mocks';
-import { BlockLeader } from './components/BlockLeader/BlockLeader';
+import { BlockLeader } from './components/block-leader/BlockLeader';
 
 type LeaderT = {};
 
