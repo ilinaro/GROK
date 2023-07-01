@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
 
-import { drawSquare } from '../components';
+import { drawSquare } from '../figure';
 
-export const useLayoutCanvas = () => {
+export const useSceneCanvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
