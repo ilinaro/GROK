@@ -1,1 +1,1 @@
-export * from './useSceneCanvas';
+export * from './SceneCanvas';
