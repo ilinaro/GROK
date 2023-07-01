@@ -1,3 +1,16 @@
 .Wrapper {
-    
+    max-width: 900px;
+    margin: 0 auto;
+    margin-top: 33px;
+    display: flex;
+    flex-direction: column;
+
+    span {
+        margin-bottom: 55px;
+    }
+
+    .Levels {
+        display: flex;
+        gap: 15px;
+    }
 }

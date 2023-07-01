@@ -1,12 +1,18 @@
-import { BodyNormal } from '@components/design-system/Fonts';
+import { Title } from '@components/design-system/Fonts';
 import styles from './Progress.module.scss';
+import { ProgressBlock } from './components/block-progress/BlockProgress';
 
 type ProgressT = {};
 
 export const Progress: React.FC<ProgressT> = () => {
   return (
     <div className={styles.Wrapper}>
-      <BodyNormal>Progress Component</BodyNormal>
+      <Title weight={'bold'}>Прогресс</Title>
+      <div className={styles.Levels}>
+        <ProgressBlock isCompleted />
+        <ProgressBlock isCompleted color="yellow" />
+        <ProgressBlock />
+      </div>
     </div>
   );
 };
