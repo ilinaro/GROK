@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import { HealtSVG } from '@components/design-system';
 import { MenuGame } from './components';
 import { Pause } from '@phosphor-icons/react';
 import styles from './Game.module.scss';
@@ -20,7 +21,7 @@ export const Game: React.FC<GameT> = () => {
 
   const handleOpenPause = () => {
     setMenu(true);
-    setStatus('pause');
+    // setStatus('pause');
   };
 
   const handleCloseMenu = () => {
@@ -42,6 +43,9 @@ export const Game: React.FC<GameT> = () => {
     <div className={styles.Game}>
       <div className={styles.Pause} onClick={handleOpenPause}>
         <Pause size={32} />
+      </div>
+      <div className={styles.Healt}>
+        <HealtSVG />
       </div>
       <canvas ref={canvasRef} />
       {menu && (
