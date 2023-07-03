@@ -1,0 +1,50 @@
+.topic__form {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  width: 100%;
+
+
+}
+.topic__container {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  margin-left: 2.5rem;
+  justify-content: start;
+  height: 30%;
+  width: 100%;
+}
+
+.topic__container input, textarea{
+  width: 90%;
+
+  background: white;
+  color: black;
+  border: none;
+  border-radius: 0 7px 7px 7px;
+}
+.topic__container input {
+
+  margin-bottom: 2rem;
+  height: 90px;
+
+}
+
+.topic__container textarea {
+
+  height: 350px;
+  resize: none;
+}
+
+
+
+.topic_btn__create {
+  margin-top: 2.5rem;
+  display: flex;
+  width: 300px !important;
+  height: 70px !important;
+  background: #6e3dc8;
+}

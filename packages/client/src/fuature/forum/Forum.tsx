@@ -1,12 +1,13 @@
-import { BodyNormal } from '@components/design-system/Fonts';
-import styles from './Forum.module.scss';
+import React from 'react';
+import { ForumLayout } from './layouts/ForumLayout'
 
 type ForumT = {};
 
-export const Forum: React.FC<ForumT> = () => {
+export const Forum: React.FC<ForumT> = (props) => {
   return (
-    <div className={styles.Wrapper}>
-      <BodyNormal>Forum Component</BodyNormal>
-    </div>
+    <ForumLayout>
+
+
+    </ForumLayout>
   );
 };
