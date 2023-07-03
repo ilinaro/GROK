@@ -1,5 +1,6 @@
 .formInput {
 	width: 100%;
+	position: relative;
 
 	& .inputContainer {
 		position: relative;
@@ -51,5 +52,22 @@
 			transform-origin: 0 50%;
 			transition: transform 200ms,
 		}
+	}
+
+	& .icon {
+		width: 16px;
+		height: 16px;
+		margin: auto;
+		position: absolute;
+		top: 14px;
+		cursor: pointer;
+	}
+
+	& .iconRight {
+		right: 18px;
+	}
+
+	& .iconLeft {
+		left: 18px;
 	}
 }

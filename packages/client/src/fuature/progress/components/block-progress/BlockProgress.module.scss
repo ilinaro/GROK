@@ -1,0 +1,16 @@
+.Container {
+    width: 110px;
+    height: 66px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    background-color: var(--color-blue);
+    
+    svg {
+        margin-top: 5px;
+    }
+}
+
+.IsCompleted {
+    background: linear-gradient(45deg, var(--color-blue) 0%, var(--color-violet) 55%);
+}

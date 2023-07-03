@@ -1,6 +1,5 @@
 import { AuthLayout } from 'fuature/login/components/AuthLayout';
-import { RegistrationForm } from './components';
-import styles from './Registration.module.scss';
+import { RegistrationForm } from './components/RegistrationForm/RegistrationForm';
 
 export const Registration: React.FC = () => {
   return (

@@ -3,14 +3,33 @@
 }
 
 .Pause {
-    width: 100px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     position: absolute;
     right: 20px;
+    top: 20px;
+    transition: all 1s;
+    & > :nth-child(1n) {
+        border-radius: 9999px;
+        transition: all 0.3s;
+    }
+    &:hover {
+        & > :nth-child(1n) {
+            fill: var(--color-pink);
+        }
+    }
+}
+
+.Healt {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 20px;
     top: 20px;
 }
 
