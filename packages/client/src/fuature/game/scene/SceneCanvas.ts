@@ -26,6 +26,7 @@ export class SceneCanvas {
     };
 
     resizeCanvas();
+    ball.onload;
     const player = new Player(context, ball, canvasWidth, canvasHeight);
 
     function animate() {
@@ -93,11 +94,13 @@ export class SceneCanvas {
     });
     window.addEventListener('resize', () => {
       resizeCanvas();
+      ball.onload;
     });
 
     return () => {
       window.removeEventListener('resize', () => {
         resizeCanvas();
+        ball.onload;
       });
     };
   }
