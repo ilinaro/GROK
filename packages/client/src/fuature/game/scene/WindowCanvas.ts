@@ -12,9 +12,7 @@ export const WindowCanvas = () => {
     ball.src = ballImage;
 
     const sceneCanvas = new SceneCanvas();
-    const cleanup = sceneCanvas.init(canvas, ball);
-
-    return cleanup;
+    return sceneCanvas.init(canvas, ball);
   }, []);
 
   return canvasRef;

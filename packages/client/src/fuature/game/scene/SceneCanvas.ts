@@ -1,6 +1,7 @@
 import Player from './Player';
 
 export class SceneCanvas {
+  private animationId = 0;
   init(canvas: HTMLCanvasElement | null, ball: HTMLImageElement) {
     if (!canvas) return;
     const context = canvas.getContext('2d');
@@ -26,12 +27,50 @@ export class SceneCanvas {
     };
 
     resizeCanvas();
-    ball.onload;
     const player = new Player(context, ball, canvasWidth, canvasHeight);
 
-    function animate() {
+    const keydownHandler = (event: KeyboardEvent) => {
+      console.log('keydownHandler', event);
+      switch (event.key) {
+        // up
+        case ' ':
+        case 'w':
+        case 'ArrowUp':
+          if (player.velocity.y === 0) player.velocity.y = -20;
+          break;
+        // left
+        case 'a':
+        case 'ArrowLeft':
+          keys.a.pressed = true;
+          break;
+        // right
+        case 'd':
+        case 'ArrowRight':
+          keys.d.pressed = true;
+          break;
+      }
+    };
+
+    const keyupHandler = (event: KeyboardEvent) => {
+      console.log('keyupHandler', event);
+      switch (event.key) {
+        // left
+        case 'a':
+        case 'ArrowLeft':
+          keys.a.pressed = false;
+          break;
+        // right
+        case 'd':
+        case 'ArrowRight':
+          keys.d.pressed = false;
+          break;
+      }
+    };
+
+    const animate = () => {
+      console.log('animationId', this.animationId);
       if (context) {
-        window.requestAnimationFrame(animate);
+        this.animationId = window.requestAnimationFrame(animate);
         context.clearRect(0, 0, canvasWidth, canvasHeight);
         if (keys.d.pressed) {
           player.velocity.x = 4;
@@ -41,67 +80,21 @@ export class SceneCanvas {
         player.draw();
         player.update();
       }
-    }
+    };
 
     animate();
 
-    window.addEventListener('keydown', (event) => {
-      switch (event.key) {
-        // up
-        case ' ':
-          if (player.velocity.y === 0) player.velocity.y = -20;
-          break;
-        case 'w':
-          if (player.velocity.y === 0) player.velocity.y = -20;
-          break;
-        case 'ArrowUp':
-          if (player.velocity.y === 0) player.velocity.y = -20;
-          break;
-        // left
-        case 'a':
-          keys.a.pressed = true;
-          break;
-        case 'ArrowLeft':
-          keys.a.pressed = true;
-          break;
-        // right
-        case 'd':
-          keys.d.pressed = true;
-          break;
-        case 'ArrowRight':
-          keys.d.pressed = true;
-          break;
-      }
-    });
-
-    window.addEventListener('keyup', (event) => {
-      switch (event.key) {
-        // left
-        case 'a':
-          keys.a.pressed = false;
-          break;
-        case 'ArrowLeft':
-          keys.a.pressed = false;
-          break;
-        // right
-        case 'd':
-          keys.d.pressed = false;
-          break;
-        case 'ArrowRight':
-          keys.d.pressed = false;
-          break;
-      }
-    });
-    window.addEventListener('resize', () => {
-      resizeCanvas();
-      ball.onload;
-    });
-
-    return () => {
-      window.removeEventListener('resize', () => {
-        resizeCanvas();
-        ball.onload;
-      });
+    const cleanup = () => {
+      window.removeEventListener('resize', resizeCanvas);
+      window.removeEventListener('keydown', keydownHandler);
+      window.removeEventListener('keyup', keyupHandler);
+      window.cancelAnimationFrame(this.animationId);
     };
+
+    window.addEventListener('keydown', keydownHandler);
+    window.addEventListener('keyup', keyupHandler);
+    window.addEventListener('resize', resizeCanvas);
+
+    return cleanup;
   }
 }

@@ -1,17 +1,8 @@
-type PlayerT = {
+class Player {
   position: { x: number; y: number };
   width: number;
   height: number;
   ball: HTMLImageElement;
-  canvasWidth: number;
-  canvasHeight: number;
-};
-
-class Player<T extends PlayerT> {
-  position: T['position'];
-  width: T['width'];
-  height: T['height'];
-  ball: T['ball'];
   canvasWidth: number;
   canvasHeight: number;
   sides: { bottom: number };
@@ -34,7 +25,7 @@ class Player<T extends PlayerT> {
       y: 0,
     };
 
-    this.gravity = 0.3;
+    this.gravity = 0.4;
 
     this.width = 126;
     this.height = 126;
@@ -70,8 +61,6 @@ class Player<T extends PlayerT> {
       this.velocity.y = 0;
     }
   }
-
-  //   this.ball.onload = this.draw;
 }
 
 export default Player;
