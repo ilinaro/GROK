@@ -3,14 +3,14 @@ import { useEffect, useState } from 'react';
 import { HealtSVG } from '@components/design-system';
 import { MenuGame } from './components';
 import { Pause } from '@phosphor-icons/react';
+import { WindowCanvas } from './scene';
 import styles from './Game.module.scss';
-import { useSceneCanvas } from './scene';
 
 type GameT = {};
 
 export const Game: React.FC<GameT> = () => {
   const [status, setStatus] = useState<'pause' | 'end' | 'geme_over'>('pause');
-  const canvasRef = useSceneCanvas();
+  const canvasRef = WindowCanvas();
 
   const ALL_LAVEL = 10;
 
