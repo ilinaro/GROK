@@ -14,10 +14,12 @@
   align-items: start;
   justify-content: center;
 }
+
 .title {
   display: flex;
   border-bottom: 1px solid #93175e !important;
 }
+
 .Desc {
   margin-top: 1rem;
   height: 100px;
@@ -27,24 +29,22 @@
   color: white;
   padding: 12px;
 }
-.topic__info {
 
+.topic__info {
   margin: 1rem 0 0.5rem 2rem;
   display: flex;
   flex-direction: row;
   width: 175px;
   border-bottom: 1px solid #1c7983;
-
-
 }
+
 .username {
   display: flex;
   margin-right: 1rem;
   color: #707d96;
-
 }
+
 .time__topic {
   display: flex;
   color: #707d96;
-
 }

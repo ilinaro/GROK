@@ -7,43 +7,48 @@
   grid-template-columns: 2fr 1fr;
   border-bottom: 1px solid rgba(139, 151, 174, 0.58);
   height: auto;
-
 }
+
 .leftSide {
   margin-left: 0.5rem;
   display: flex;
   flex-direction: column;
 }
+
 .leftSide p {
   margin-left: 2.5rem;
 }
+
 .rightSide {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
+
 .rightSide, .leftSide {
   margin: auto 0.5rem;
 }
+
 .subj__countries, .subj__profileEnv {
   display: flex;
   flex-direction: column;
   align-items: start;
   justify-content: center;
 }
+
 .subj__title {
   font-size: 20px;
 }
+
 .subj_desc {
   color: #8B97AE;
   margin-left: 1rem;
   font-size: 14px;
 }
+
 .subj__replients, .subj__timestamp {
   font-size: 10px;
 }
-.subj__userProfiles {
-
-}
+.subj__userProfiles {}
 
 .topicsWrapper:hover {
   background: rgba(147, 36, 211, 0.19);
@@ -55,15 +60,17 @@
   border-radius: 50px;
   background: #6e3dc8;
 }
+
 .subj__timestamp {
   margin-top: 0.3rem;
 }
+
 .subj__icons {
   display: flex;
   width: 100px;
   height: 32px;
-
 }
+
 .subj_icon__like {
   display: flex;
   width: 32px;
@@ -71,6 +78,7 @@
   background-image: url("../src/styles/images/like.png");
   background-repeat: no-repeat;
 }
+
 .subj_icon__addMsg {
   display: flex;
   width: 32px;
@@ -79,4 +87,3 @@
   background-repeat: no-repeat;
   margin-left: 1.5rem;
 }
-

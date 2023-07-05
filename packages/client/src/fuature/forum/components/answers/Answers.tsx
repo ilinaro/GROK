@@ -1,18 +1,11 @@
 import React from 'react';
 import { ForumLayout } from '../../layouts/ForumLayout';
-import { AnswerElements } from './AnswerElements/AnswerElements'
+import { AnswerElements } from './AnswerElements';
 
-type ForumAnswersT = {};
-export const ForumAnswers: React.FC<ForumAnswersT> = () => {
-
+export const ForumAnswers: React.FC = () => {
   return (
     <ForumLayout>
-      <AnswerElements/>
+      <AnswerElements />
     </ForumLayout>
-
   );
 };
-
-
-
-

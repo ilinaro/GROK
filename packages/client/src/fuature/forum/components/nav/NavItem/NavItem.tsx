@@ -2,11 +2,13 @@ import styles from '../Nav.module.scss'
 import { NavLink } from 'react-router-dom'
 import React from 'react'
 
-export const NavItem = (props) => {
+type NavItemT = {
+  data: Record<string, string>;
+};
+export const NavItem:React.FC<NavItemT> = (props) => {
   const { data } = props;
   return (
-  <NavLink
-      className={
+  <NavLink className={
     ({ isActive }) => {
       const classNames = [styles.ForumNavItem];
       if(isActive) classNames.push(styles.ForumNavItem__active);
@@ -16,5 +18,4 @@ export const NavItem = (props) => {
       to={'/forum/' + data.path}>{ data.name }
   </NavLink>
   );
-
 };

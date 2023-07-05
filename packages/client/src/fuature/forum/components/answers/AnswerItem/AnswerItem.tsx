@@ -4,7 +4,6 @@ import styles from './AnswerItem.module.scss';
 type AnswerItemT = {};
 
 export const AnswerItem: React.FC<AnswerItemT> = (props) => {
-
   const { answers } = props;
   return (
     <div className={styles.topicsWrapper}>
@@ -18,7 +17,6 @@ export const AnswerItem: React.FC<AnswerItemT> = (props) => {
         <p className={styles.subj_desc}>{answers.desc}</p>
         <p className={styles.subj_desc}>{answers.desc}</p>
       </div>
-
     </div>
   )
 }
