@@ -9,10 +9,12 @@ import { useState, useRef } from 'react';
 import { HidePassSVG } from '@components/design-system/SVG/HidePassSVG';
 import { ShowPassSVG } from '@components/design-system/SVG/ShowPassSVG';
 import { AuthForm } from '../AuthForm';
+import { useAppDispatch, useAppSelector } from '@store/hooks';
+import { login } from '@store/thunks/user';
 
 type LoginT = {};
 
-interface LoginFormT {
+export interface LoginFormT {
   first_name: string;
   second_name: string;
   login: string;
@@ -22,6 +24,8 @@ interface LoginFormT {
 }
 
 export const LoginForm: React.FC<LoginT> = () => {
+  const dispatch = useAppDispatch();
+  const { loading, error } = useAppSelector((store) => store.user);
   const [isPasswordShow, setIsPasswordShow] = useState(false);
 
   const {
@@ -51,7 +55,9 @@ export const LoginForm: React.FC<LoginT> = () => {
     }
   };
 
-  const onSubmit = () => {};
+  const onSubmit = (data: LoginFormT) => {
+    dispatch(login(data));
+  };
 
   const footer = () => {
     return (
@@ -91,7 +97,7 @@ export const LoginForm: React.FC<LoginT> = () => {
         rightAddon={showOrHidddenIcon()}
         style={{ marginTop: '22px' }}
       />
-      <Button color={'pink'} style={{ marginTop: '22px' }} type="submit">
+      <Button color={'pink'} style={{ marginTop: '22px' }} type={'submit'} loading={loading}>
         <BodyNormal weight={'normal'}>Войти</BodyNormal>
       </Button>
     </AuthForm>

@@ -10,10 +10,13 @@ import { useRef, useState } from 'react';
 import { HidePassSVG } from '@components/design-system/SVG/HidePassSVG';
 import { ShowPassSVG } from '@components/design-system/SVG/ShowPassSVG';
 import { AuthForm } from 'fuature/login/components/AuthForm';
+import { useAppDispatch, useAppSelector } from '@store/hooks';
+import { signup } from '@store/thunks/user';
+import { Spinner } from '@components/specific/Spinner/Spinner';
 
 type RegistrationT = {};
 
-interface RegistrationFormT {
+export interface RegistrationFormT {
   first_name: string;
   second_name: string;
   login: string;
@@ -23,6 +26,8 @@ interface RegistrationFormT {
 }
 
 export const RegistrationForm: React.FC<RegistrationT> = () => {
+  const dispatch = useAppDispatch();
+  const { loading, error } = useAppSelector((store) => store.user);
   const [isPasswordShow, setIsPasswordShow] = useState(false);
   const {
     control,
@@ -61,7 +66,9 @@ export const RegistrationForm: React.FC<RegistrationT> = () => {
     return value === password || 'Пароли не совпадают';
   };
 
-  const onSubmit = () => {};
+  const onSubmit = (data: RegistrationFormT) => {
+    dispatch(signup(data));
+  };
 
   const footer = () => {
     return (
@@ -153,7 +160,7 @@ export const RegistrationForm: React.FC<RegistrationT> = () => {
         rightAddon={showOrHidddenIcon()}
         style={{ marginTop: '22px' }}
       />
-      <Button color={'pink'} style={{ marginTop: '22px' }} type="submit">
+      <Button color={'pink'} style={{ marginTop: '22px' }} type={'submit'} loading={loading}>
         <BodyNormal weight={'normal'}>Зарегистрироваться</BodyNormal>
       </Button>
     </AuthForm>

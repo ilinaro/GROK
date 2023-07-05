@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 
 import { RouterProvider } from 'react-router-dom';
 import { Routers } from './routes';
+import { Provider } from 'react-redux';
+import { store } from '@store/index';
 
 function App() {
   const [queryClient] = useState(
@@ -21,9 +23,11 @@ function App() {
 
   return (
     <React.StrictMode>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={Routers} />
-      </QueryClientProvider>
+      <Provider store={store}>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={Routers} />
+        </QueryClientProvider>
+      </Provider>
     </React.StrictMode>
   );
 }
