@@ -1,8 +1,11 @@
-import React from 'react'
-import { ForumComments } from '../forum/components/comments'
+import { BodyNormal } from '@components/design-system/Fonts';
 
-export const ForumEvents: React.FC = () => {
+type ForumEventsT = {};
+
+export const ForumEvents: React.FC<ForumEventsT> = () => {
   return (
-    <ForumComments />
+    <div>
+      <BodyNormal>Открытие определенной тематики ForumEventsPage</BodyNormal>
+    </div>
   );
 };
