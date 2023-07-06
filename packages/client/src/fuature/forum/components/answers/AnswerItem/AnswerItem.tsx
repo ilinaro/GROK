@@ -1,7 +1,9 @@
 import React from 'react';
 import styles from './AnswerItem.module.scss';
 
-type AnswerItemT = {};
+type AnswerItemT = {
+  answers: Record<string, string>;
+};
 
 export const AnswerItem: React.FC<AnswerItemT> = (props) => {
   const { answers } = props;

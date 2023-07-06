@@ -4,7 +4,6 @@ import React from 'react';
 
 type ForumLayoutT = {
   children?: React.ReactNode;
-  props?: React.ComponentProps<any>;
 };
 
 export const ForumLayout: React.FC<ForumLayoutT> = ({ children }) => {
