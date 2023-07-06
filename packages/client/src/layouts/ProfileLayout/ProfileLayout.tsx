@@ -1,7 +1,8 @@
+import { ErrorBoundary } from 'react-error-boundary';
 import { Header, Navigate } from '@components/specific';
-
 import { Outlet } from 'react-router-dom';
 import styles from './ProfileLayout.module.scss';
+import { ErrorFallback } from '@utils/ErrorFallback/ErrorFallback';
 
 type ProfileLayoutT = {
   children?: React.ReactNode;
@@ -18,7 +19,9 @@ export const ProfileLayout: React.FC<ProfileLayoutT> = ({ children }) => {
           <Navigate />
         </div>
         <div className={styles.Outlet}>
-          <Outlet />
+          <ErrorBoundary FallbackComponent={ErrorFallback}>
+            <Outlet />
+          </ErrorBoundary>
         </div>
       </div>
     </div>
