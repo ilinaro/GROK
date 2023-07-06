@@ -2,7 +2,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { Header, Navigate } from '@components/specific';
 import { Outlet } from 'react-router-dom';
 import styles from './ProfileLayout.module.scss';
-import { ErrorFallback } from '@utils/ErrorFallback/ErrorFallback';
+import { ErrorFallback } from '@utils/ErrorFallback';
 
 type ProfileLayoutT = {
   children?: React.ReactNode;
