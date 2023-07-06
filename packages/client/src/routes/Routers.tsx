@@ -12,9 +12,6 @@ import { RegistrationPage } from '@pages/registration';
 import { RouteNames } from './routeNames';
 import { StartPage } from '@pages/start';
 import { createBrowserRouter } from 'react-router-dom';
-import { ForumActionCreate } from '../fuature/forum/actions/create'
-import { ForumAnswers } from '../fuature/forum/components/answers'
-import { ForumTopics } from '../fuature/forum/components/topics'
 
 export const Routers = createBrowserRouter([
   {
@@ -36,19 +33,6 @@ export const Routers = createBrowserRouter([
       {
         path: RouteNames.FORUM,
         element: <ForumPage />,
-
-      },
-      {
-        path: RouteNames.FORUM_TOPICS,
-        element: <ForumTopics />,
-      },
-      {
-        path: RouteNames.FORUM_ANSWERS,
-        element: <ForumAnswers />,
-      },
-      {
-        path: RouteNames.FORUM_CREATE,
-        element: <ForumActionCreate />,
       },
       {
         path: RouteNames.FORUM_EVENTS,
