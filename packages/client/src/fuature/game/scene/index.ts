@@ -1,1 +1,2 @@
-export * from './SceneCanvas';
+// export * from './SceneCanvas';
+export * from './WindowCanvas';
