@@ -1,10 +1,9 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
 import React, { useState } from 'react';
 
-import { RouterProvider } from 'react-router-dom';
-import { Routers } from './routes';
 import { Provider } from 'react-redux';
 import { store } from '@store/index';
+import { Auth } from 'fuature/auth';
 
 function App() {
   const [queryClient] = useState(
@@ -25,7 +24,7 @@ function App() {
     <React.StrictMode>
       <Provider store={store}>
         <QueryClientProvider client={queryClient}>
-          <RouterProvider router={Routers} />
+          <Auth />
         </QueryClientProvider>
       </Provider>
     </React.StrictMode>

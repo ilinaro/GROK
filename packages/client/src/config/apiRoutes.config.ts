@@ -1,6 +1,6 @@
-const BASE_URL = 'ya-praktikum.tech/api/v2';
+const BASE_URL = 'https://ya-praktikum.tech/api/v2';
 
-const auth = {
+export const auth = {
   signup: `${BASE_URL}/auth/signup`,
   signin: `${BASE_URL}/auth/signin`,
   user: `${BASE_URL}/auth/user`,

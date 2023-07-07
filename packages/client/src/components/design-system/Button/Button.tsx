@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import clsx from 'clsx';
 import styles from './Button.module.scss';
-import { Spinner } from '@components/specific/Spinner/Spinner';
+import { Spinner } from '@components/specific/Spinner';
 import { BodyNormal } from '../Fonts';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
