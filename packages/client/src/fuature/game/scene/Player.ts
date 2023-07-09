@@ -1,3 +1,5 @@
+import Sprite from "./Sprite";
+
 class Player {
   position: { x: number; y: number };
   width: number;
@@ -8,6 +10,8 @@ class Player {
   sides: { bottom: number };
   velocity: { x: number; y: number };
   gravity: number;
+  speed: number;
+  maxSpeed: number;
 
   constructor(
     private context: CanvasRenderingContext2D | null,
@@ -24,9 +28,9 @@ class Player {
       x: 0,
       y: 0,
     };
-
+    this.speed = 0.4;
     this.gravity = 0.4;
-
+    this.maxSpeed = 15;
     this.width = 126;
     this.height = 126;
 
@@ -49,9 +53,35 @@ class Player {
       this.context.drawImage(this.ball, this.position.x, this.position.y);
     }
   }
+  // this.ball = new Sprite({
+  //   context,
+  //   position: {
+  //     x: player.position.x,
+  //     y: player.position.y,
+  //     width: player.width,
+  //     height: player.height,
+  //   },
+  //   source: ballImage,
+  // });
 
   update() {
-    this.position.x += this.velocity.x;
+    console.log(this.position.x);
+    // управление скростью
+    if (this.velocity.x === 0) {
+      this.speed = 0;
+    }
+    if (this.velocity.x > 0) {
+      if (this.speed < this.maxSpeed) {
+        this.speed = this.speed + 0.1;
+      }
+      this.position.x += this.speed + this.velocity.x;
+    }
+    if (this.velocity.x < 0) {
+      if (this.speed < this.maxSpeed) {
+        this.speed = this.speed + 0.1;
+      }
+      this.position.x += -this.speed + this.velocity.x;
+    }
     this.position.y += this.velocity.y;
     this.sides.bottom = this.position.y + this.height;
     // прямо здесь над нижней части окна

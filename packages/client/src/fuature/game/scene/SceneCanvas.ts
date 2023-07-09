@@ -1,3 +1,4 @@
+import Events from './Events';
 import Player from './Player';
 
 export class SceneCanvas {
@@ -14,85 +15,35 @@ export class SceneCanvas {
       document.body.style.overflow = 'hidden';
     };
 
-    const keys = {
-      w: {
-        pressed: false,
-      },
-      a: {
-        pressed: false,
-      },
-      d: {
-        pressed: false,
-      },
-    };
-
     resizeCanvas();
     const player = new Player(context, ball, canvasWidth, canvasHeight);
-
-    const keydownHandler = (event: KeyboardEvent) => {
-      console.log('keydownHandler', event);
-      switch (event.key) {
-        // up
-        case ' ':
-        case 'w':
-        case 'ArrowUp':
-          if (player.velocity.y === 0) player.velocity.y = -20;
-          break;
-        // left
-        case 'a':
-        case 'ArrowLeft':
-          keys.a.pressed = true;
-          break;
-        // right
-        case 'd':
-        case 'ArrowRight':
-          keys.d.pressed = true;
-          break;
-      }
-    };
-
-    const keyupHandler = (event: KeyboardEvent) => {
-      console.log('keyupHandler', event);
-      switch (event.key) {
-        // left
-        case 'a':
-        case 'ArrowLeft':
-          keys.a.pressed = false;
-          break;
-        // right
-        case 'd':
-        case 'ArrowRight':
-          keys.d.pressed = false;
-          break;
-      }
-    };
-
+    const events = new Events(player)
     const animate = () => {
       console.log('animationId', this.animationId);
-      if (context) {
-        this.animationId = window.requestAnimationFrame(animate);
-        context.clearRect(0, 0, canvasWidth, canvasHeight);
-        if (keys.d.pressed) {
-          player.velocity.x = 4;
-        } else if (keys.a.pressed) {
-          player.velocity.x = -4;
-        }
-        player.draw();
-        player.update();
+      if (!context) return;
+      this.animationId = window.requestAnimationFrame(animate);
+      context.clearRect(0, 0, canvasWidth, canvasHeight);
+      player.velocity.x = 0;
+      if (events.keys.d.pressed) {
+        player.velocity.x = 6;
+      } else if (events.keys.a.pressed) {
+        player.velocity.x = -6;
       }
+      player.draw();
+      player.update();
     };
-
+  
     animate();
 
     const cleanup = () => {
       window.removeEventListener('resize', resizeCanvas);
-      window.removeEventListener('keydown', keydownHandler);
-      window.removeEventListener('keyup', keyupHandler);
+      window.removeEventListener('keydown', events.keydownHandler);
+      window.removeEventListener('keyup', events.keyupHandler);
       window.cancelAnimationFrame(this.animationId);
     };
 
-    window.addEventListener('keydown', keydownHandler);
-    window.addEventListener('keyup', keyupHandler);
+    window.addEventListener('keydown', events.keydownHandler);
+    window.addEventListener('keyup', events.keyupHandler);
     window.addEventListener('resize', resizeCanvas);
 
     return cleanup;
