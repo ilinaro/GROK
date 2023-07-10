@@ -24,8 +24,6 @@ export const AvatarInput: React.FC<IAvatarInput> = ({ name, control, rules }) =>
     setAvatar(value);
   }, [value]);
 
-  console.log(rest, value, rules);
-
   return (
     <div className={styles.Avatar}>
       <label htmlFor={name}>
