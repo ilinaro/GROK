@@ -11,84 +11,100 @@ import { ProgressPage } from '@pages/progress';
 import { RegistrationPage } from '@pages/registration';
 import { RouteNames } from './routeNames';
 import { StartPage } from '@pages/start';
-import { Navigate, createBrowserRouter, useLocation } from 'react-router-dom';
-import { ComponentType, ElementType, FC, ReactElement } from 'react';
+import { Navigate, createBrowserRouter } from 'react-router-dom';
+import { ReactElement } from 'react';
+import { useAppSelector } from '@store/hooks';
 
 type PrivateRouteProps = {
-  auth: boolean;
-  element: ReactElement;
+  children: ReactElement;
   pathTo: string;
 };
 
-const PrivateRoute: React.FC<PrivateRouteProps> = ({ auth, element: Element, pathTo }) => {
-  const location = useLocation();
+const PrivateRoute: React.FC<PrivateRouteProps> = ({ children, pathTo }) => {
+  const user = useAppSelector((store) => store.user);
+  const previousPath = window.location.pathname;
 
-  if (auth) {
-    return Element;
-  } else {
-    return <Navigate to={pathTo} state={{ from: location }} replace />;
-  }
+  const authPath = ['/login', '/registration'];
+
+  const isExcludePath: boolean = authPath.includes(previousPath);
+
+  return user && !isExcludePath ? children : <Navigate to={pathTo} />;
 };
 
-export const Routers = (auth: boolean) =>
-  createBrowserRouter([
-    {
-      path: RouteNames.START,
-      element: <PrivateRoute element={<ProfileLayout />} auth={auth} pathTo={'/login'} />,
-      children: [
-        {
-          index: true,
-          element: <StartPage />,
-        },
-        {
-          path: RouteNames.PROFILE,
-          element: <ProfilePage />,
-        },
-        {
-          path: RouteNames.LEADERS,
-          element: <LeadersPage />,
-        },
-        {
-          path: RouteNames.FORUM,
-          element: <ForumPage />,
-        },
-        {
-          path: RouteNames.FORUM_EVENTS,
-          element: <ForumEventsPage />,
-          // loader: eventLoader, - здесь можно добавить запрос
-        },
-        {
-          path: RouteNames.PROGRESS,
-          element: <ProgressPage />,
-        },
-        {
-          path: RouteNames.NOMATCH,
-          element: <NoMatchPage />,
-        },
-        {
-          path: RouteNames.ERROR,
-          element: <ErrorPage />,
-        },
-      ],
-    },
-    {
-      path: RouteNames.LOGIN,
-      element: <PrivateRoute element={<LoginPage />} auth={!auth} pathTo={'/'} />,
-    },
-    {
-      path: RouteNames.REGISTRATION,
-      element: <PrivateRoute element={<RegistrationPage />} auth={!auth} pathTo={'/'} />,
-    },
-    {
-      path: RouteNames.GAME,
-      element: <PrivateRoute element={<GamePage />} auth={auth} pathTo={'/login'} />,
-    },
-    {
-      path: RouteNames.ERROR,
-      element: <ErrorPage />,
-    },
-    {
-      path: RouteNames.NOMATCH,
-      element: <NoMatchPage />,
-    },
-  ]);
+export const Routers = createBrowserRouter([
+  {
+    path: RouteNames.START,
+    element: (
+      <PrivateRoute pathTo={'/login'}>
+        <ProfileLayout />
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        index: true,
+        element: <StartPage />,
+      },
+      {
+        path: RouteNames.PROFILE,
+        element: <ProfilePage />,
+      },
+      {
+        path: RouteNames.LEADERS,
+        element: <LeadersPage />,
+      },
+      {
+        path: RouteNames.FORUM,
+        element: <ForumPage />,
+      },
+      {
+        path: RouteNames.FORUM_EVENTS,
+        element: <ForumEventsPage />,
+        // loader: eventLoader, - здесь можно добавить запрос
+      },
+      {
+        path: RouteNames.PROGRESS,
+        element: <ProgressPage />,
+      },
+      {
+        path: RouteNames.NOMATCH,
+        element: <NoMatchPage />,
+      },
+      {
+        path: RouteNames.ERROR,
+        element: <ErrorPage />,
+      },
+    ],
+  },
+  {
+    path: RouteNames.LOGIN,
+    element: (
+      <PrivateRoute pathTo={'/'}>
+        <LoginPage />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: RouteNames.REGISTRATION,
+    element: (
+      <PrivateRoute pathTo={'/'}>
+        <RegistrationPage />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: RouteNames.GAME,
+    element: (
+      <PrivateRoute pathTo={'/login'}>
+        <GamePage />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: RouteNames.ERROR,
+    element: <ErrorPage />,
+  },
+  {
+    path: RouteNames.NOMATCH,
+    element: <NoMatchPage />,
+  },
+]);
