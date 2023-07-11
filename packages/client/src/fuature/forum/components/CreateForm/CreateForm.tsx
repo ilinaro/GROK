@@ -7,12 +7,12 @@ export const ForumCreateForm: React.FC = () => {
 
   const [topic, setTopic] = useState("");
   const [description, setDesc] = useState('');
-  const createTopic = (e) => {
+  const createTopic = (e: any) => {
     e.preventDefault();
     setTopic("");
     createDescription(e);
   }
-  const createDescription = (e) => {
+  const createDescription = (e: any) => {
     e.preventDefault();
     setDesc("");
   }

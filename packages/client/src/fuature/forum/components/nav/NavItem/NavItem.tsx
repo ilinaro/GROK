@@ -5,6 +5,7 @@ import React from 'react'
 type NavItemT = {
   data: Record<string, string>;
 };
+
 export const NavItem:React.FC<NavItemT> = (props) => {
   const { data } = props;
   return (
