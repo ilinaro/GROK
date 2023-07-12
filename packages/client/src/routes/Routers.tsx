@@ -14,12 +14,34 @@ import { ProgressPage } from '@pages/progress';
 import { RegistrationPage } from '@pages/registration';
 import { RouteNames } from './routeNames';
 import { StartPage } from '@pages/start';
-import { createBrowserRouter } from 'react-router-dom';
+import { Navigate, createBrowserRouter } from 'react-router-dom';
+import { ReactElement } from 'react';
+import { useAppSelector } from '@store/hooks';
+
+type PrivateRouteProps = {
+  children: ReactElement;
+  pathTo: string;
+};
+
+const PrivateRoute: React.FC<PrivateRouteProps> = ({ children, pathTo }) => {
+  const user = useAppSelector((store) => store.user);
+  const previousPath = window.location.pathname;
+
+  const authPath = ['/login', '/registration'];
+
+  const isExcludePath: boolean = authPath.includes(previousPath);
+
+  return user && !isExcludePath ? children : <Navigate to={pathTo} />;
+};
 
 export const Routers = createBrowserRouter([
   {
     path: RouteNames.START,
-    element: <ProfileLayout />,
+    element: (
+      <PrivateRoute pathTo={'/login'}>
+        <ProfileLayout />
+      </PrivateRoute>
+    ),
     children: [
       {
         index: true,
@@ -70,15 +92,27 @@ export const Routers = createBrowserRouter([
   },
   {
     path: RouteNames.LOGIN,
-    element: <LoginPage />,
+    element: (
+      <PrivateRoute pathTo={'/'}>
+        <LoginPage />
+      </PrivateRoute>
+    ),
   },
   {
     path: RouteNames.REGISTRATION,
-    element: <RegistrationPage />,
+    element: (
+      <PrivateRoute pathTo={'/'}>
+        <RegistrationPage />
+      </PrivateRoute>
+    ),
   },
   {
     path: RouteNames.GAME,
-    element: <GamePage />,
+    element: (
+      <PrivateRoute pathTo={'/login'}>
+        <GamePage />
+      </PrivateRoute>
+    ),
   },
   {
     path: RouteNames.ERROR,
