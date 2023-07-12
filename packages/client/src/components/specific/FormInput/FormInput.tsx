@@ -2,15 +2,17 @@ import { Control, FieldValue, RegisterOptions, useController } from 'react-hook-
 import styles from './FormInput.module.scss';
 import { BodyNormal } from '@components/design-system/Fonts';
 import { ReactNode } from 'react';
+import InputMask from 'react-input-mask';
 import clsx from 'clsx';
 
 type FormInputProps = {
   name: string;
   label: string;
-  type?: 'text' | 'password';
+  type?: 'text' | 'password' | 'tel';
   control: any;
   rules?: RegisterOptions;
   rightAddon?: ReactNode;
+  mask?: string;
 } & JSX.IntrinsicElements['label'];
 
 export const FormInput: React.FC<FormInputProps> = ({
@@ -20,6 +22,7 @@ export const FormInput: React.FC<FormInputProps> = ({
   control,
   rules,
   rightAddon,
+  mask,
   ...props
 }) => {
   const {
@@ -34,7 +37,11 @@ export const FormInput: React.FC<FormInputProps> = ({
   return (
     <label className={styles.formInput} {...props}>
       <div className={styles.inputContainer}>
-        <input ref={ref} type={type} className={styles.input} placeholder=" " {...inputProps} />
+        {mask ? (
+          <InputMask mask={mask} className={styles.input} placeholder=" " {...inputProps} />
+        ) : (
+          <input ref={ref} type={type} className={styles.input} placeholder=" " {...inputProps} />
+        )}
         <span className={styles.placeholder}>{label}</span>
       </div>
       <BodyNormal color={'pink'} style={{ position: 'absolute', color: 'var(--color-pink)', fontSize: '12px' }}>

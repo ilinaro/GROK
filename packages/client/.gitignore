@@ -11,6 +11,7 @@ node_modules
 dist
 dist-ssr
 *.local
+.DS_Store
 
 # Editor directories and files
 .vscode/*
@@ -22,5 +23,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
 yarn.lock
 package-lock.json

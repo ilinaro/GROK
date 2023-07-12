@@ -47,12 +47,12 @@
 </g>
 <defs>
 <linearGradient id="paint0_linear_2013_2041" x1="238.889" y1="39.8547" x2="210.303" y2="28.8953" gradientUnits="userSpaceOnUse">
-<stop stop-color="#EBEFF2"/>
-<stop offset="1" stop-color="white"/>
+<stop stopColor="#EBEFF2"/>
+<stop offset="1" stopColor="white"/>
 </linearGradient>
 <linearGradient id="paint1_linear_2013_2041" x1="34692.2" y1="20463.7" x2="34186.9" y2="21153.7" gradientUnits="userSpaceOnUse">
-<stop stop-color="#FF9085"/>
-<stop offset="1" stop-color="#FB6FBB"/>
+<stop stopColor="#FF9085"/>
+<stop offset="1" stopColor="#FB6FBB"/>
 </linearGradient>
 </defs>
 </svg>

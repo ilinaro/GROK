@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import clsx from 'clsx';
 import styles from './Button.module.scss';
+import { Spinner } from '@components/specific/Spinner';
+import { BodyNormal } from '../Fonts';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size?: 'small' | 'medium' | 'large';
@@ -9,6 +11,8 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   active?: boolean;
   border?: boolean;
   color?: 'blue' | 'pink';
+  loading?: boolean;
+  loadingText?: string;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -20,6 +24,8 @@ export const Button: React.FC<ButtonProps> = ({
   size = 'medium',
   border = false,
   style,
+  loading,
+  loadingText = 'Загрузка...',
   ...props
 }) => {
   return (
@@ -33,8 +39,20 @@ export const Button: React.FC<ButtonProps> = ({
         active && styles[`Button__${color}_active`],
         className
       )}
+      disabled={loading}
     >
-      {children}
+      {loading ? (
+        <>
+          <Spinner size={14} strokeWidth={1} color={'white'} type={'usual'} />
+          <div className={styles[`Button__content`]}>
+            <BodyNormal className={styles.s} weight={'normal'}>
+              {loadingText}
+            </BodyNormal>
+          </div>
+        </>
+      ) : (
+        <div className={styles[`Button__content`]}>{children}</div>
+      )}
     </button>
   );
 };
