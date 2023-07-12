@@ -7,7 +7,7 @@ class Player {
   canvasHeight: number;
   sides: { bottom: number };
   velocity: { x: number; y: number };
-  gravity: number;
+  gravity: number; 
   speed: number;
   maxSpeed: number;
 
