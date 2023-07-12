@@ -19,8 +19,8 @@ export const EllipseSVG: React.FC<SVGType> = () => {
             y2="722.902"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stop-color="#6E3DC8" />
-            <stop offset="1" stop-color="#6781F7" />
+            <stop stopColor="#6E3DC8" />
+            <stop offset="1" stopColor="#6781F7" />
           </linearGradient>
         </defs>
       </svg>
