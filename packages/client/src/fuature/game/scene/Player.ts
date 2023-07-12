@@ -1,5 +1,3 @@
-import Sprite from "./Sprite";
-
 class Player {
   position: { x: number; y: number };
   width: number;
