@@ -6,4 +6,28 @@
     svg {
         cursor: pointer;
     }
+    img {
+        width: 100px;
+        height: 100px;
+        cursor: pointer;
+        position: relative;
+
+    }
+
+    &:hover label::after {
+        display: inline
+    }
+
+    label::after {
+        content: 'Изменить аватар';
+        width: fit-content;
+        height: fit-content;
+        background-color: var(--color-white-darken);
+        position: absolute;
+        color: var(--color-black-darken);
+        font-size: 10px;
+        padding: 5px;
+        border-radius: 5px;
+        display: none;
+    }
 }

@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Input } from '../input';
 import { useForm } from 'react-hook-form';
 import styles from './styles.module.scss';
 import { AvatarInput } from '../avatar-input/avatar-input';
 import { Button } from '../button';
 import { PenSVG } from '@components/design-system';
+import { useAppSelector } from '@store/hooks';
+import { User } from '@store/types/userTypes';
 
 export const ProfileForm = () => {
   const [isEdit, setIsEdit] = useState(false);
 
-  const { control, watch, handleSubmit, formState } = useForm<any>({
+  const { user } = useAppSelector((store) => store.user);
+
+  const { control, watch, handleSubmit, formState, setValue } = useForm<any>({
     defaultValues: {
       login: '',
       first_name: '',
@@ -19,6 +23,16 @@ export const ProfileForm = () => {
       avatar: '',
     },
   });
+
+  useEffect(() => {
+    if (user) {
+      const keys = Object.keys(user);
+
+      keys.forEach((key: string) => {
+        setValue(key, user[key]);
+      });
+    }
+  }, [user]);
 
   return (
     <form className={styles.FormContainer}>
@@ -34,10 +48,17 @@ export const ProfileForm = () => {
           {isEdit ? 'Сохранить' : 'Изменить'}
         </Button>
       </div>
-      <fieldset disabled={!isEdit}>
-        <Input type="text" placeholder="Логин" control={control} name="login" label="Логин" />
-        <Input type="text" placeholder="Имя" control={control} name="first_name" label="Имя" />
-        <Input type="text" placeholder="Фамилия" control={control} name="second_name" label="Фамилия" />
+      <fieldset>
+        <Input type="text" placeholder="Логин" control={control} name="login" label="Логин" disabled={!isEdit} />
+        <Input type="text" placeholder="Имя" control={control} name="first_name" label="Имя" disabled={!isEdit} />
+        <Input
+          type="text"
+          placeholder="Фамилия"
+          control={control}
+          name="second_name"
+          label="Фамилия"
+          disabled={!isEdit}
+        />
         <Input
           type="email"
           placeholder="Почта"
@@ -50,6 +71,7 @@ export const ProfileForm = () => {
               message: 'Хмм, это не выглядит как электронная почта',
             },
           }}
+          disabled={!isEdit}
         />
         <Input
           type="phone"
@@ -63,6 +85,7 @@ export const ProfileForm = () => {
               message: 'Номер может начинаться с 7 +7 или 8',
             },
           }}
+          disabled={!isEdit}
         />
       </fieldset>
     </form>

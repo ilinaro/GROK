@@ -27,9 +27,6 @@ export const Profile: React.FC<ProfileT> = () => {
           Сменить пароль
         </Button>
       )}
-      <Link to="/login">
-        <Button color={'blue'}>Выйти</Button>
-      </Link>
     </div>
   );
 };

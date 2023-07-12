@@ -7,12 +7,12 @@ import { HidePassSVG } from '@components/design-system/SVG/HidePassSVG';
 import { ShowPassSVG } from '@components/design-system/SVG/ShowPassSVG';
 import { PASSWORD_REGEX } from 'fuature/profile/constants';
 import { changePassword } from '@store/thunks/change-user-data';
-
 interface IChangePasswordForm {
   setMode(value: string): void;
 }
 
 interface IShowPass {
+  [key: string]: boolean;
   old_password: boolean;
   new_password: boolean;
   confirmPassword: boolean;
@@ -31,18 +31,26 @@ export const ChangePasswordForm: React.FC<IChangePasswordForm> = ({ setMode }) =
       confirmPassword: '',
     },
   });
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = (data: IShowPass) => {
+    setLoading(true);
     const { old_password, new_password } = data;
 
-    changePassword({ oldPassword: old_password, newPassword: new_password });
+    changePassword({ oldPassword: old_password, newPassword: new_password })
+      .then(() => {
+        setLoading(false);
+        // todo редирект
+        return window.location.reload();
+      })
+      .catch(() => {
+        setLoading(false);
+      });
   };
 
   const toggleShowPassword = (key: string) =>
     setIsPasswordShow((prev) => {
       const value = prev[key];
-
-      console.log({ ...prev, [key]: !value });
 
       return { ...prev, [key]: !value };
     });
@@ -99,7 +107,9 @@ export const ChangePasswordForm: React.FC<IChangePasswordForm> = ({ setMode }) =
         }}
         rightAddon={showOrHidddenIcon('confirmPassword')}
       />
-      <Button onClick={handleSubmit(onSubmit)}>Сохранить</Button>
+      <Button disabled={!formState.isValid} onClick={handleSubmit(onSubmit)} loading={loading}>
+        Сохранить
+      </Button>
       <Button onClick={() => setMode('profile')}>Назад</Button>
     </form>
   );

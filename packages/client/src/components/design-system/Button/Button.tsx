@@ -13,6 +13,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   color?: 'blue' | 'pink';
   loading?: boolean;
   loadingText?: string;
+  disabled?: boolean;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -26,6 +27,7 @@ export const Button: React.FC<ButtonProps> = ({
   style,
   loading,
   loadingText = 'Загрузка...',
+  disabled,
   ...props
 }) => {
   return (
@@ -39,7 +41,7 @@ export const Button: React.FC<ButtonProps> = ({
         active && styles[`Button__${color}_active`],
         className
       )}
-      disabled={loading}
+      disabled={loading || disabled}
     >
       {loading ? (
         <>

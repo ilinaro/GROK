@@ -11,9 +11,19 @@ type InputProps = {
   control: any;
   rules?: RegisterOptions;
   rightAddon?: ReactNode;
+  disabled: boolean;
 } & JSX.IntrinsicElements['label'];
 
-export const Input: React.FC<InputProps> = ({ name, label, type = 'text', control, rules, rightAddon, ...props }) => {
+export const Input: React.FC<InputProps> = ({
+  name,
+  label,
+  type = 'text',
+  control,
+  rules,
+  rightAddon,
+  disabled,
+  ...props
+}) => {
   const {
     field: { ref, ...inputProps },
     fieldState: { error },
@@ -26,7 +36,14 @@ export const Input: React.FC<InputProps> = ({ name, label, type = 'text', contro
   return (
     <label className={styles.formInput} {...props}>
       <div className={styles.inputContainer}>
-        <input ref={ref} type={type} className={styles.input} placeholder=" " {...inputProps} />
+        <input
+          disabled={disabled}
+          ref={ref}
+          type={type}
+          className={clsx(styles.input, { [styles.EditMode]: !disabled })}
+          placeholder=" "
+          {...inputProps}
+        />
         <span className={styles.placeholder}>{label}</span>
       </div>
       <BodyNormal color={'pink'} style={{ position: 'absolute', color: 'var(--color-pink)', fontSize: '12px' }}>
