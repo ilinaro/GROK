@@ -1,0 +1,77 @@
+.formInput {
+	width: 100%;
+	position: relative;
+
+	& .inputContainer {
+		position: relative;
+
+		& input:-webkit-autofill,
+		input:-webkit-autofill:hover,
+		input:-webkit-autofill:focus,
+		textarea:-webkit-autofill,
+		textarea:-webkit-autofill:hover,
+		textarea:-webkit-autofill:focus,
+		select:-webkit-autofill,
+		select:-webkit-autofill:hover,
+		select:-webkit-autofill:focus {
+			border: 1px solid var(--color-black-light);
+			-webkit-text-fill-color: var(--color-black-light);
+			-webkit-box-shadow: 0 0 0px 1000px var(--color-white-darken) inset;
+			transition: background-color 5000s ease-in-out 0s;
+		}
+
+		& .input {
+			border-radius: 8px;
+			color: var(--color-black-light);
+			font-size: 14px;
+			background: var(--color-white-darken);
+			height: 100%;
+			outline: 0;
+			padding: 16px;
+			border: 1px solid var(--color-white-darken);
+			width: 100%;
+
+			&.EditMode {
+				border: 1px solid var(--color-pink);
+			}
+
+
+			&:focus~.placeholder,
+			&:not(:placeholder-shown)~.placeholder {
+				transform: translateY(-25px) translateX(5px) scale(0.8);
+			}
+		}
+
+		& .placeholder {
+			font-size: 14px;
+			position: absolute;
+			padding: 0 3px;
+			background-color: var(--color-white-darken);
+			color: var(--color-black-light);
+			top: 16px;
+			left: 16px;
+			line-height: 20px;
+			pointer-events: none;
+			transform-origin: 0 50%;
+			transition: transform 200ms;
+			border-radius: 5px;
+		}
+	}
+
+	& .icon {
+		width: 16px;
+		height: 16px;
+		margin: auto;
+		position: absolute;
+		top: 14px;
+		cursor: pointer;
+	}
+
+	& .iconRight {
+		right: 18px;
+	}
+
+	& .iconLeft {
+		left: 18px;
+	}
+}

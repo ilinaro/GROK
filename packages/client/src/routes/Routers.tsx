@@ -1,9 +1,9 @@
 import { ErrorPage } from '@pages/error';
-import { ForumActionCreate } from '../fuature/forum/actions/create'
-import { ForumAnswers } from '../fuature/forum/components/answers'
+import { ForumActionCreate } from '../fuature/forum/actions/create';
+import { ForumAnswers } from '../fuature/forum/components/answers';
 import { ForumEventsPage } from '@pages/forum/id';
 import { ForumPage } from '@pages/forum';
-import { ForumTopics } from '../fuature/forum/components/topics'
+import { ForumTopics } from '../fuature/forum/components/topics';
 import { GamePage } from '@pages/game';
 import { LeadersPage } from '@pages/leaders';
 import { LoginPage } from '@pages/login';
