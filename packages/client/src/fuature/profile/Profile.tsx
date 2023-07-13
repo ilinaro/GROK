@@ -2,15 +2,12 @@ import { BodyNormal, Title } from '@components/design-system/Fonts';
 import { Button } from '@components/design-system';
 import { Link } from 'react-router-dom';
 import styles from './Profile.module.scss';
-import { FormInput } from '@components/specific/FormInput/FormInput';
-import { useForm } from 'react-hook-form';
 import { ProfileForm } from './components/profile-form/profile-form';
 import { ReactNode, useState } from 'react';
 import { ChangePasswordForm } from './components/change-password-form';
+import { logout } from '@store/thunks/user';
 
-type ProfileT = {};
-
-export const Profile: React.FC<ProfileT> = () => {
+export const Profile: React.FC = () => {
   const [mode, setMode] = useState('profile');
 
   const modes: Record<string, ReactNode> = {
@@ -27,6 +24,9 @@ export const Profile: React.FC<ProfileT> = () => {
           Сменить пароль
         </Button>
       )}
+      <Button color={'pink'} onClick={() => logout()}>
+        Выйти
+      </Button>
     </div>
   );
 };

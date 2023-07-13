@@ -54,3 +54,8 @@ export type UserActionsTypes =
   | SetUserErrorACType
   | ClearUserErrorsACType
   | DeleteUserACType;
+
+export interface IChangePasswordRequest {
+  oldPassword: string;
+  newPassword: string;
+}

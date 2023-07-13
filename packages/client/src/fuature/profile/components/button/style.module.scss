@@ -6,7 +6,9 @@
     align-items: center;
     box-shadow: unset;
     border: unset;
-    gap: 5px;
+    & > * {
+        margin: 0 5px;
+    };
     width: 120px;
     
 }
