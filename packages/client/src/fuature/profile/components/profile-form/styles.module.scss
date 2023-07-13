@@ -1,0 +1,20 @@
+.FormContainer {
+    max-width: 318px;
+    margin: 50px 0;
+    background-color: var(--color-black);
+    padding: 25px;
+    border-radius: 15px;
+
+
+    fieldset {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+}
+
+.Controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}

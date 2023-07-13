@@ -1,0 +1,41 @@
+.FormError {
+	display: flex;
+	width: 100%;
+	border-radius: 8px;
+	background: #800080;
+	margin-top: 22px;
+	padding: 16px;
+	box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
+
+	opacity: 0;
+	animation: active 1s forwards;
+
+	@keyframes active {
+		0% {
+			opacity: 0;
+			transform: translateY(25px);
+		}
+
+		100% {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	&__content {
+		margin-left: 16px;
+		color: rgb(255, 219, 219);
+	}
+
+	&__content-title {
+		font-weight: bold;
+		font-size: 16px;
+
+	}
+
+	&__content-description {
+		margin-top: 8px;
+		font-size: 14px;
+		color: rgb(255, 219, 219);
+	}
+}

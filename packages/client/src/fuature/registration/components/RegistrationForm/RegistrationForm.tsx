@@ -3,17 +3,20 @@ import { BodyNormal } from '@components/design-system/Fonts';
 import { Button } from '@components/design-system';
 import { Link } from 'react-router-dom';
 import { FormInput } from '@components/specific/FormInput/FormInput';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import styles from './RegistrationForm.module.scss';
 import { RouteNames } from '@routes/routeNames';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { HidePassSVG } from '@components/design-system/SVG/HidePassSVG';
 import { ShowPassSVG } from '@components/design-system/SVG/ShowPassSVG';
 import { AuthForm } from 'fuature/login/components/AuthForm';
+import { useAppDispatch, useAppSelector } from '@store/hooks';
+import { clearUserErrors, signup } from '@store/thunks/user';
+import { Spinner } from '@components/specific/Spinner/Spinner';
 
 type RegistrationT = {};
 
-interface RegistrationFormT {
+export interface RegistrationFormT {
   first_name: string;
   second_name: string;
   login: string;
@@ -23,6 +26,8 @@ interface RegistrationFormT {
 }
 
 export const RegistrationForm: React.FC<RegistrationT> = () => {
+  const dispatch = useAppDispatch();
+  const { loading, error } = useAppSelector((store) => store.user);
   const [isPasswordShow, setIsPasswordShow] = useState(false);
   const {
     control,
@@ -38,6 +43,7 @@ export const RegistrationForm: React.FC<RegistrationT> = () => {
       phone: '',
       password: '',
     },
+    mode: 'onBlur',
   });
 
   const password = useRef({});
@@ -61,7 +67,14 @@ export const RegistrationForm: React.FC<RegistrationT> = () => {
     return value === password || 'Пароли не совпадают';
   };
 
-  const onSubmit = () => {};
+  // чистим ошибки, чтобы скрыть компонент с ошибками
+  useEffect(() => {
+    return () => dispatch(clearUserErrors());
+  }, []);
+
+  const onSubmit = (data: RegistrationFormT) => {
+    dispatch(signup(data));
+  };
 
   const footer = () => {
     return (
@@ -110,6 +123,11 @@ export const RegistrationForm: React.FC<RegistrationT> = () => {
         control={control}
         rules={{
           required: 'Это поле обязательно',
+          minLength: 3,
+          pattern: {
+            value: /^[a-zA-Z0-9]+$/,
+            message: 'Только латинские буквы и цифры',
+          },
         }}
         style={{ marginTop: '22px' }}
       />
@@ -122,6 +140,21 @@ export const RegistrationForm: React.FC<RegistrationT> = () => {
           pattern: {
             value: /\S+@\S+\.\S+/,
             message: 'Некорректный адрес электронной почты',
+          },
+        }}
+        style={{ marginTop: '22px' }}
+      />
+      <FormInput
+        name={'phone'}
+        label={'Телефон'}
+        control={control}
+        type={'tel'}
+        mask={'+7 (999) 999-99-99'}
+        rules={{
+          required: 'Это поле обязательно',
+          pattern: {
+            value: /(\+7|8)[- _]*\(?[- _]*(\d{3}[- _]*\)?([- _]*\d){7}|\d\d[- _]*\d\d[- _]*\)?([- _]*\d){6})/g,
+            message: 'Заполните поле до конца',
           },
         }}
         style={{ marginTop: '22px' }}
@@ -153,7 +186,7 @@ export const RegistrationForm: React.FC<RegistrationT> = () => {
         rightAddon={showOrHidddenIcon()}
         style={{ marginTop: '22px' }}
       />
-      <Button color={'pink'} style={{ marginTop: '22px' }} type="submit">
+      <Button color={'pink'} style={{ marginTop: '22px' }} type={'submit'} loading={loading}>
         <BodyNormal weight={'normal'}>Зарегистрироваться</BodyNormal>
       </Button>
     </AuthForm>
