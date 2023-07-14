@@ -1,0 +1,12 @@
+.iconNotification {
+  margin: 0 auto;
+  height: 48px;
+  width: 48px;
+  grid-area: rightSide;
+  background: url("../../../../styles/images/fullscreen-open.png");
+  border: none;
+}
+
+.iconNotification:hover {
+  cursor: pointer;
+}
