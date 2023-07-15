@@ -3,5 +3,7 @@
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 15px
+    & > * {
+        margin: 5px 0;
+    };
 }

@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Input } from '../input';
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 import styles from './styles.module.scss';
 import { AvatarInput } from '../avatar-input/avatar-input';
 import { Button } from '../button';
 import { PenSVG } from '@components/design-system';
 import { useAppSelector } from '@store/hooks';
-import { User } from '@store/types/userTypes';
+import { EMAIL_REGEX, PHONE_REGEX } from 'fuature/profile/constants';
 
-export const ProfileForm = () => {
+export const ProfileForm: React.FC = () => {
   const [isEdit, setIsEdit] = useState(false);
 
   const { user } = useAppSelector((store) => store.user);
 
-  const { control, watch, handleSubmit, formState, setValue } = useForm<any>({
+  const { control, watch, handleSubmit, formState, setValue } = useForm<FieldValues>({
     defaultValues: {
       login: '',
       first_name: '',
@@ -39,7 +39,7 @@ export const ProfileForm = () => {
       <div className={styles.Controls}>
         <AvatarInput name="avatar" control={control} rules={{}} />
         <Button
-          onClick={(e) => {
+          onClick={(e: React.MouseEvent) => {
             e.preventDefault();
             setIsEdit((prevState) => !prevState);
           }}
@@ -67,7 +67,7 @@ export const ProfileForm = () => {
           label="Почта"
           rules={{
             pattern: {
-              value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+              value: EMAIL_REGEX,
               message: 'Хмм, это не выглядит как электронная почта',
             },
           }}
@@ -81,7 +81,7 @@ export const ProfileForm = () => {
           label="Телефон"
           rules={{
             pattern: {
-              value: /^(\+7|7|8)?[\s-]?\(?[489][0-9]{2}\)?[\s-]?[0-9]{3}[\s-]?[0-9]{2}[\s-]?[0-9]{2}$/,
+              value: PHONE_REGEX,
               message: 'Номер может начинаться с 7 +7 или 8',
             },
           }}
