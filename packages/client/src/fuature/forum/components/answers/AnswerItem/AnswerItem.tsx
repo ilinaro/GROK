@@ -5,7 +5,7 @@ type AnswerItemT = {
   answers: {
     desc: string,
     title: string,
-    props: {}
+    timestamp: string
   };
 };
 
