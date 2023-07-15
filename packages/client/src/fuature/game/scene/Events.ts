@@ -28,6 +28,12 @@ class Events {
   keyupHandler = (event: KeyboardEvent) => {
     // console.log('keyupHandler', event);
     switch (event.key) {
+      case 'w':
+        this.keys.w.pressed = false;
+        break;
+      case 'ArrowUp':
+        this.keys.w.pressed = false;
+        break;
       // left
       case 'a':
         this.keys.a.pressed = false;
@@ -44,7 +50,6 @@ class Events {
         break;
     }
   };
-
   keydownHandler = (event: KeyboardEvent) => {
     // console.log('keydownHandler', event);
     switch (event.key) {
@@ -52,7 +57,10 @@ class Events {
       case ' ':
       case 'w':
       case 'ArrowUp':
-        if (this.player.velocity.y === 0) this.player.velocity.y = -20;
+        if (this.player.velocity.y === 0 || Math.abs(this.player.velocity.y) < 2) {
+          this.player.velocity.y = -20;
+        }
+        this.keys.w.pressed = true;
         break;
       // left
       case 'a':
@@ -66,6 +74,7 @@ class Events {
         break;
     }
   };
+  
 }
 
 export default Events;

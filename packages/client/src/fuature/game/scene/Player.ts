@@ -13,11 +13,15 @@ class Player {
 
   constructor(
     private context: CanvasRenderingContext2D | null,
-    private mapBlocks: { draw(context: CanvasRenderingContext2D): unknown; position: { x: number; y: number } }[], // блоки столкновений
+    private mapBlocks: {
+      width: number;
+      height: number;
+      draw(context: CanvasRenderingContext2D): unknown;
+      position: { x: number; y: number };
+    }[], // блоки столкновений
     ball: HTMLImageElement,
     canvasWidth: number,
-    canvasHeight: number,
-
+    canvasHeight: number
   ) {
     this.position = {
       x: canvasWidth / 2,
@@ -45,6 +49,7 @@ class Player {
     this.sides = {
       bottom: this.position.y + this.height,
     };
+    console.log(this.mapBlocks);
   }
 
   draw() {
@@ -97,15 +102,62 @@ class Player {
       }
       this.position.x += -this.speed + this.velocity.x;
     }
+
+    // this.position.x += this.velocity.x;
+
+    // проверка горизонтальных столкновений
+    for (let i = 0; i < this.mapBlocks.length; i++) {
+      const mapBlock = this.mapBlocks[i];
+
+      // столкновение справой стороны блока и леовй стороны игрока
+      if (
+        this.position.x <= mapBlock.position.x + mapBlock.width &&
+        this.position.x + this.width >= mapBlock.position.x &&
+        this.position.y + this.height >= mapBlock.position.y &&
+        this.position.y <= mapBlock.position.y + mapBlock.height
+      ) {
+        //  ведение по оси x влево
+        if (this.velocity.x < 0) {
+          this.position.x = mapBlock.position.x + mapBlock.width + 1;
+          break;
+        }
+
+        if (this.velocity.x > 0) {
+          this.position.x = mapBlock.position.x - this.width - 1;
+          break;
+        }
+      }
+    }
+
     // управление прыжком
+    this.velocity.y = this.velocity.y + 0.3;
+    this.velocity.y += this.gravity;
     this.position.y += this.velocity.y;
-    this.sides.bottom = this.position.y + this.height;
+    // this.sides.bottom = this.position.y + this.height;
     // прямо здесь над нижней части окна
-    if (this.sides.bottom + this.velocity.y < this.canvasHeight) {
-      this.velocity.y = this.velocity.y + 0.3;
-      this.velocity.y += this.gravity;
-    } else {
-      this.velocity.y = 0;
+    for (let i = 0; i < this.mapBlocks.length; i++) {
+      const mapBlock = this.mapBlocks[i];
+
+      // столкновение справой стороны блока и леовй стороны игрока
+      if (
+        this.position.x <= mapBlock.position.x + mapBlock.width &&
+        this.position.x + this.width >= mapBlock.position.x &&
+        this.position.y + this.height >= mapBlock.position.y &&
+        this.position.y <= mapBlock.position.y + mapBlock.height
+      ) {
+        //  ведение по оси x влево
+        if (this.velocity.y < 0) {
+          this.velocity.y = 0;
+          this.position.y = mapBlock.position.y + mapBlock.height + 1;
+          break;
+        }
+
+        if (this.velocity.y > 0) {
+          this.velocity.y = 0;
+          this.position.y = mapBlock.position.y - this.height - 1;
+          break;
+        }
+      }
     }
   }
 }

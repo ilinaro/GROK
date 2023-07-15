@@ -12,7 +12,8 @@ function parse2D<T>(allArr: T[], sizeRow: number): T[][] {
 export const parsedMap: number[][] = parse2D(mapLevel1, 64);
 
 // Принимает положение блока столкновения, по x y и размер
-const size = 48;
+const sizeX = 48;
+const sizeY = 64;
 
 export class MapBlock {
   position: {
@@ -21,10 +22,10 @@ export class MapBlock {
   };
   width: number;
   height: number;
-  constructor({ position }: { position: { x: number; y: number } }) {
+  constructor({ position, width, height }: { position: { x: number; y: number }; width: number; height: number }) {
     this.position = position;
-    this.width = size;
-    this.height = size;
+    this.width = width;
+    this.height = height;
   }
 
   draw(context: CanvasRenderingContext2D) {
@@ -36,6 +37,8 @@ export class MapBlock {
 export const mapBlocks: {
   draw(context: CanvasRenderingContext2D): unknown;
   position: { x: number; y: number };
+  width: number,
+  height: number,
 }[] = []; // массив блоков столкновения
 
 parsedMap.forEach((row, indexY) => {
@@ -45,9 +48,11 @@ parsedMap.forEach((row, indexY) => {
       mapBlocks.push(
         new MapBlock({
           position: {
-            x: indexX * size,
-            y: indexY * size,
+            x: indexX * sizeX,
+            y: indexY * sizeY,
           },
+          width: sizeX,
+          height: sizeY,
         })
       );
     }
