@@ -26,9 +26,7 @@ function App() {
     <React.StrictMode>
       <Provider store={store}>
         <QueryClientProvider client={queryClient}>
-          <Auth>
-            <RouterProvider router={Routers} />
-          </Auth>
+          <RouterProvider router={Routers} />
         </QueryClientProvider>
       </Provider>
     </React.StrictMode>

@@ -17,6 +17,7 @@ import { StartPage } from '@pages/start';
 import { Navigate, createBrowserRouter } from 'react-router-dom';
 import { ReactElement } from 'react';
 import { useAppSelector } from '@store/hooks';
+import { useGetUserQuery } from '@lib/useGetUserQuery';
 
 type PrivateRouteProps = {
   children: ReactElement;
@@ -24,23 +25,26 @@ type PrivateRouteProps = {
 };
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ children, pathTo }) => {
-  const user = useAppSelector((store) => store.user);
+  // const user = useAppSelector((store) => store.user);
+  const { data: user, isLoading, isError, isSuccess } = useGetUserQuery();
   const previousPath = window.location.pathname;
 
   const authPath = ['/login', '/registration'];
 
   const isExcludePath: boolean = authPath.includes(previousPath);
 
-  return user && !isExcludePath ? children : <Navigate to={pathTo} />;
+  console.log('isSuccess', isSuccess);
+
+  return isSuccess && !isLoading && !isExcludePath ? children : <Navigate to={pathTo} />;
 };
 
 export const Routers = createBrowserRouter([
   {
     path: RouteNames.START,
     element: (
-      <PrivateRoute pathTo={'/login'}>
-        <ProfileLayout />
-      </PrivateRoute>
+      // <PrivateRoute pathTo={'/login'}>
+      <ProfileLayout />
+      // </PrivateRoute>
     ),
     children: [
       {
@@ -93,9 +97,9 @@ export const Routers = createBrowserRouter([
   {
     path: RouteNames.LOGIN,
     element: (
-      <PrivateRoute pathTo={'/'}>
-        <LoginPage />
-      </PrivateRoute>
+      // <PrivateRoute pathTo={'/'}>
+      <LoginPage />
+      // </PrivateRoute>
     ),
   },
   {
