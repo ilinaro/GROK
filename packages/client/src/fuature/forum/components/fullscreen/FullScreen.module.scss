@@ -1,4 +1,4 @@
-.iconNotification {
+.iconFullScreen {
   margin: 0 auto;
   height: 48px;
   width: 48px;
@@ -7,6 +7,12 @@
   border: none;
 }
 
-.iconNotification:hover {
+.iconFullScreen:hover {
   cursor: pointer;
+}
+.fullScreenActive {
+  background: url("../../../../styles/images/fullscreen-close.png") !important;
+  height: 32px;
+  width: 32px;
+
 }

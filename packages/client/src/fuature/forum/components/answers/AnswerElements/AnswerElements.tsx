@@ -1,7 +1,6 @@
 import React from 'react';
 import { AnswerItem } from '../AnswerItem'
 
-
 export const AnswerElements = () => {
   const answersData = [
     { title: 'Какие игры сейчас популярны', desc: 'Dota, CS, CS:GO', timestamp: '10 янв 2023' },

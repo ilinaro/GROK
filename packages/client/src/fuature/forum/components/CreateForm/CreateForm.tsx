@@ -7,17 +7,17 @@ export const ForumCreateForm: React.FC = () => {
 
   const [topic, setTopic] = useState("");
   const [description, setDesc] = useState('');
-  const createTopic = (e: any) => {
+  const createTopic = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     setTopic("");
     createDescription(e);
   }
-  const createDescription = (e: any) => {
+  const createDescription = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     setDesc("");
   }
   return (
-    <form className={ styles.topic__form } onSubmit={createTopic}>
+    <form className={ styles.topic__form } onSubmit={ createTopic }>
       <div className={ styles.topic__container }>
         <label>Название</label>
         <input
