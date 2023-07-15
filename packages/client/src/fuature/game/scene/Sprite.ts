@@ -10,7 +10,7 @@ type SpriteT = {
   loaded?: boolean;
 };
 
-class Sprite {
+export class Sprite {
   position: SpriteT['position'];
   image: HTMLImageElement;
   context: CanvasRenderingContext2D | null;
@@ -25,7 +25,7 @@ class Sprite {
 
   draw() {
     if (!this.context || !this.loaded) return;
-    this.context.clearRect(this.position.x, this.position.y, this.position.width, this.position.height);
+    // this.context.clearRect(this.position.x, this.position.y, this.position.width, this.position.height);
     this.context.drawImage(this.image, this.position.x, this.position.y);
   }
 }
