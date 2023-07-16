@@ -16,25 +16,40 @@ import { RouteNames } from './routeNames';
 import { StartPage } from '@pages/start';
 import { Navigate, createBrowserRouter } from 'react-router-dom';
 import { ReactElement } from 'react';
-import { useAppSelector } from '@store/hooks';
-import { useGetUserQuery } from '@lib/useGetUserQuery';
+import { useAppDispatch } from '@store/hooks';
+import { useQuery } from 'react-query';
+import userService from '@services/user.service';
+import { setUserAC } from '@store/actions/userAction';
 
 type PrivateRouteProps = {
   children: ReactElement;
 };
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
-  // const { data: user, isLoading, isError, isSuccess } = useGetUserQuery();
+  const dispatch = useAppDispatch();
+  const {
+    data: user,
+    isLoading,
+    isError,
+    isSuccess,
+  } = useQuery(['user'], () => userService.getUser(), {
+    enabled: true,
+    onSuccess: (data) => {
+      dispatch(setUserAC(data));
+    },
+  });
+
   const previousPath = window.location.pathname;
-
   const authPath = ['/login', '/registration'];
-
   const isExcludePath: boolean = authPath.includes(previousPath);
 
-  // if (isSuccess && isExcludePath && !isLoading) return <Navigate to='/' />
-
-  // return isSuccess && !isExcludePath && !isLoading ? children : <Navigate to='/login' />;
-  return children;
+  if (isSuccess && isExcludePath && !isLoading) {
+    return <Navigate to="/" />;
+  } else if (!isSuccess && !isExcludePath && !isLoading) {
+    return <Navigate to="/login" />;
+  } else {
+    return children;
+  }
 };
 
 export const Routers = createBrowserRouter([

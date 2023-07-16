@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const AxiosAuth = axios.create({
-  baseURL: 'https://ya-praktikum.tech/api/v1/',
+  baseURL: 'https://ya-praktikum.tech/api/v2/',
   withCredentials: true,
 });
 
