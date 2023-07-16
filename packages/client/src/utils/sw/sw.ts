@@ -2,7 +2,8 @@
 
 const sw = self as unknown as ServiceWorkerGlobalScope & typeof globalThis;
 
-const cacheName = 'app-cache-v1';
+const staticCacheName = 'static-cache-v1';
+const dynamicCacheName = 'dynamic-cache-v1';
 
 const assetUrls = [
   '/',
@@ -50,7 +51,12 @@ sw.addEventListener('activate', async (event) => {
   try {
     const cacheNames = await caches.keys();
 
-    await Promise.all(cacheNames.filter((name) => name !== cacheName).map((name) => caches.delete(name)));
+    await Promise.all(
+      cacheNames
+        .filter((name) => name !== staticCacheName)
+        .filter((name) => name !== dynamicCacheName)
+        .map((name) => caches.delete(name))
+    );
   } catch (error) {
     console.log(error);
   }
@@ -71,7 +77,7 @@ sw.addEventListener('fetch', (event) => {
 
 async function addResourcesToCache(resources: string[]) {
   try {
-    const cache = await caches.open(cacheName);
+    const cache = await caches.open(staticCacheName);
     await cache.addAll(resources);
   } catch (error) {
     console.log(error);
@@ -85,7 +91,7 @@ async function cacheFirst(request: Request) {
 }
 
 async function networkFirst(request: Request) {
-  const cache = await caches.open(cacheName);
+  const cache = await caches.open(dynamicCacheName);
 
   try {
     const response = await fetch(request);
