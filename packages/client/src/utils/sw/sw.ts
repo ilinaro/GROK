@@ -28,6 +28,16 @@ const assetUrls = [
   '/src/styles/images/progress-pic.svg',
   '/src/styles/images/progress.svg',
   '/src/styles/images/start.svg',
+  '/src/styles/fonts/HeliosExt-Bold.ttf',
+  '/src/styles/fonts/HeliosExt.ttf',
+  '/src/styles/fonts/Roboto-Bold.eot',
+  '/src/styles/fonts/Roboto-Bold.ttf',
+  '/src/styles/fonts/Roboto-Bold.woff',
+  '/src/styles/fonts/Roboto-Bold.woff2',
+  '/src/styles/fonts/Roboto-Regular.eot',
+  '/src/styles/fonts/Roboto-Regular.ttf',
+  '/src/styles/fonts/Roboto-Regular.woff',
+  '/src/styles/fonts/Roboto-Regular.woff2',
 ];
 
 sw.addEventListener('install', (event) => {
