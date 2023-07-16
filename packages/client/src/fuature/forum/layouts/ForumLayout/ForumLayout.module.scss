@@ -16,6 +16,7 @@
   height: 199px;
   width: 220px;
   margin: 0 auto;
+  grid-area: leftSide;
 }
 
 .RightSide {
@@ -25,6 +26,7 @@
   align-self: end;
   height: 175px;
   width: 174px;
+  grid-area: rightSide;
 }
 
 .ForumWrapper {

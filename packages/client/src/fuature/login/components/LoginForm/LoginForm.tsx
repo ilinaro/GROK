@@ -9,8 +9,6 @@ import { useState, useRef, useEffect } from 'react';
 import { HidePassSVG } from '@components/design-system/SVG/HidePassSVG';
 import { ShowPassSVG } from '@components/design-system/SVG/ShowPassSVG';
 import { AuthForm } from '../AuthForm';
-import { useAppDispatch, useAppSelector } from '@store/hooks';
-import { clearUserErrors, login } from '@store/thunks/user';
 import { FormError } from '@components/specific/FormError';
 import { REQUIRED } from 'fuature/profile/constants';
 
@@ -26,8 +24,19 @@ export interface LoginFormT {
 }
 
 export const LoginForm: React.FC<LoginT> = () => {
-  const dispatch = useAppDispatch();
-  const { loading, error } = useAppSelector((store) => store.user);
+  const queryClient = useQueryClient();
+
+  const { mutate, isLoading, isError, error } = useMutation<void, AxiosError, LoginFormT>(
+    async (data: LoginFormT) => {
+      await authService.signin(data);
+    },
+    {
+      onSuccess: () => {
+        queryClient.refetchQueries(['user']);
+      },
+    }
+  );
+
   const [isPasswordShow, setIsPasswordShow] = useState(false);
 
   const {
@@ -57,13 +66,8 @@ export const LoginForm: React.FC<LoginT> = () => {
     }
   };
 
-  // чистим ошибки, чтобы скрыть компонент с ошибками
-  useEffect(() => {
-    return () => dispatch(clearUserErrors());
-  }, []);
-
   const onSubmit = (data: LoginFormT) => {
-    dispatch(login(data));
+    mutate(data);
   };
 
   const footer = () => {
@@ -76,7 +80,7 @@ export const LoginForm: React.FC<LoginT> = () => {
 
   return (
     <AuthForm title="Вход" onSubmit={handleSubmit(onSubmit)} footer={footer()} className={styles.containerLogin}>
-      {!!error && <FormError view={'error'} description={error} />}
+      {!!isError && <FormError view={'error'} description={error.response?.data!.reason} />}
       <FormInput
         name="login"
         label="Введите логин"
@@ -97,7 +101,7 @@ export const LoginForm: React.FC<LoginT> = () => {
         rightAddon={showOrHidenIcon()}
         style={{ marginTop: '22px' }}
       />
-      <Button color={'pink'} style={{ marginTop: '22px' }} type={'submit'} loading={loading}>
+      <Button color={'pink'} style={{ marginTop: '22px' }} type={'submit'} loading={isLoading}>
         <BodyNormal weight={'normal'}>Войти</BodyNormal>
       </Button>
     </AuthForm>
