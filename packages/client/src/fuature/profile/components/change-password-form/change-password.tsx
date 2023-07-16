@@ -5,7 +5,7 @@ import { Button } from '@components/design-system';
 import { FormInput } from '@components/specific/FormInput/FormInput';
 import { HidePassSVG } from '@components/design-system/SVG/HidePassSVG';
 import { ShowPassSVG } from '@components/design-system/SVG/ShowPassSVG';
-import { PASSWORD_REGEX } from 'fuature/profile/constants';
+import { PASSWORD_REGEX, REQUIRED } from 'fuature/profile/constants';
 import { changePassword } from '@store/thunks/change-user-data';
 import { IChangePasswordRequest } from '@store/types/userTypes';
 interface IChangePasswordForm {
@@ -37,6 +37,7 @@ export const ChangePasswordForm: React.FC<IChangePasswordForm> = ({ setMode }) =
       new_password: '',
       confirmPassword: '',
     },
+    mode: 'onBlur',
   });
   const [loading, setLoading] = useState(false);
 
@@ -87,7 +88,7 @@ export const ChangePasswordForm: React.FC<IChangePasswordForm> = ({ setMode }) =
         type={isPasswordShow.old_password ? 'text' : 'password'}
         control={control}
         rules={{
-          required: 'Это поле обязательно',
+          required: REQUIRED,
         }}
         rightAddon={showOrHidddenIcon('old_password')}
       />
@@ -97,7 +98,15 @@ export const ChangePasswordForm: React.FC<IChangePasswordForm> = ({ setMode }) =
         type={isPasswordShow.new_password ? 'text' : 'password'}
         control={control}
         rules={{
-          required: 'Это поле обязательно',
+          required: REQUIRED,
+          minLength: {
+            value: 8,
+            message: 'Минимум 8 символов',
+          },
+          maxLength: {
+            value: 40,
+            message: 'Максимум 40 символов',
+          },
           pattern: {
             value: PASSWORD_REGEX,
             message: 'min 8 символов, min 1 цифра и 1 загл. буква',
@@ -112,7 +121,7 @@ export const ChangePasswordForm: React.FC<IChangePasswordForm> = ({ setMode }) =
         control={control}
         rules={{
           validate: validatePasswordMatch,
-          required: 'Это поле обязательно',
+          required: REQUIRED,
         }}
         rightAddon={showOrHidddenIcon('confirmPassword')}
       />

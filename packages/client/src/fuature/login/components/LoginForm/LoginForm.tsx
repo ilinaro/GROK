@@ -12,6 +12,7 @@ import { AuthForm } from '../AuthForm';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { clearUserErrors, login } from '@store/thunks/user';
 import { FormError } from '@components/specific/FormError';
+import { REQUIRED } from 'fuature/profile/constants';
 
 type LoginT = {};
 
@@ -81,8 +82,7 @@ export const LoginForm: React.FC<LoginT> = () => {
         label="Введите логин"
         control={control}
         rules={{
-          required: 'Это поле обязательно',
-          minLength: 3,
+          required: REQUIRED,
         }}
         style={{ marginTop: '22px' }}
       />
@@ -92,8 +92,7 @@ export const LoginForm: React.FC<LoginT> = () => {
         type={isPasswordShow ? 'text' : 'password'}
         control={control}
         rules={{
-          required: 'Это поле обязательно',
-          minLength: 3,
+          required: REQUIRED,
         }}
         rightAddon={showOrHidenIcon()}
         style={{ marginTop: '22px' }}

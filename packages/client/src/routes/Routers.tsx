@@ -100,11 +100,7 @@ export const Routers = createBrowserRouter([
   },
   {
     path: RouteNames.REGISTRATION,
-    element: (
-      <PrivateRoute pathTo={'/'}>
-        <RegistrationPage />
-      </PrivateRoute>
-    ),
+    element: <RegistrationPage />,
   },
   {
     path: RouteNames.GAME,

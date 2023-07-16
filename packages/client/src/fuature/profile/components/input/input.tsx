@@ -22,6 +22,7 @@ export const Input: React.FC<InputProps> = ({
   rules,
   rightAddon,
   disabled,
+  placeholder,
   ...props
 }) => {
   const {
@@ -41,7 +42,7 @@ export const Input: React.FC<InputProps> = ({
           ref={ref}
           type={type}
           className={clsx(styles.input, { [styles.EditMode]: !disabled })}
-          placeholder=" "
+          placeholder={placeholder}
           {...inputProps}
         />
         <span className={styles.placeholder}>{label}</span>
