@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 
 import { Provider } from 'react-redux';
 import { store } from '@store/index';
-import { Auth } from 'fuature/auth';
 import { RouterProvider } from 'react-router-dom';
 import { Routers } from './routes';
 
