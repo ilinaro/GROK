@@ -14,6 +14,14 @@ import { useMutation, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
 import authService from '@services/auth.service';
 import { FormError } from '@components/specific/FormError';
+import {
+  baseValidationRules,
+  emailValidationScheme,
+  loginValidationScheme,
+  nameValidationScheme,
+  passwordValidationScheme,
+  phoneValidationScheme,
+} from 'fuature/profile/validation';
 
 type RegistrationT = {};
 
@@ -104,53 +112,28 @@ export const RegistrationForm: React.FC<RegistrationT> = () => {
         name="first_name"
         label="Имя"
         control={control}
-        rules={{
-          required: 'Это поле обязательно',
-          pattern: {
-            value: /^([А-Я]{1}[а-яё]{1,23}|[A-Z]{1}[a-z]{1,23})$/gm,
-            message: 'Некорректное имя',
-          },
-        }}
+        rules={nameValidationScheme}
         style={{ marginTop: '22px' }}
       />
       <FormInput
         name="second_name"
         label="Фамилия"
         control={control}
-        rules={{
-          required: 'Это поле обязательно',
-          pattern: {
-            value: /^([А-Я]{1}[а-яё]{1,23}|[A-Z]{1}[a-z]{1,23})$/gim,
-            message: 'Некорректная фамилия',
-          },
-        }}
+        rules={nameValidationScheme}
         style={{ marginTop: '22px' }}
       />
       <FormInput
         name="login"
         label="Логин"
         control={control}
-        rules={{
-          required: 'Это поле обязательно',
-          minLength: 3,
-          pattern: {
-            value: /^[a-zA-Z0-9]+$/,
-            message: 'Только латинские буквы и цифры',
-          },
-        }}
+        rules={loginValidationScheme}
         style={{ marginTop: '22px' }}
       />
       <FormInput
         name="email"
         label="Электронная почта"
         control={control}
-        rules={{
-          required: 'Это поле обязательно',
-          pattern: {
-            value: /\S+@\S+\.\S+/,
-            message: 'Некорректный адрес электронной почты',
-          },
-        }}
+        rules={emailValidationScheme}
         style={{ marginTop: '22px' }}
       />
       <FormInput
@@ -159,13 +142,7 @@ export const RegistrationForm: React.FC<RegistrationT> = () => {
         control={control}
         type={'tel'}
         mask={'+7 (999) 999-99-99'}
-        rules={{
-          required: 'Это поле обязательно',
-          pattern: {
-            value: /(\+7|8)[- _]*\(?[- _]*(\d{3}[- _]*\)?([- _]*\d){7}|\d\d[- _]*\d\d[- _]*\)?([- _]*\d){6})/g,
-            message: 'Заполните поле до конца',
-          },
-        }}
+        rules={phoneValidationScheme}
         style={{ marginTop: '22px' }}
       />
       <FormInput
@@ -173,13 +150,7 @@ export const RegistrationForm: React.FC<RegistrationT> = () => {
         label="Пароль"
         type={isPasswordShow ? 'text' : 'password'}
         control={control}
-        rules={{
-          required: 'Это поле обязательно',
-          pattern: {
-            value: /^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/,
-            message: 'min 8 символов, min 1 цифра и 1 загл. буква',
-          },
-        }}
+        rules={passwordValidationScheme}
         rightAddon={showOrHidddenIcon()}
         style={{ marginTop: '22px' }}
       />
@@ -190,7 +161,7 @@ export const RegistrationForm: React.FC<RegistrationT> = () => {
         control={control}
         rules={{
           validate: validatePasswordMatch,
-          required: 'Это поле обязательно',
+          ...baseValidationRules,
         }}
         rightAddon={showOrHidddenIcon()}
         style={{ marginTop: '22px' }}

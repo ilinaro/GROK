@@ -6,15 +6,13 @@ import { AvatarInput } from '../avatar-input/avatar-input';
 import { Button, PenSVG } from '@components/design-system';
 import { Button as ProfileButton } from '../button';
 import { useAppSelector } from '@store/hooks';
-import {
-  EMAIL_REGEX,
-  INCORRECT_FIELD,
-  LOGIN_REGEX,
-  NAME_REGEX,
-  PHONE_REGEX,
-  REQUIRED,
-} from 'fuature/profile/constants';
 import { updateUserData } from '@store/thunks/change-user-data';
+import {
+  emailValidationScheme,
+  loginValidationScheme,
+  nameValidationScheme,
+  phoneValidationScheme,
+} from 'fuature/profile/validation';
 
 export interface IUpdateUser {
   first_name: string;
@@ -87,34 +85,14 @@ export const ProfileForm: React.FC = () => {
           name="login"
           label="Логин"
           disabled={!isEdit}
-          rules={{
-            required: REQUIRED,
-            minLength: {
-              value: 3,
-              message: 'Минимум 3 символа',
-            },
-            maxLength: {
-              value: 20,
-              message: 'Максимум 20 символов',
-            },
-            pattern: {
-              value: LOGIN_REGEX,
-              message: INCORRECT_FIELD,
-            },
-          }}
+          rules={loginValidationScheme}
         />
         <Input
           type="text"
           placeholder="Имя"
           control={control}
           name="first_name"
-          rules={{
-            required: REQUIRED,
-            pattern: {
-              value: NAME_REGEX,
-              message: INCORRECT_FIELD,
-            },
-          }}
+          rules={nameValidationScheme}
           label="Имя"
           disabled={!isEdit}
         />
@@ -125,21 +103,7 @@ export const ProfileForm: React.FC = () => {
           name="second_name"
           label="Фамилия"
           disabled={!isEdit}
-          rules={{
-            required: REQUIRED,
-            minLength: {
-              value: 3,
-              message: 'Минимум 3 символа',
-            },
-            maxLength: {
-              value: 20,
-              message: 'Максимум 20 символов',
-            },
-            pattern: {
-              value: NAME_REGEX,
-              message: INCORRECT_FIELD,
-            },
-          }}
+          rules={nameValidationScheme}
         />
         <Input
           type="email"
@@ -147,13 +111,7 @@ export const ProfileForm: React.FC = () => {
           control={control}
           name="email"
           label="Почта"
-          rules={{
-            required: REQUIRED,
-            pattern: {
-              value: EMAIL_REGEX,
-              message: 'Хмм, это не выглядит как электронная почта',
-            },
-          }}
+          rules={emailValidationScheme}
           disabled={!isEdit}
         />
         <Input
@@ -162,17 +120,7 @@ export const ProfileForm: React.FC = () => {
           control={control}
           name="phone"
           label="Телефон"
-          rules={{
-            required: REQUIRED,
-            minLength: {
-              value: 10,
-              message: 'Не хватает цифр в телефоне',
-            },
-            pattern: {
-              value: PHONE_REGEX,
-              message: 'Номер может начинаться с 7 +7 или 8',
-            },
-          }}
+          rules={phoneValidationScheme}
           disabled={!isEdit}
         />
       </fieldset>

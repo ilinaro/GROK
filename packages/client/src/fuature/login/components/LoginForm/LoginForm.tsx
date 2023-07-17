@@ -11,6 +11,7 @@ import { ShowPassSVG } from '@components/design-system/SVG/ShowPassSVG';
 import { AuthForm } from '../AuthForm';
 import { FormError } from '@components/specific/FormError';
 import { REQUIRED } from 'fuature/profile/constants';
+import { baseValidationRules } from 'fuature/profile/validation';
 
 type LoginT = {};
 
@@ -85,9 +86,7 @@ export const LoginForm: React.FC<LoginT> = () => {
         name="login"
         label="Введите логин"
         control={control}
-        rules={{
-          required: REQUIRED,
-        }}
+        rules={baseValidationRules}
         style={{ marginTop: '22px' }}
       />
       <FormInput
@@ -95,9 +94,7 @@ export const LoginForm: React.FC<LoginT> = () => {
         label="Введите пароль"
         type={isPasswordShow ? 'text' : 'password'}
         control={control}
-        rules={{
-          required: REQUIRED,
-        }}
+        rules={baseValidationRules}
         rightAddon={showOrHidenIcon()}
         style={{ marginTop: '22px' }}
       />
