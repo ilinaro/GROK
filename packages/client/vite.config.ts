@@ -18,7 +18,18 @@ export default defineConfig({
     react({
       jsxRuntime: 'classic', // Add this line
     }),
-    viteTsconfigPaths(),
     VitePWA({ registerType: 'autoUpdate' }),
+    viteTsconfigPaths(),
   ],
+  build: {
+    rollupOptions: {
+      input: {
+        app: './index.html',
+        'service-worker': './src/utils/sw/sw.ts',
+      },
+      output: {
+        entryFileNames: (asset) => (asset.name === 'service-worker' ? '[name].js' : 'assets/[name].[hash].js'),
+      },
+    },
+  },
 });

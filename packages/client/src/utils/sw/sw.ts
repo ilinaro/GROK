@@ -42,8 +42,6 @@ const assetUrls = [
 ];
 
 sw.addEventListener('install', (event) => {
-  console.log('install', event);
-
   event.waitUntil(addResourcesToCache(assetUrls));
 });
 
@@ -69,10 +67,11 @@ sw.addEventListener('fetch', (event) => {
 
   if (url.origin === location.origin) {
     event.respondWith(cacheFirst(request));
-  } else {
-    // @ts-expect-error - response might be undefined
-    event.respondWith(networkFirst(request));
+    return;
   }
+
+  // @ts-expect-error - response might be undefined
+  event.respondWith(networkFirst(request));
 });
 
 async function addResourcesToCache(resources: string[]) {

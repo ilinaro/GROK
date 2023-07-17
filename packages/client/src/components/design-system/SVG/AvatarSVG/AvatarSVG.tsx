@@ -3,7 +3,7 @@ import { SVGType } from '@typings/SVG';
 import { useGetCSSVars } from '@lib/useGetCSSVars';
 
 export const AvatarSVG: React.FC<SVGType> = ({ width, color }) => {
-  const currentColor = useGetCSSVars('color', color);
+  const currentColor = useGetCSSVars('color', color || '');
   return (
     <>
       <svg width={width} height={width} viewBox="0 0 64 65" fill="none" xmlns="http://www.w3.org/2000/svg">
