@@ -17,7 +17,7 @@ export class SceneCanvas {
 
     resizeCanvas();
     const player = new Player(context, ball, canvasWidth, canvasHeight);
-    const events = new Events(player)
+    const events = new Events(player);
     const animate = () => {
       console.log('animationId', this.animationId);
       if (!context) return;
@@ -32,7 +32,7 @@ export class SceneCanvas {
       player.draw();
       player.update();
     };
-  
+
     animate();
 
     const cleanup = () => {

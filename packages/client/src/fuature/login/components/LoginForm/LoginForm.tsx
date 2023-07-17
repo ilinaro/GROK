@@ -10,9 +10,8 @@ import { HidePassSVG } from '@components/design-system/SVG/HidePassSVG';
 import { ShowPassSVG } from '@components/design-system/SVG/ShowPassSVG';
 import { AuthForm } from '../AuthForm';
 import { FormError } from '@components/specific/FormError';
-import { useMutation, useQueryClient } from 'react-query';
-import authService from '@services/auth.service';
-import { AxiosError } from 'axios';
+import { REQUIRED } from 'fuature/profile/constants';
+import { baseValidationRules } from 'fuature/profile/validation';
 
 type LoginT = {};
 
@@ -87,10 +86,7 @@ export const LoginForm: React.FC<LoginT> = () => {
         name="login"
         label="Введите логин"
         control={control}
-        rules={{
-          required: 'Это поле обязательно',
-          minLength: 3,
-        }}
+        rules={baseValidationRules}
         style={{ marginTop: '22px' }}
       />
       <FormInput
@@ -98,10 +94,7 @@ export const LoginForm: React.FC<LoginT> = () => {
         label="Введите пароль"
         type={isPasswordShow ? 'text' : 'password'}
         control={control}
-        rules={{
-          required: 'Это поле обязательно',
-          minLength: 3,
-        }}
+        rules={baseValidationRules}
         rightAddon={showOrHidenIcon()}
         style={{ marginTop: '22px' }}
       />

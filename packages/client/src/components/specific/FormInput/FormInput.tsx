@@ -33,7 +33,6 @@ export const FormInput: React.FC<FormInputProps> = ({
     control,
     rules: rules,
   });
-
   return (
     <label className={styles.formInput} {...props}>
       <div className={styles.inputContainer}>
