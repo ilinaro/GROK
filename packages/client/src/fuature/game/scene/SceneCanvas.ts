@@ -1,5 +1,6 @@
 import Events from './Events';
 import Player from './Player';
+import { mapBlocks } from './../data/map';
 
 export class SceneCanvas {
   private animationId = 0;
@@ -16,12 +17,12 @@ export class SceneCanvas {
     };
 
     resizeCanvas();
-    const player = new Player(context, ball, canvasWidth, canvasHeight);
+    const player = new Player(context, mapBlocks, ball, canvasWidth, canvasHeight);
     const events = new Events(player);
     const animate = () => {
-      console.log('animationId', this.animationId);
       if (!context) return;
       this.animationId = window.requestAnimationFrame(animate);
+
       context.clearRect(0, 0, canvasWidth, canvasHeight);
       player.velocity.x = 0;
       if (events.keys.d.pressed) {
@@ -29,6 +30,10 @@ export class SceneCanvas {
       } else if (events.keys.a.pressed) {
         player.velocity.x = -6;
       }
+
+      mapBlocks.forEach((mapBlock) => {
+        mapBlock.draw(context); // Передаем контекст в метод draw
+      });
       player.draw();
       player.update();
     };

@@ -1,3 +1,4 @@
+import { Buttons } from '../interface';
 import Player from './Player';
 
 class Events {
@@ -28,44 +29,53 @@ class Events {
   keyupHandler = (event: KeyboardEvent) => {
     // console.log('keyupHandler', event);
     switch (event.key) {
+      case Buttons.W:
+        this.keys.w.pressed = false;
+        break;
+      case Buttons.ARROW_UP:
+        this.keys.w.pressed = false;
+        break;
       // left
-      case 'a':
+      case Buttons.A:
         this.keys.a.pressed = false;
         break;
-      case 'ArrowLeft':
+      case Buttons.ARROW_LEFT:
         this.keys.a.pressed = false;
         break;
       // right
-      case 'd':
+      case Buttons.D:
         this.keys.d.pressed = false;
         break;
-      case 'ArrowRight':
+      case Buttons.ARROW_RIGHT:
         this.keys.d.pressed = false;
         break;
     }
   };
-
   keydownHandler = (event: KeyboardEvent) => {
     // console.log('keydownHandler', event);
     switch (event.key) {
       // up
-      case ' ':
-      case 'w':
-      case 'ArrowUp':
-        if (this.player.velocity.y === 0) this.player.velocity.y = -20;
+      case Buttons.SPACE:
+      case Buttons.W:
+      case Buttons.ARROW_UP:
+        if (this.player.velocity.y === 0 || Math.abs(this.player.velocity.y) < 2) {
+          this.player.velocity.y = -20;
+        }
+        this.keys.w.pressed = true;
         break;
       // left
-      case 'a':
-      case 'ArrowLeft':
+      case Buttons.A:
+      case Buttons.ARROW_LEFT:
         this.keys.a.pressed = true;
         break;
       // right
-      case 'd':
-      case 'ArrowRight':
+      case Buttons.D:
+      case Buttons.ARROW_RIGHT:
         this.keys.d.pressed = true;
         break;
     }
   };
+  
 }
 
 export default Events;

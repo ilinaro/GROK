@@ -9,3 +9,13 @@ export enum Color {
   BLACK = '#192233',
   BLACK_LIGHT = '#212c42',
 }
+
+export enum Buttons {
+  ARROW_UP = 'ArrowUp',
+  ARROW_LEFT = 'ArrowLeft',
+  ARROW_RIGHT = 'ArrowRight',
+  SPACE = ' ',
+  W = 'w',
+  A = 'a',
+  D = 'd',
+}
