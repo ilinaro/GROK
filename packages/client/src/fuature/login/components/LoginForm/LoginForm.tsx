@@ -1,17 +1,21 @@
+import { useEffect, useRef, useState } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
+
+import { AuthForm } from '../AuthForm';
+import { AxiosError } from 'axios';
 import { BodyNormal } from '@components/design-system/Fonts';
 import { Button } from '@components/design-system';
-import { Link } from 'react-router-dom';
-import styles from './LoginForm.module.scss';
-import { FormInput } from '@components/specific/FormInput/FormInput';
-import { useForm } from 'react-hook-form';
-import { RouteNames } from '@routes/routeNames';
-import { useState, useRef, useEffect } from 'react';
-import { HidePassSVG } from '@components/design-system/SVG/HidePassSVG';
-import { ShowPassSVG } from '@components/design-system/SVG/ShowPassSVG';
-import { AuthForm } from '../AuthForm';
-import { useAppDispatch, useAppSelector } from '@store/hooks';
-import { clearUserErrors, login } from '@store/thunks/user';
 import { FormError } from '@components/specific/FormError';
+import { FormInput } from '@components/specific/FormInput/FormInput';
+import { HidePassSVG } from '@components/design-system/SVG/HidePassSVG';
+import { Link } from 'react-router-dom';
+import { REQUIRED } from 'fuature/profile/constants';
+import { RouteNames } from '@routes/routeNames';
+import { ShowPassSVG } from '@components/design-system/SVG/ShowPassSVG';
+import authService from '@services/auth.service';
+import { baseValidationRules } from 'fuature/profile/validation';
+import styles from './LoginForm.module.scss';
+import { useForm } from 'react-hook-form';
 
 type LoginT = {};
 
@@ -25,8 +29,19 @@ export interface LoginFormT {
 }
 
 export const LoginForm: React.FC<LoginT> = () => {
-  const dispatch = useAppDispatch();
-  const { loading, error } = useAppSelector((store) => store.user);
+  const queryClient = useQueryClient();
+
+  const { mutate, isLoading, isError, error } = useMutation<void, AxiosError, LoginFormT>(
+    async (data: LoginFormT) => {
+      await authService.signin(data);
+    },
+    {
+      onSuccess: () => {
+        queryClient.refetchQueries(['user']);
+      },
+    }
+  );
+
   const [isPasswordShow, setIsPasswordShow] = useState(false);
 
   const {
@@ -56,13 +71,8 @@ export const LoginForm: React.FC<LoginT> = () => {
     }
   };
 
-  // чистим ошибки, чтобы скрыть компонент с ошибками
-  useEffect(() => {
-    return () => dispatch(clearUserErrors());
-  }, []);
-
   const onSubmit = (data: LoginFormT) => {
-    dispatch(login(data));
+    mutate(data);
   };
 
   const footer = () => {
@@ -75,15 +85,12 @@ export const LoginForm: React.FC<LoginT> = () => {
 
   return (
     <AuthForm title="Вход" onSubmit={handleSubmit(onSubmit)} footer={footer()} className={styles.containerLogin}>
-      {!!error && <FormError view={'error'} description={error} />}
+      {!!isError && <FormError view={'error'} description={error.response?.data!.reason} />}
       <FormInput
         name="login"
         label="Введите логин"
         control={control}
-        rules={{
-          required: 'Это поле обязательно',
-          minLength: 3,
-        }}
+        rules={baseValidationRules}
         style={{ marginTop: '22px' }}
       />
       <FormInput
@@ -91,14 +98,11 @@ export const LoginForm: React.FC<LoginT> = () => {
         label="Введите пароль"
         type={isPasswordShow ? 'text' : 'password'}
         control={control}
-        rules={{
-          required: 'Это поле обязательно',
-          minLength: 3,
-        }}
+        rules={baseValidationRules}
         rightAddon={showOrHidenIcon()}
         style={{ marginTop: '22px' }}
       />
-      <Button color={'pink'} style={{ marginTop: '22px' }} type={'submit'} loading={loading}>
+      <Button color={'pink'} style={{ marginTop: '22px' }} type={'submit'} loading={isLoading}>
         <BodyNormal weight={'normal'}>Войти</BodyNormal>
       </Button>
     </AuthForm>

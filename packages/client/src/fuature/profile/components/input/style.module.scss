@@ -35,8 +35,9 @@
 				border: 1px solid var(--color-pink);
 			}
 
-			&:focus ~ .placeholder,
-			&:not(:placeholder-shown) ~ .placeholder {
+
+			&:focus~.placeholder,
+			&:not(:placeholder-shown)~.placeholder {
 				transform: translateY(-25px) translateX(5px) scale(0.8);
 			}
 		}

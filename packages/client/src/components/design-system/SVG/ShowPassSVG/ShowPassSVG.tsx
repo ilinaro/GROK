@@ -2,7 +2,7 @@ import { SVGType } from '@typings/SVG';
 import { useGetCSSVars } from '@lib/useGetCSSVars';
 
 type Show = {
-  onClick?: (event: any) => void;
+  onClick?: (event: React.MouseEvent) => void;
 } & SVGType;
 
 export const ShowPassSVG: React.FC<Show> = ({ color = 'white-darken', onClick }) => {

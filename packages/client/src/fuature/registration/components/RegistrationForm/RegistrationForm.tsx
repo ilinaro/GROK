@@ -3,16 +3,25 @@ import { BodyNormal } from '@components/design-system/Fonts';
 import { Button } from '@components/design-system';
 import { Link } from 'react-router-dom';
 import { FormInput } from '@components/specific/FormInput/FormInput';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import styles from './RegistrationForm.module.scss';
 import { RouteNames } from '@routes/routeNames';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { HidePassSVG } from '@components/design-system/SVG/HidePassSVG';
 import { ShowPassSVG } from '@components/design-system/SVG/ShowPassSVG';
 import { AuthForm } from 'fuature/login/components/AuthForm';
-import { useAppDispatch, useAppSelector } from '@store/hooks';
-import { clearUserErrors, signup } from '@store/thunks/user';
-import { Spinner } from '@components/specific/Spinner/Spinner';
+import { useMutation, useQueryClient } from 'react-query';
+import { AxiosError } from 'axios';
+import authService from '@services/auth.service';
+import { FormError } from '@components/specific/FormError';
+import {
+  baseValidationRules,
+  emailValidationScheme,
+  loginValidationScheme,
+  nameValidationScheme,
+  passwordValidationScheme,
+  phoneValidationScheme,
+} from 'fuature/profile/validation';
 
 type RegistrationT = {};
 
@@ -26,9 +35,21 @@ export interface RegistrationFormT {
 }
 
 export const RegistrationForm: React.FC<RegistrationT> = () => {
-  const dispatch = useAppDispatch();
-  const { loading, error } = useAppSelector((store) => store.user);
+  const queryClient = useQueryClient();
+
   const [isPasswordShow, setIsPasswordShow] = useState(false);
+
+  const { mutate, isLoading, isError, error } = useMutation<void, AxiosError, RegistrationFormT>(
+    async (data) => {
+      await authService.signup(data);
+    },
+    {
+      onSuccess: () => {
+        queryClient.refetchQueries(['user']);
+      },
+    }
+  );
+
   const {
     control,
     handleSubmit,
@@ -67,13 +88,8 @@ export const RegistrationForm: React.FC<RegistrationT> = () => {
     return value === password || 'Пароли не совпадают';
   };
 
-  // чистим ошибки, чтобы скрыть компонент с ошибками
-  useEffect(() => {
-    return () => dispatch(clearUserErrors());
-  }, []);
-
   const onSubmit = (data: RegistrationFormT) => {
-    dispatch(signup(data));
+    mutate(data);
   };
 
   const footer = () => {
@@ -91,57 +107,33 @@ export const RegistrationForm: React.FC<RegistrationT> = () => {
       footer={footer()}
       className={styles.containerRegistration}
     >
+      {!!isError && <FormError view={'error'} description={error.response?.data!.reason} />}
       <FormInput
         name="first_name"
         label="Имя"
         control={control}
-        rules={{
-          required: 'Это поле обязательно',
-          pattern: {
-            value: /^([А-Я]{1}[а-яё]{1,23}|[A-Z]{1}[a-z]{1,23})$/gm,
-            message: 'Некорректное имя',
-          },
-        }}
+        rules={nameValidationScheme}
         style={{ marginTop: '22px' }}
       />
       <FormInput
         name="second_name"
         label="Фамилия"
         control={control}
-        rules={{
-          required: 'Это поле обязательно',
-          pattern: {
-            value: /^([А-Я]{1}[а-яё]{1,23}|[A-Z]{1}[a-z]{1,23})$/gim,
-            message: 'Некорректная фамилия',
-          },
-        }}
+        rules={nameValidationScheme}
         style={{ marginTop: '22px' }}
       />
       <FormInput
         name="login"
         label="Логин"
         control={control}
-        rules={{
-          required: 'Это поле обязательно',
-          minLength: 3,
-          pattern: {
-            value: /^[a-zA-Z0-9]+$/,
-            message: 'Только латинские буквы и цифры',
-          },
-        }}
+        rules={loginValidationScheme}
         style={{ marginTop: '22px' }}
       />
       <FormInput
         name="email"
         label="Электронная почта"
         control={control}
-        rules={{
-          required: 'Это поле обязательно',
-          pattern: {
-            value: /\S+@\S+\.\S+/,
-            message: 'Некорректный адрес электронной почты',
-          },
-        }}
+        rules={emailValidationScheme}
         style={{ marginTop: '22px' }}
       />
       <FormInput
@@ -150,13 +142,7 @@ export const RegistrationForm: React.FC<RegistrationT> = () => {
         control={control}
         type={'tel'}
         mask={'+7 (999) 999-99-99'}
-        rules={{
-          required: 'Это поле обязательно',
-          pattern: {
-            value: /(\+7|8)[- _]*\(?[- _]*(\d{3}[- _]*\)?([- _]*\d){7}|\d\d[- _]*\d\d[- _]*\)?([- _]*\d){6})/g,
-            message: 'Заполните поле до конца',
-          },
-        }}
+        rules={phoneValidationScheme}
         style={{ marginTop: '22px' }}
       />
       <FormInput
@@ -164,13 +150,7 @@ export const RegistrationForm: React.FC<RegistrationT> = () => {
         label="Пароль"
         type={isPasswordShow ? 'text' : 'password'}
         control={control}
-        rules={{
-          required: 'Это поле обязательно',
-          pattern: {
-            value: /^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/,
-            message: 'min 8 символов, min 1 цифра и 1 загл. буква',
-          },
-        }}
+        rules={passwordValidationScheme}
         rightAddon={showOrHidddenIcon()}
         style={{ marginTop: '22px' }}
       />
@@ -181,12 +161,12 @@ export const RegistrationForm: React.FC<RegistrationT> = () => {
         control={control}
         rules={{
           validate: validatePasswordMatch,
-          required: 'Это поле обязательно',
+          ...baseValidationRules,
         }}
         rightAddon={showOrHidddenIcon()}
         style={{ marginTop: '22px' }}
       />
-      <Button color={'pink'} style={{ marginTop: '22px' }} type={'submit'} loading={loading}>
+      <Button color={'pink'} style={{ marginTop: '22px' }} type={'submit'} loading={isLoading}>
         <BodyNormal weight={'normal'}>Зарегистрироваться</BodyNormal>
       </Button>
     </AuthForm>

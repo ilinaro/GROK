@@ -1,9 +1,9 @@
+import React from 'react';
 import { SVGType } from '@typings/SVG';
 import { useGetCSSVars } from '@lib/useGetCSSVars';
-import { MouseEventHandler } from 'react';
 
 type Hide = {
-  onClick?: (event: any) => void;
+  onClick?: (event: React.MouseEvent) => void;
 } & SVGType;
 
 export const HidePassSVG: React.FC<Hide> = ({ color = 'white-darken', onClick }) => {

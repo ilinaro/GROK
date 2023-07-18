@@ -1,10 +1,9 @@
 import React, { ReactNode } from 'react';
-
 import styles from './style.module.scss';
 
 interface IButtonProps {
   children: ReactNode;
-  onClick: () => void;
+  onClick(e?: React.MouseEvent): void;
 }
 
 export const Button: React.FC<IButtonProps> = ({ children, onClick }) => {
