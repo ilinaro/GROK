@@ -1,27 +1,17 @@
-import { BodyNormal, Title } from '@components/design-system/Fonts';
 import { Button } from '@components/design-system';
-import { Link } from 'react-router-dom';
+import { Title } from '@components/design-system/Fonts';
 import styles from './Profile.module.scss';
-import { FormInput } from '@components/specific/FormInput/FormInput';
-import { useForm } from 'react-hook-form';
-import { ProfileForm } from './components/profile-form/profile-form';
-import { ReactNode, useState } from 'react';
-import { ChangePasswordForm } from './components/change-password-form';
+import { useState } from 'react';
 
 type ProfileT = {};
 
 export const Profile: React.FC<ProfileT> = () => {
   const [mode, setMode] = useState('profile');
 
-  const modes: Record<string, ReactNode> = {
-    profile: <ProfileForm />,
-    changePassword: <ChangePasswordForm setMode={setMode} />,
-  };
 
   return (
     <div className={styles.Wrapper}>
       <Title weight={'bold'}>Профиль</Title>
-      {modes[mode]}
       {mode !== 'changePassword' && (
         <Button color={'blue'} onClick={() => setMode('changePassword')}>
           Сменить пароль

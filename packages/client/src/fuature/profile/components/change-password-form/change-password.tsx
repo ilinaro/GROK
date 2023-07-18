@@ -1,33 +1,34 @@
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import styles from './styles.module.scss';
+
 import { Button } from '@components/design-system';
 import { FormInput } from '@components/specific/FormInput/FormInput';
 import { HidePassSVG } from '@components/design-system/SVG/HidePassSVG';
-import { ShowPassSVG } from '@components/design-system/SVG/ShowPassSVG';
 import { PASSWORD_REGEX } from 'fuature/profile/constants';
+import { ShowPassSVG } from '@components/design-system/SVG/ShowPassSVG';
 import { changePassword } from '@store/thunks/change-user-data';
+import styles from './styles.module.scss';
+import { useForm } from 'react-hook-form';
 interface IChangePasswordForm {
   setMode(value: string): void;
 }
 
 interface IShowPass {
   [key: string]: boolean;
-  old_password: boolean;
-  new_password: boolean;
+  oldPassword: boolean;
+  newPassword: boolean;
   confirmPassword: boolean;
 }
 
 export const ChangePasswordForm: React.FC<IChangePasswordForm> = ({ setMode }) => {
   const [isPasswordShow, setIsPasswordShow] = useState<IShowPass>({
-    old_password: false,
-    new_password: false,
+    oldPassword: false,
+    newPassword: false,
     confirmPassword: false,
   });
   const { control, watch, handleSubmit, formState } = useForm<any>({
     defaultValues: {
-      old_password: '',
-      new_password: '',
+      oldPassword: '',
+      newPassword: '',
       confirmPassword: '',
     },
   });
