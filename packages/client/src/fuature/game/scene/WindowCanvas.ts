@@ -9,6 +9,7 @@ export const WindowCanvas = () => {
   useEffect(() => {
     const canvas = canvasRef.current;
     const ball = new Image();
+
     ball.src = ballImage;
 
     const sceneCanvas = new SceneCanvas();
