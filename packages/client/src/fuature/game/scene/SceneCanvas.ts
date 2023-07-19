@@ -24,6 +24,7 @@ export class SceneCanvas {
       this.animationId = window.requestAnimationFrame(animate);
 
       context.clearRect(0, 0, canvasWidth, canvasHeight);
+
       player.velocity.x = 0;
       if (events.keys.d.pressed) {
         player.velocity.x = 6;

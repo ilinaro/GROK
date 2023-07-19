@@ -55,17 +55,6 @@ class Player {
   draw() {
     if (this.context) {
       this.context.globalCompositeOperation = 'destination-out';
-      this.context.beginPath();
-      this.context.arc(
-        this.position.x + this.width / 2,
-        this.position.y + this.height / 2,
-        this.width / 2,
-        0,
-        2 * Math.PI,
-        false
-      );
-      this.context.fill();
-      this.context.closePath();
 
       this.context.globalCompositeOperation = 'source-over';
       this.context.drawImage(this.ball, this.position.x, this.position.y);
