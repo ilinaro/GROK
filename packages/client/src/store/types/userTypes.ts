@@ -8,6 +8,7 @@ import {
 } from '@store/constants/user';
 
 export interface User {
+  [key: string]: string | number;
   id: number;
   first_name: string;
   second_name: string;
@@ -53,3 +54,8 @@ export type UserActionsTypes =
   | SetUserErrorACType
   | ClearUserErrorsACType
   | DeleteUserACType;
+
+export interface IChangePasswordRequest {
+  oldPassword: string;
+  newPassword: string;
+}

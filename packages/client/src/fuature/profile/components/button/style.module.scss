@@ -1,0 +1,14 @@
+.EditButton {
+    background-color: transparent;
+    outline: 0;
+    display: flex;
+    color: var(--color-white);
+    align-items: center;
+    box-shadow: unset;
+    border: unset;
+    & > * {
+        margin: 0 5px;
+    };
+    width: 120px;
+    
+}

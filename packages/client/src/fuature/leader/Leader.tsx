@@ -13,7 +13,13 @@ export const Leader: React.FC<LeaderT> = () => (
       const currentPlace = index + 1;
 
       return (
-        <BlockLeader avatar={leader.avatar} username={leader.username} points={leader.points} place={currentPlace} />
+        <BlockLeader
+          key={index}
+          avatar={leader.avatar}
+          username={leader.username}
+          points={leader.points}
+          place={currentPlace}
+        />
       );
     })}
   </div>

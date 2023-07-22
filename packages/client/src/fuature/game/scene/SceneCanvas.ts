@@ -1,50 +1,57 @@
-import { useEffect, useRef } from 'react';
+import Events from './Events';
+import Player from './Player';
+import { mapBlocks } from './../data/map';
 
-import ballImage from '../source/ball.png';
-import { drawBall } from '../figure';
-
-export const useSceneCanvas = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const context = canvas?.getContext('2d');
+export class SceneCanvas {
+  private animationId = 0;
+  init(canvas: HTMLCanvasElement | null, ball: HTMLImageElement) {
+    if (!canvas) return;
+    const context = canvas.getContext('2d');
+    const canvasWidth = canvas.width || 0;
+    const canvasHeight = canvas.height || 0;
 
     const resizeCanvas = () => {
-      if (canvas) {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        document.body.style.overflow = 'hidden';
-      }
-    };
-
-    const ball = new Image();
-    ball.src = ballImage;
-
-    const draw = () => {
-      if (context) {
-        const canvasWidth = canvas?.width || 0;
-        const canvasHeight = canvas?.height || 0;
-
-        drawBall({ ball, context, canvasWidth, canvasHeight });
-      }
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      document.body.style.overflow = 'hidden';
     };
 
     resizeCanvas();
-    ball.onload = draw;
+    const player = new Player(context, mapBlocks, ball, canvasWidth, canvasHeight);
+    const events = new Events(player);
+    const animate = () => {
+      if (!context) return;
+      this.animationId = window.requestAnimationFrame(animate);
 
-    window.addEventListener('resize', () => {
-      resizeCanvas();
-      draw();
-    });
+      context.clearRect(0, 0, canvasWidth, canvasHeight);
 
-    return () => {
-      window.removeEventListener('resize', () => {
-        resizeCanvas();
-        draw();
+      player.velocity.x = 0;
+      if (events.keys.d.pressed) {
+        player.velocity.x = 6;
+      } else if (events.keys.a.pressed) {
+        player.velocity.x = -6;
+      }
+
+      mapBlocks.forEach((mapBlock) => {
+        mapBlock.draw(context); // Передаем контекст в метод draw
       });
+      player.draw();
+      player.update();
     };
-  }, []);
 
-  return canvasRef;
-};
+    animate();
+
+    const cleanup = () => {
+      window.removeEventListener('resize', resizeCanvas);
+      window.removeEventListener('keydown', events.keydownHandler);
+      window.removeEventListener('keyup', events.keyupHandler);
+      window.cancelAnimationFrame(this.animationId);
+    };
+
+    window.addEventListener('keydown', events.keydownHandler);
+    window.addEventListener('keyup', events.keyupHandler);
+    window.addEventListener('resize', resizeCanvas);
+
+    return cleanup;
+  }
+}
