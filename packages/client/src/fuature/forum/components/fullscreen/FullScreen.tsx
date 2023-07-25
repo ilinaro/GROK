@@ -3,7 +3,7 @@ import styles from './FullScreen.module.scss'
 import classNames from 'classnames'
 
 export const FullScreen: React.FC = () => {
-  const [isFullscreeen, setFullscreen] = useState(false)
+  const [isFullScreen, setFullscreen] = useState(false)
 
   async function eventHandler(event: React.MouseEvent<HTMLDivElement | HTMLButtonElement>) {
     if (document.fullscreenElement) {
@@ -24,7 +24,7 @@ export const FullScreen: React.FC = () => {
   }
   return (
     <button className={classNames(styles.iconFullScreen, {
-      [styles.fullScreenActive]: isFullscreeen
+      [styles.fullScreenActive]: isFullScreen
     })} type='submit' id='toggler' onClick={(e) => eventHandler(e)}></button>
   )
 }

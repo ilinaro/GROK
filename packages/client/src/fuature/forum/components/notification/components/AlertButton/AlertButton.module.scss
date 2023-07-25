@@ -1,0 +1,25 @@
+.Alert__button {
+  background: #249ca9;
+  color: white;
+  border-radius: 9px;
+  grid-area: btn_success;
+  line-height: 1.2px;
+  height: 30px;
+  padding: 7px;
+  font-size: 12px;
+  border: none;
+  margin-right: 3px;
+  cursor: pointer;
+}
+.btn__action_no {
+  background: #97a4b9;
+  color: #0a0a0a;
+  grid-area: btn_error;
+  line-height: 1.2px;
+  height: 30px;
+  padding: 7px;
+  font-size: 12px;
+  border: none;
+  margin-right: 3px;
+  cursor: pointer;
+}
