@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { RegisterOptions, useController } from 'react-hook-form';
+import { Control, FieldValues, RegisterOptions, useController } from 'react-hook-form';
 import styles from './style.module.scss';
 import { BodyNormal } from '@components/design-system/Fonts';
 import clsx from 'clsx';
@@ -8,7 +8,7 @@ type InputProps = {
   name: string;
   label: string;
   type?: string;
-  control: any;
+  control: Control<FieldValues>;
   rules?: RegisterOptions;
   rightAddon?: ReactNode;
   disabled: boolean;
@@ -22,6 +22,7 @@ export const Input: React.FC<InputProps> = ({
   rules,
   rightAddon,
   disabled,
+  placeholder,
   ...props
 }) => {
   const {
@@ -41,7 +42,7 @@ export const Input: React.FC<InputProps> = ({
           ref={ref}
           type={type}
           className={clsx(styles.input, { [styles.EditMode]: !disabled })}
-          placeholder=" "
+          placeholder={placeholder}
           {...inputProps}
         />
         <span className={styles.placeholder}>{label}</span>

@@ -16,29 +16,47 @@ import { RouteNames } from './routeNames';
 import { StartPage } from '@pages/start';
 import { Navigate, createBrowserRouter } from 'react-router-dom';
 import { ReactElement } from 'react';
-import { useAppSelector } from '@store/hooks';
+import { useAppDispatch } from '@store/hooks';
+import { useQuery } from 'react-query';
+import userService from '@services/user.service';
+import { setUserAC } from '@store/actions/userAction';
 
 type PrivateRouteProps = {
   children: ReactElement;
-  pathTo: string;
 };
 
-const PrivateRoute: React.FC<PrivateRouteProps> = ({ children, pathTo }) => {
-  const user = useAppSelector((store) => store.user);
+const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
+  const dispatch = useAppDispatch();
+  const {
+    data: user,
+    isLoading,
+    isError,
+    isSuccess,
+  } = useQuery(['user'], () => userService.getUser(), {
+    enabled: true,
+    onSuccess: (data) => {
+      dispatch(setUserAC(data));
+    },
+  });
+
   const previousPath = window.location.pathname;
-
   const authPath = ['/login', '/registration'];
-
   const isExcludePath: boolean = authPath.includes(previousPath);
 
-  return user && !isExcludePath ? children : <Navigate to={pathTo} />;
+  if (isSuccess && isExcludePath && !isLoading) {
+    return <Navigate to="/" />;
+  } else if (!isSuccess && !isExcludePath && !isLoading) {
+    return <Navigate to="/login" />;
+  } else {
+    return children;
+  }
 };
 
 export const Routers = createBrowserRouter([
   {
     path: RouteNames.START,
     element: (
-      <PrivateRoute pathTo={'/login'}>
+      <PrivateRoute>
         <ProfileLayout />
       </PrivateRoute>
     ),
@@ -93,7 +111,7 @@ export const Routers = createBrowserRouter([
   {
     path: RouteNames.LOGIN,
     element: (
-      <PrivateRoute pathTo={'/'}>
+      <PrivateRoute>
         <LoginPage />
       </PrivateRoute>
     ),
@@ -101,7 +119,7 @@ export const Routers = createBrowserRouter([
   {
     path: RouteNames.REGISTRATION,
     element: (
-      <PrivateRoute pathTo={'/'}>
+      <PrivateRoute>
         <RegistrationPage />
       </PrivateRoute>
     ),
@@ -109,7 +127,7 @@ export const Routers = createBrowserRouter([
   {
     path: RouteNames.GAME,
     element: (
-      <PrivateRoute pathTo={'/login'}>
+      <PrivateRoute>
         <GamePage />
       </PrivateRoute>
     ),

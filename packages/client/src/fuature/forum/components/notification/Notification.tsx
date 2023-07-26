@@ -9,7 +9,6 @@ import { AlertButton } from './components/AlertButton/AlertButton'
 
 type NotificationProviderT = {
   props?: React.ComponentProps<any>;
-  notificationText: string;
 }
 
 export const NotificationAPI: React.FC<NotificationProviderT> = () => {

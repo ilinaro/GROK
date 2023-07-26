@@ -2,13 +2,23 @@ import { NavLink } from 'react-router-dom';
 import styles from './Navigate.module.scss';
 import clsx from 'clsx';
 import { Button } from '@components/design-system';
-import { useAppDispatch } from '@store/hooks';
-import { logout } from '@store/thunks/user';
+import authService from '@services/auth.service';
+import { useMutation, useQueryClient } from 'react-query';
 
 type NavigateT = {};
 
 export const Navigate: React.FC<NavigateT> = () => {
-  const dispatch = useAppDispatch();
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation(
+    async () => {
+      await authService.logout();
+    },
+    {
+      onSuccess: () => {
+        queryClient.refetchQueries(['user']);
+      },
+    }
+  );
 
   return (
     <nav className={styles.Navigate}>
@@ -27,7 +37,9 @@ export const Navigate: React.FC<NavigateT> = () => {
       <NavLink className={({ isActive }) => clsx({ [styles.Active]: isActive }, styles.Forum)} to="/forum">
         Форум
       </NavLink>
-      <button onClick={() => dispatch(logout())}>Выйти</button>
+      <Button fullWidth={true} onClick={() => mutate()}>
+        Выйти
+      </Button>
     </nav>
   );
 };

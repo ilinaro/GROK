@@ -1,4 +1,4 @@
-import { Control, FieldValue, RegisterOptions, useController } from 'react-hook-form';
+import { Control, FieldValues, RegisterOptions, useController } from 'react-hook-form';
 import styles from './FormInput.module.scss';
 import { BodyNormal } from '@components/design-system/Fonts';
 import { ReactNode } from 'react';
@@ -9,7 +9,7 @@ type FormInputProps = {
   name: string;
   label: string;
   type?: 'text' | 'password' | 'tel';
-  control: any;
+  control: Control<FieldValues>;
   rules?: RegisterOptions;
   rightAddon?: ReactNode;
   mask?: string;
@@ -33,7 +33,6 @@ export const FormInput: React.FC<FormInputProps> = ({
     control,
     rules: rules,
   });
-
   return (
     <label className={styles.formInput} {...props}>
       <div className={styles.inputContainer}>

@@ -4,5 +4,8 @@
     margin-top: 33px;
     display: flex;
     flex-direction: column;
-    gap: 35px;
+    
+    & > * {
+        margin: 35px 0;
+    };
 }

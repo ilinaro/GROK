@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { AvatarSVG } from '@components/design-system';
-import { RegisterOptions, useController } from 'react-hook-form';
+import { Control, FieldValues, RegisterOptions, useController } from 'react-hook-form';
 import styles from './style.module.scss';
 import { setAvatar } from '@store/thunks/change-user-data';
 import { useAppDispatch } from '@store/hooks';
@@ -9,7 +9,7 @@ import { checkAuth } from '@store/thunks/user';
 interface IAvatarInput {
   name: string;
   rules: RegisterOptions;
-  control: any;
+  control: Control<FieldValues>;
 }
 
 export const AvatarInput: React.FC<IAvatarInput> = ({ name, control, rules }) => {
@@ -17,9 +17,9 @@ export const AvatarInput: React.FC<IAvatarInput> = ({ name, control, rules }) =>
     field: { ref, value, onChange, ...rest },
     fieldState,
   } = useController({
-    name: name,
+    name,
     control,
-    rules: rules,
+    rules,
   });
 
   const dispatch = useAppDispatch();
