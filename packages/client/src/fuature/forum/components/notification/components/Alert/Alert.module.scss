@@ -10,6 +10,7 @@
   grid-template-areas: 'icon box btn_success btn_error';
   grid-auto-columns: 45px 1fr 1fr;
 }
+
 .Alert__error {
   background: rgba(248, 2, 2, 0.33);
 }
