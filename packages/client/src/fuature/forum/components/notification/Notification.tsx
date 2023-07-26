@@ -14,7 +14,7 @@ type NotificationProviderT = {
 export const NotificationAPI: React.FC<NotificationProviderT> = () => {
   async function notify (notificationText = "test Notification") {
     if(!("Notification" in window)) {
-    alert("Browser does not support notify!")
+    alert("Браузер не поддерживает уведомления!")
   } else if (Notification.permission === "granted") {
     const notification = new Notification(notificationText);
   } else if(Notification.permission !== "denied") {
@@ -40,29 +40,26 @@ export const NotificationAPI: React.FC<NotificationProviderT> = () => {
    <Alert type="success">
      <AlertIcon type="success" />
      <Box>
-       <AlertTitle>Notification</AlertTitle>
-       <AlertDesc>Would do you like notification?</AlertDesc>
+       <AlertTitle>Уведомления</AlertTitle>
+       <AlertDesc>Включить уведомления?</AlertDesc>
      </Box>
      <div className={ styles.notification__button }>
-     <AlertButton type="success" onClick={ enableNotifyAndClose }>Sure!</AlertButton>
-     <AlertButton type="unsuccess" onClick={ disableNotifyAndClose }>No Thanks!</AlertButton>
+     <AlertButton type="success" onClick={ enableNotifyAndClose }>Конечно!</AlertButton>
+     <AlertButton type="unsuccess" onClick={ disableNotifyAndClose }>Нет, спасибо!</AlertButton>
      </div>
    </Alert>
     ) : (Notification.permission === "granted") ? (
-    <div className={ styles.notification__wrapper }>
-
-    </div>
+          <AlertButton type="success" onClick={ () => notify("Уведомления успешно подключены!") }>Нажми, чтобы увидеть!</AlertButton>
   ) :
     <>
       <Alert type="unsuccess">
         <AlertIcon type="unsuccess"/>
         <Box>
-          <AlertTitle>Notification is disabled</AlertTitle>
-
+          <AlertTitle>Уведомления выключены!</AlertTitle>
         </Box>
         <div className={ styles.notification__button }>
-          <AlertButton type="success" onClick={ enableNotifyAndClose }>Sure!</AlertButton>
-          <AlertButton type="unsuccess" onClick={ disableNotifyAndClose }>No Thanks!</AlertButton>
+          <AlertButton type="success" onClick={ enableNotifyAndClose }>Конечно!</AlertButton>
+          <AlertButton type="unsuccess" onClick={ disableNotifyAndClose }>Нет, спасибо!</AlertButton>
         </div>
       </Alert>
     </>

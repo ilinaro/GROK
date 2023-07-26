@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react'
 import styles from './AlertButton.module.scss';
 import classNames from 'classnames'
 type AlertButtonT = {
-  children?: React.ReactNode;
-  onClick: () => void;
+  children?: React.ReactNode,
+  onClick: () => void | Promise<void>,
   type: string;
 }
 export const AlertButton: React.FC<AlertButtonT> = (props) => {
