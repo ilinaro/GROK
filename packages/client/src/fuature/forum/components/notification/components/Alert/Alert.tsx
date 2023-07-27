@@ -4,14 +4,14 @@ import classNames from 'classnames'
 
 type AlertT = {
   children?: React.ReactNode;
-  type: string;
+  type: 'success' | 'error';
 }
 
 export const Alert: React.FC<AlertT> = (props) => {
   const { type } = props;
   return (
       <div className={classNames(styles.Alert__wrapper, {
-        [styles.Alert__error]: type === "unsuccess"
+        [styles.Alert__error]: type === "error"
       })}>
         { props.children }
       </div>
