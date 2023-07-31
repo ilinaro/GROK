@@ -11,7 +11,7 @@ class Player {
   speed: number;
   maxSpeed: number;
   life: number;
-
+  bonus: number;
   constructor(
     private context: CanvasRenderingContext2D | null,
     private mapBlocks: {
@@ -44,6 +44,7 @@ class Player {
     this.canvasWidth = canvasWidth;
     this.canvasHeight = canvasHeight;
     this.life = 2;
+    this.bonus = 0;
     this.ball = ball;
     this.ball.onload = () => {
       this.draw();
@@ -113,6 +114,9 @@ class Player {
           this.life = this.life - 1;
         }
         if (this.mapBlocks[i].type === 'step') {
+          if (!this.mapBlocks[i].used) {
+            this.bonus = this.bonus + 1;
+          }
           this.mapBlocks[i].used = true;
         }
         //  ведение по оси X влево
@@ -150,6 +154,12 @@ class Player {
           this.mapBlocks[i].type = 'map';
           this.mapBlocks[i].used = true;
           this.life = this.life - 1;
+        }
+        if (this.mapBlocks[i].type === 'step') {
+          if (!this.mapBlocks[i].used) {
+            this.bonus = this.bonus + 1;
+          }
+          this.mapBlocks[i].used = true;
         }
         if (this.mapBlocks[i].type === 'map' || this.mapBlocks[i].type === 'pin') {
           //  ведение по оси Y влево

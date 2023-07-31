@@ -1,9 +1,8 @@
-import { useMutation, useQuery, useQueryClient } from 'react-query';
-import userService from '@services/user.service';
-import authService from '@services/auth.service';
-import { useAppDispatch } from '@store/hooks';
 import { deleteUserAC, setUserAC } from '@store/actions/userAction';
-import { LoginFormT } from 'fuature/login/components/LoginForm/LoginForm';
+
+import { useAppDispatch } from '@store/hooks';
+import { useQuery } from 'react-query';
+import userService from '@services/user.service';
 
 const dispatch = useAppDispatch();
 
