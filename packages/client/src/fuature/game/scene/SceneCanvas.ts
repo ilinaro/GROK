@@ -4,14 +4,12 @@ import { mapBlocks } from './../data/map';
 
 export class SceneCanvas {
   private animationId = 0;
-  private bonus = 0;
-  private life = 0;
 
   init(
     canvas: HTMLCanvasElement | null,
     ball: HTMLImageElement,
-    setBonus: React.Dispatch<React.SetStateAction<number>>,
-    setLife: React.Dispatch<React.SetStateAction<number>>
+    setBonus: React.Dispatch<React.SetStateAction<number | undefined>>,
+    setLife: React.Dispatch<React.SetStateAction<number | undefined>>
   ) {
     if (!canvas) return;
     const context = canvas.getContext('2d');

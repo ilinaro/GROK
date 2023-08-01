@@ -7,8 +7,8 @@ import { useAppDispatch } from '@store/hooks';
 
 export const WindowCanvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [bonus, setBonus] = useState<number>(0);
-  const [life, setLife] = useState<number>(0);
+  const [bonus, setBonus] = useState<number | undefined>();
+  const [life, setLife] = useState<number | undefined>();
   const dispatch = useAppDispatch();
 
   setGameBonusAC(bonus);

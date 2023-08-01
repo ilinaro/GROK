@@ -43,8 +43,8 @@ class Player {
 
     this.canvasWidth = canvasWidth;
     this.canvasHeight = canvasHeight;
-    this.life = 2;
-    this.bonus = 0;
+    this.life = 3;
+    this.bonus = 3;
     this.ball = ball;
     this.ball.onload = () => {
       this.draw();
@@ -115,7 +115,7 @@ class Player {
         }
         if (this.mapBlocks[i].type === 'step') {
           if (!this.mapBlocks[i].used) {
-            this.bonus = this.bonus + 1;
+            this.bonus = this.bonus - 1;
           }
           this.mapBlocks[i].used = true;
         }
@@ -157,7 +157,7 @@ class Player {
         }
         if (this.mapBlocks[i].type === 'step') {
           if (!this.mapBlocks[i].used) {
-            this.bonus = this.bonus + 1;
+            this.bonus = this.bonus - 1;
           }
           this.mapBlocks[i].used = true;
         }

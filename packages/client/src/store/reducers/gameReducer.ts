@@ -1,15 +1,17 @@
-import { GAME_BONUS, GAME_LIFE } from '@store/constants/game';
+import { GAME_BONUS, GAME_LIFE, GAME_TOTAL_COUNT } from '@store/constants/game';
 
 import { GameActionsTypes } from '@store/types/gameTypes';
 
 interface IGameState {
-  life: number;
-  bonus: number;
+  life: number | undefined;
+  bonus: number | undefined;
+  totalCount: number | undefined;
 }
 
 const initialState = {
-  life: 3,
-  bonus: 0,
+  life: undefined,
+  bonus: undefined,
+  totalCount: undefined,
 };
 
 const gameReducer = (state: IGameState = initialState, action: GameActionsTypes): IGameState => {
@@ -20,6 +22,8 @@ const gameReducer = (state: IGameState = initialState, action: GameActionsTypes)
     case GAME_BONUS:
       return { ...state, bonus: action.bonus };
 
+    case GAME_TOTAL_COUNT:
+      return { ...state, totalCount: action.totalCount };
     default:
       return state;
   }

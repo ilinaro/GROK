@@ -2,6 +2,22 @@
     position: relative;
 }
 
+.Port {
+    margin-right: 40px;
+}
+
+.Life {
+    display: flex;
+    align-items: center;
+    & > :nth-child(1n) {
+        margin-right: 5px;
+    }
+}
+
+.Count {
+    margin-left: 30px;
+}
+
 .Pause {
     width: 60px;
     height: 60px;
