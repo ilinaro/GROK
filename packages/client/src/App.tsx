@@ -5,8 +5,9 @@ import { Provider } from 'react-redux';
 import { store } from '@store/index';
 import { RouterProvider } from 'react-router-dom';
 import { Routers } from './routes';
+import { hot } from 'react-hot-loader/root';
 
-function App() {
+export function App() {
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -32,4 +33,4 @@ function App() {
   );
 }
 
-export default App;
+export default hot(App);
