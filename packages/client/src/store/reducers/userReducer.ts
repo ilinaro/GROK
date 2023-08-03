@@ -1,10 +1,10 @@
 import {
+  CLEAR_USER_ERRORS,
+  DELETE_USER,
   SET_USER,
   SET_USER_AUTH,
-  SET_USER_LOAD,
   SET_USER_ERROR,
-  DELETE_USER,
-  CLEAR_USER_ERRORS,
+  SET_USER_LOAD,
 } from '@store/constants/user';
 import { User, UserActionsTypes } from '@store/types/userTypes';
 
