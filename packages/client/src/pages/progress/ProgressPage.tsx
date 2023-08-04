@@ -1,4 +1,4 @@
-import { Progress } from 'fuature/progress';
+import { Progress } from '../../fuature/progress';
 
 type ProgressPageT = {};
 

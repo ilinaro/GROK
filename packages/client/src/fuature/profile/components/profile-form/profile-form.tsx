@@ -12,7 +12,7 @@ import {
   loginValidationScheme,
   nameValidationScheme,
   phoneValidationScheme,
-} from 'fuature/profile/validation';
+} from '../../../../fuature/profile/validation';
 
 export interface IUpdateUser {
   first_name: string;

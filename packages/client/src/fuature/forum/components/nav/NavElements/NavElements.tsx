@@ -7,6 +7,12 @@ export const NavElements = () => {
     { path: 'topics', name: 'Темы' },
     { path: 'create', name: 'Создать' },
   ];
-  return navData
-    .map( element => <NavItem data ={ element }/>)
+  return (
+    <>
+      {
+        navData
+          .map(element => <NavItem data={element} />)
+      }
+    </>
+  )
 };

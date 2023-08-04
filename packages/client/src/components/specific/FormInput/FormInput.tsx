@@ -37,6 +37,7 @@ export const FormInput: React.FC<FormInputProps> = ({
     <label className={styles.formInput} {...props}>
       <div className={styles.inputContainer}>
         {mask ? (
+          //@ts-ignore
           <InputMask mask={mask} className={styles.input} placeholder=" " {...inputProps} />
         ) : (
           <input ref={ref} type={type} className={styles.input} placeholder=" " {...inputProps} />

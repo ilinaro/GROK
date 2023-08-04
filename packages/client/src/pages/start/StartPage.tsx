@@ -1,4 +1,4 @@
-import { Start } from 'fuature/start';
+import { Start } from '../../fuature/start';
 
 type StartT = {};
 

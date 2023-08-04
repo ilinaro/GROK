@@ -2,19 +2,51 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "paths": {
-      "@api/*": ["./api/*"],
-      "@components/*": ["./components/*"],
-      "@feature": ["./feature"],
-      "@hooks/*": ["./hooks/*"],
-      "@layouts/*": ["./layouts/*"],
-      "@lib/*": ["./lib/*"],
-      "@pages/*": ["./pages/*"],
-      "@routes/*": ["./routes/*"],
-      "@services/*": ["./services/*"],
-      "@store/*": ["./store/*"],
-      "@styles/*": ["./styles/*"],
-      "@typings/*": ["./typings/*"],
-      "@utils/*": ["./utils/*"]
+      "@api/*": [
+        "./api/*"
+      ],
+      "@components/*": [
+        "./components/*"
+      ],
+      "@feature": [
+        "./feature"
+      ],
+      "@hooks/*": [
+        "./hooks/*"
+      ],
+      "@layouts/*": [
+        "./layouts/*"
+      ],
+      "@lib/*": [
+        "./lib/*"
+      ],
+      "@pages/*": [
+        "./pages/*"
+      ],
+      "@routes/*": [
+        "./routes/*"
+      ],
+      "@services/*": [
+        "./services/*"
+      ],
+      "@store/*": [
+        "./store/*"
+      ],
+      "@styles/*": [
+        "./styles/*"
+      ],
+      "@typings/*": [
+        "./typings/*"
+      ],
+      "@utils/*": [
+        "./utils/*"
+      ],
+      "@config/*": [
+        "./config/*"
+      ],
+      "@fuature/*": [
+        "./fuature/*"
+      ]
     }
   }
 }
