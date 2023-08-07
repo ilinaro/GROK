@@ -12,13 +12,13 @@ type ForumLayoutT = {
 export const ForumLayout: React.FC<ForumLayoutT> = ({ children }) => {
   return (
     <main className={ styles.ForumMain }>
-      <NotificationAPI />
+      <NotificationAPI  notificationText={``}/>
       <div className={ styles.LeftSide }></div>
       <FullScreen />
       <div className={ styles.RightSide }></div>
       <article className={ styles.ForumWrapper }>
         <h1 className={ styles.ForumTitle }>Форум</h1>
-        <ForumNav />
+        <ForumNav />s
         <article className={ styles.ForumFrame }>
           { children }
         </article>

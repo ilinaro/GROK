@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import styles from './Notification.module.scss';
 import { Alert } from './components/Alert';
 import { AlertTitle } from './components/Alert/AlertTitle';
@@ -13,9 +13,8 @@ type NotificationProviderT = {
 }
 
 export const NotificationAPI: React.FC<NotificationProviderT> = (props) => {
-  const { notificationText } = props;
 
-  async function notify () {
+  async function notify ({ notificationText } = props) {
 
       if(!("Notification" in window)) {
           alert("Браузер не поддерживает уведомления!")
@@ -41,19 +40,19 @@ export const NotificationAPI: React.FC<NotificationProviderT> = (props) => {
   }
 
   return (!(userResponded) && !(Notification.permission === "granted")) ? (
-   <Alert type="success">
+   <Alert type="success" isActive={ true }>
      <AlertIcon type="success" />
      <Box>
        <AlertTitle>Уведомления</AlertTitle>
        <AlertDesc>Включить уведомления?</AlertDesc>
      </Box>
      <div className={ styles.notification__button }>
-     <AlertButton type="success" onClick={ enableNotifyAndClose }>Конечно</AlertButton>
-     <AlertButton type="error" onClick={ disableNotifyAndClose }>Нет</AlertButton>
+     <AlertButton type="success" onClick={ enableNotifyAndClose }>Да</AlertButton>
+     <AlertButton type="error" onClick={ disableNotifyAndClose }>Не включать!</AlertButton>
      </div>
    </Alert>
     ) : (Notification.permission === "granted") ? (
-      <Alert type="success">
+      <Alert type="success" isActive={ true }>
         <AlertIcon type="success" />
         <Box>
           <AlertDesc>Уведомления подключены!</AlertDesc>
@@ -65,7 +64,7 @@ export const NotificationAPI: React.FC<NotificationProviderT> = (props) => {
 
   ) :
     <>
-      <Alert type="error">
+      <Alert type="error" isActive={ true }>
         <AlertIcon type="error"/>
         <Box>
           <AlertTitle>Уведомления выключены!</AlertTitle>

@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import styles from './CreateForm.module.scss';
 import { Button } from '@components/design-system';
 import { BodyNormal } from '@components/design-system/Fonts';
+import { Simulate } from 'react-dom/test-utils'
+import input = Simulate.input
+import { NotificationAPI } from '../notification'
 
-export const ForumCreateForm: React.FC = () => {
+export const ForumCreateForm: React.FC = (props) => {
   const [topic, setTopic] = useState('');
   const [description, setDesc] = useState('');
   const createTopic = (e: React.ChangeEvent<HTMLFormElement>) => {
@@ -16,14 +19,16 @@ export const ForumCreateForm: React.FC = () => {
     setDesc('');
   };
   return (
-    <form className={styles.topic__form} onSubmit={createTopic}>
+
+    <form className={styles.topic__form} onSubmit={ createTopic }>
+
       <div className={styles.topic__container}>
         <label>Название</label>
-        <input type="text" name="topic" required value={topic} onChange={(e) => setTopic(e.target.value)} />
+        <input type="text" name="topic" required value={ topic } onChange={(e) => setTopic(e.target.value)} />
         <label>Описание</label>
-        <textarea name="description" required value={description} onChange={(e) => setDesc(e.target.value)} />
+        <textarea name="description" required value={ description } onChange={(e) => setDesc(e.target.value)} />
       </div>
-      <Button className={styles.topic_btn__create} type="submit">
+      <Button className={styles.topic_btn__create} type="submit" onClick={() => { new Notification(topic )}}>
         <BodyNormal weight={'normal'}>Создать</BodyNormal>
       </Button>
     </form>
