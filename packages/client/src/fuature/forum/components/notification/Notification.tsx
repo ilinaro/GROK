@@ -15,7 +15,8 @@ type NotificationProviderT = {
 export const NotificationAPI: React.FC<NotificationProviderT> = (props) => {
   const { notificationText } = props;
 
-  async function notify (notificationText:string) {
+  async function notify () {
+
       if(!("Notification" in window)) {
           alert("Браузер не поддерживает уведомления!")
     } else if (Notification.permission === "granted") {
@@ -30,7 +31,7 @@ export const NotificationAPI: React.FC<NotificationProviderT> = (props) => {
   }
   const [ userResponded, setUserResponded ] = useState(false);
   async function enableNotifyAndClose() {
-    await notify("").then(() => {
+    await notify().then(() => {
       setUserResponded(true);
     });
   }
@@ -58,7 +59,7 @@ export const NotificationAPI: React.FC<NotificationProviderT> = (props) => {
           <AlertDesc>Уведомления подключены!</AlertDesc>
         </Box>
         <div className={ styles.notification__button }>
-          <AlertButton type="success" onClick={ () => notify("Тестовое уведомление") }>Проверить</AlertButton>
+          <AlertButton type="success" onClick={ () => notify() }>Проверить</AlertButton>
         </div>
       </Alert>
 
