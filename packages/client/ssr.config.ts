@@ -1,6 +1,6 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import * as path from 'path'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import * as path from 'path';
 
 const aliases = {
   '@app': 'src/app',
@@ -17,7 +17,7 @@ const aliases = {
 };
 
 const resolvedAliases = Object.fromEntries(
-  Object.entries(aliases).map(([key, value]) => [key, path.resolve(__dirname, value)]),
+  Object.entries(aliases).map(([key, value]) => [key, path.resolve(__dirname, value)])
 );
 
 //конфиг для ssr сборки (js для того, чтобы поддрежривался в nodejs)
@@ -25,8 +25,9 @@ const resolvedAliases = Object.fromEntries(
 export default defineConfig({
   plugins: [react()],
   build: {
+    ssr: true,
     lib: {
-      entry: path.resolve(__dirname, "ssr.tsx"),
+      entry: path.resolve(__dirname, 'ssr.tsx'),
       name: 'Client',
       formats: ['cjs'],
     },
@@ -34,21 +35,18 @@ export default defineConfig({
       output: {
         dir: 'ssr-dist',
       },
-      external: [
-        'utils/sw/Cache',
-        'utils/sw/sw',
-        'utils/hashCode',
-        'utils/logger',
-        'routes',
-      ],
+      external: ['utils/sw/Cache', 'utils/sw/sw', 'utils/hashCode', 'utils/logger', 'routes'],
     },
+  },
+  ssr: {
+    format: 'cjs',
   },
   resolve: {
     alias: {
       ...resolvedAliases,
     },
   },
-})
+});
 
 // external: [
 //   '@store/index',

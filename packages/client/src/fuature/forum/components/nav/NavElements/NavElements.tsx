@@ -1,5 +1,5 @@
-import React from 'react'
-import { NavItem } from '../NavItem/NavItem'
+import React from 'react';
+import { NavItem } from '../NavItem/NavItem';
 
 export const NavElements = () => {
   const navData = [
@@ -9,10 +9,9 @@ export const NavElements = () => {
   ];
   return (
     <>
-      {
-        navData
-          .map(element => <NavItem data={element} />)
-      }
+      {navData.map((element) => (
+        <NavItem data={element} />
+      ))}
     </>
-  )
+  );
 };

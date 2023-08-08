@@ -1,5 +1,5 @@
 import React from 'react';
-import { TopicsItem } from '../TopicItem'
+import { TopicsItem } from '../TopicItem';
 
 export const TopicElements = () => {
   const topicsData = [
@@ -9,7 +9,9 @@ export const TopicElements = () => {
   ];
   return (
     <>
-      {topicsData.map(element => <TopicsItem topics={element} />)}
+      {topicsData.map((element) => (
+        <TopicsItem topics={element} />
+      ))}
     </>
-  )
+  );
 };

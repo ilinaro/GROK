@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 import styles from './TopicItem.module.scss';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 type TopicsItemT = {
   topics: Record<string, string>;
@@ -27,5 +27,5 @@ export const TopicsItem: React.FC<TopicsItemT> = (props) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

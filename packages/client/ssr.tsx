@@ -1,8 +1,8 @@
-import React from 'react'
-import App from './src/App'
-import { renderToString } from 'react-dom/server'
-import { Provider } from 'react-redux'
-import { StaticRouter } from "react-router-dom/server";
+import React from 'react';
+import App from './src/App';
+import { renderToString } from 'react-dom/server';
+import { Provider } from 'react-redux';
+import { StaticRouter } from 'react-router-dom/server';
 
 export function render(store, url) {
   return renderToString(
@@ -11,5 +11,5 @@ export function render(store, url) {
         <App />
       </Provider>
     </StaticRouter>
-  )
+  );
 }

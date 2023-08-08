@@ -1,5 +1,5 @@
 import React from 'react';
-import { AnswerItem } from '../AnswerItem'
+import { AnswerItem } from '../AnswerItem';
 
 export const AnswerElements = () => {
   const answersData = [
@@ -9,8 +9,9 @@ export const AnswerElements = () => {
   ];
   return (
     <>
-      {
-        answersData.map(element => <AnswerItem answers={element} />)
-      }
-    </>)
+      {answersData.map((element) => (
+        <AnswerItem answers={element} />
+      ))}
+    </>
+  );
 };
