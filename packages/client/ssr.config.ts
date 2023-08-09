@@ -26,6 +26,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     ssr: true,
+    outDir: 'ssr-dist',
     //lib говорит о том, что мы делаем сборку как отдельный пакет, который может использоваться в другом пакете, например в npm
     lib: {
       entry: path.resolve(__dirname, 'ssr.tsx'),
@@ -33,9 +34,9 @@ export default defineConfig({
       formats: ['cjs'], // ES6 не подойдет для node
     },
     rollupOptions: {
-      output: {
-        dir: 'ssr-dist',
-      },
+      // output: {
+      //   dir: 'ssr-dist',
+      // },
       external: ['utils/sw/Cache', 'utils/sw/sw', 'utils/hashCode', 'utils/logger', 'routes'],
     },
   },
