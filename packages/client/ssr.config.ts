@@ -7,7 +7,7 @@ const aliases = {
   '@store': 'src/store',
   '@components': 'src/components',
   '@routes': 'src/routes',
-  '@feature': 'src/feature',
+  '@fuature': 'src/fuature',
   '@pages': 'src/pages',
   '@services': 'src/services',
   '@layouts': 'src/layouts',
@@ -26,10 +26,11 @@ export default defineConfig({
   plugins: [react()],
   build: {
     ssr: true,
+    //lib говорит о том, что мы делаем сборку как отдельный пакет, который может использоваться в другом пакете, например в npm
     lib: {
       entry: path.resolve(__dirname, 'ssr.tsx'),
       name: 'Client',
-      formats: ['cjs'],
+      formats: ['cjs'], // ES6 не подойдет для node
     },
     rollupOptions: {
       output: {
