@@ -1,7 +1,9 @@
 import { Color } from '../interface';
 import { mapLevel1 } from './source';
 import pinImage from '../source/pin.png';
+import pinMapImage from '../source/pin_map.png';
 import stepImage from '../source/step.png';
+import stepUsedImage from '../source/step_used.png';
 
 function parse2D<T>(allArr: T[], sizeRow: number): T[][] {
   const rows: T[][] = [];
@@ -24,12 +26,13 @@ export class MapBlock {
   };
   width: number;
   height: number;
+  type: 'map';
   constructor({ position, width, height }: { position: { x: number; y: number }; width: number; height: number }) {
     this.position = position;
     this.width = width;
     this.height = height;
+    this.type = 'map';
   }
-
   draw(context: CanvasRenderingContext2D) {
     context.fillStyle = Color.VIOLET;
     context.fillRect(this.position.x, this.position.y, this.width, this.height);
@@ -45,22 +48,29 @@ export class StepBlock {
   width: number;
   height: number;
   image: HTMLImageElement;
+  imageUsed: HTMLImageElement;
+  type: 'step';
+  used: boolean;
   constructor({ position, width, height }: { position: { x: number; y: number }; width: number; height: number }) {
     this.position = position;
     this.width = width;
     this.height = height;
     this.image = new Image();
+    this.imageUsed = new Image();
     this.image.onload = () => {
       this.loaded = true;
       this.width = 25;
       this.height = 40;
     };
+    this.used = false;
+    this.type = 'step';
     this.loaded = false;
     this.image.src = stepImage;
+    this.imageUsed.src = stepUsedImage;
   }
 
   draw(context: CanvasRenderingContext2D) {
-    context.drawImage(this.image, this.position.x - 20, this.position.y - 50);
+    context.drawImage(this.used ? this.imageUsed : this.image, this.position.x - 20, this.position.y - 50);
     context.stroke();
     context.lineWidth = 2;
     context.beginPath();
@@ -75,23 +85,31 @@ export class PinBlock {
   loaded?: boolean;
   width: number;
   height: number;
-  image: HTMLImageElement;
+  imagePIN: HTMLImageElement;
+  imagePINB: HTMLImageElement;
+  type: 'pin';
+  used: boolean;
   constructor({ position, width, height }: { position: { x: number; y: number }; width: number; height: number }) {
     this.position = position;
     this.width = width;
     this.height = height;
-    this.image = new Image();
-    this.image.onload = () => {
+    this.imagePIN = new Image();
+    this.imagePINB = new Image();
+    this.imagePIN.onload = () => {
       this.loaded = true;
       this.width = 25;
       this.height = 40;
     };
+    this.used = false;
     this.loaded = false;
-    this.image.src = pinImage;
+    this.type = 'pin';
+    this.imagePIN.src = pinImage;
+    this.imagePINB.src = pinMapImage;
   }
 
   draw(context: CanvasRenderingContext2D) {
-    context.drawImage(this.image, this.position.x - 40, this.position.y - 50);
+    context.drawImage(this.used ? this.imagePINB : this.imagePIN, this.position.x - 40, this.position.y - 50);
+
     context.stroke();
     context.lineWidth = 2;
     context.beginPath();
