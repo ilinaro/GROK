@@ -10,7 +10,6 @@ export const FullScreen: React.FC = () => {
       try {
         await document.exitFullscreen();
         setFullscreen(false);
-        new Notification("Вы вышли из полноэкранного режима!");
       } catch (err) {
         throw new Error();
       }
@@ -18,7 +17,6 @@ export const FullScreen: React.FC = () => {
       try {
         await document.documentElement.requestFullscreen();
         setFullscreen(true);
-        new Notification("Вы вошли в полноэкранный режим!")
       } catch (err) {
         throw new Error();
       }

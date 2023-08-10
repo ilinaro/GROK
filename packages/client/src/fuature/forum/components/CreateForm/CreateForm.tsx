@@ -1,7 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './CreateForm.module.scss';
 import { Button } from '@components/design-system';
 import { BodyNormal } from '@components/design-system/Fonts';
+import { Simulate } from 'react-dom/test-utils'
+import input = Simulate.input
+import { NotificationAPI } from '../notification'
 
 export const ForumCreateForm: React.FC = (props) => {
   const [topic, setTopic] = useState('');
@@ -16,6 +19,7 @@ export const ForumCreateForm: React.FC = (props) => {
     setDesc('');
   };
   return (
+
     <form className={styles.topic__form} onSubmit={ createTopic }>
 
       <div className={styles.topic__container}>
