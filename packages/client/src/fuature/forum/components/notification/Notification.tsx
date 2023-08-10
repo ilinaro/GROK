@@ -45,7 +45,7 @@ export const NotificationAPI: React.FC<NotificationProviderT> = () => {
      </Box>
      <div className={ styles.notification__button }>
      <AlertButton type="success" onClick={ enableNotifyAndClose }>Конечно!</AlertButton>
-     <AlertButton type="unsuccess" onClick={ disableNotifyAndClose }>Нет, спасибо!</AlertButton>
+     <AlertButton type="unsuccess" onClick={ disableNotifyAndClose }>Нет!</AlertButton>
      </div>
    </Alert>
     ) : (Notification.permission === "granted") ? (
@@ -59,7 +59,7 @@ export const NotificationAPI: React.FC<NotificationProviderT> = () => {
         </Box>
         <div className={ styles.notification__button }>
           <AlertButton type="success" onClick={ enableNotifyAndClose }>Конечно!</AlertButton>
-          <AlertButton type="unsuccess" onClick={ disableNotifyAndClose }>Нет, спасибо!</AlertButton>
+          <AlertButton type="unsuccess" onClick={ disableNotifyAndClose }>Нет!</AlertButton>
         </div>
       </Alert>
     </>
