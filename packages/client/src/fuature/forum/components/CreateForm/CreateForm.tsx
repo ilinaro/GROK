@@ -5,6 +5,7 @@ import { BodyNormal } from '@components/design-system/Fonts';
 import { Simulate } from 'react-dom/test-utils'
 import input = Simulate.input
 import { NotificationAPI } from '../notification'
+import { useNotification } from '../../hooks/useNotification'
 
 export const ForumCreateForm: React.FC = (props) => {
   const [topic, setTopic] = useState('');
@@ -28,7 +29,7 @@ export const ForumCreateForm: React.FC = (props) => {
         <label>Описание</label>
         <textarea name="description" required value={ description } onChange={(e) => setDesc(e.target.value)} />
       </div>
-      <Button className={styles.topic_btn__create} type="submit" onClick={() => { new Notification(topic )}}>
+      <Button className={styles.topic_btn__create} type="submit" onClick={ () => { useNotification(topic) } }>
         <BodyNormal weight={'normal'}>Создать</BodyNormal>
       </Button>
     </form>

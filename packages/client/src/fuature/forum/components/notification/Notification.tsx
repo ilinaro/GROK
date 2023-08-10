@@ -6,35 +6,16 @@ import { Box } from './components/Alert/Box';
 import { AlertIcon } from './components/Alert/AlertIcon/AlertIcon';
 import { AlertDesc } from './components/Alert/AlertDesc/AlertDesc';
 import { AlertButton } from './components/Alert/AlertButton';
+import { useNotification } from '../../hooks/useNotification';
 
-type NotificationProviderT = {
-  props?: React.ComponentProps<any>;
-  notificationText: string;
-}
+export const NotificationAPI: React.FC = () => {
 
-export const NotificationAPI: React.FC<NotificationProviderT> = (props) => {
-
-  async function notify ({ notificationText } = props) {
-
-      if(!("Notification" in window)) {
-          alert("Браузер не поддерживает уведомления!")
-    } else if (Notification.permission === "granted") {
-          new Notification(notificationText);
-    } else if(Notification.permission !== "denied") {
-          await Notification.requestPermission().then((permission) => {
-              if (permission === "granted") {
-                  new Notification(notificationText);
-              }
-          });
-      }
-  }
   const [ userResponded, setUserResponded ] = useState(false);
   async function enableNotifyAndClose() {
-    await notify().then(() => {
+    await useNotification("").then(() => {
       setUserResponded(true);
     });
   }
-
   function disableNotifyAndClose() {
     setUserResponded(true);
   }
@@ -58,7 +39,7 @@ export const NotificationAPI: React.FC<NotificationProviderT> = (props) => {
           <AlertDesc>Уведомления подключены!</AlertDesc>
         </Box>
         <div className={ styles.notification__button }>
-          <AlertButton type="success" onClick={ () => notify() }>Проверить</AlertButton>
+          <AlertButton type="success" onClick={ () => useNotification("") }>Проверить</AlertButton>
         </div>
       </Alert>
 
