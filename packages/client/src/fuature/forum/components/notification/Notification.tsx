@@ -9,17 +9,15 @@ import { AlertButton } from './components/Alert/AlertButton';
 import { useNotification } from '../../hooks/useNotification';
 
 export const NotificationAPI: React.FC = () => {
-
+  const { notify } = useNotification();
   const [ userResponded, setUserResponded ] = useState(false);
   async function enableNotifyAndClose() {
-    await useNotification("").then(() => {
-      setUserResponded(true);
-    });
+    await notify("")
+    setUserResponded(true);
   }
   function disableNotifyAndClose() {
     setUserResponded(true);
   }
-
   return (!(userResponded) && !(Notification.permission === "granted")) ? (
    <Alert type="success" isActive={ true }>
      <AlertIcon type="success" />
@@ -39,12 +37,10 @@ export const NotificationAPI: React.FC = () => {
           <AlertDesc>Уведомления подключены!</AlertDesc>
         </Box>
         <div className={ styles.notification__button }>
-          <AlertButton type="success" onClick={ () => useNotification("") }>Проверить</AlertButton>
+          <AlertButton type="success" onClick={ () => notify("") }>Проверить</AlertButton>
         </div>
       </Alert>
-
   ) :
-    <>
       <Alert type="error" isActive={ true }>
         <AlertIcon type="error"/>
         <Box>
@@ -52,10 +48,6 @@ export const NotificationAPI: React.FC = () => {
         </Box>
         <div className={ styles.notification__button }>
           <AlertButton type="success" onClick={ enableNotifyAndClose }>Включить!</AlertButton>
-
         </div>
       </Alert>
-    </>
-  ;
 }
-

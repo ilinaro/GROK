@@ -5,6 +5,7 @@ import { Button } from '@components/design-system'
 import { useNotification } from '../../../../hooks/useNotification'
 
 export const Footer:React.FC = () => {
+  const { notify } = useNotification();
   const [comment, setComment ] = useState('');
   return (
     <div className={ styles.comment__footer }>
@@ -16,7 +17,7 @@ export const Footer:React.FC = () => {
               onChange={ (e) => setComment(e.target.value) }
           >
           </textarea>
-        <Button className={ styles.comment_add__btn } onClick={ () => { useNotification("Добавлен новый комментарий!") }}>Добавить</Button>
+        <Button className={ styles.comment_add__btn } onClick={ () => { notify("Добавлен новый комментарий! - " + comment) }}>Добавить</Button>
       </form>
     </div>
   );

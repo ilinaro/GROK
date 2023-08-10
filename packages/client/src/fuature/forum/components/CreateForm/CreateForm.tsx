@@ -8,6 +8,7 @@ import { NotificationAPI } from '../notification'
 import { useNotification } from '../../hooks/useNotification'
 
 export const ForumCreateForm: React.FC = (props) => {
+  const { notify } = useNotification();
   const [topic, setTopic] = useState('');
   const [description, setDesc] = useState('');
   const createTopic = (e: React.ChangeEvent<HTMLFormElement>) => {
@@ -29,7 +30,7 @@ export const ForumCreateForm: React.FC = (props) => {
         <label>Описание</label>
         <textarea name="description" required value={ description } onChange={(e) => setDesc(e.target.value)} />
       </div>
-      <Button className={styles.topic_btn__create} type="submit" onClick={ () => { useNotification(topic) } }>
+      <Button className={styles.topic_btn__create} type="submit" onClick={ () => notify("Создан новый топик: " + topic) }>
         <BodyNormal weight={'normal'}>Создать</BodyNormal>
       </Button>
     </form>
