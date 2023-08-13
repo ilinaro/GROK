@@ -3,6 +3,9 @@ import { StarUserSVG } from '@components/design-system';
 import { Subheader } from '@components/design-system/Fonts';
 import clsx from 'clsx';
 import styles from './MenuGame.module.scss';
+import { useQuery } from 'react-query';
+import { sendStatistics } from '@services/game.service';
+import { useAppSelector } from '@store/hooks';
 
 type MenuGameT = {
   onClose: () => void;
@@ -15,6 +18,23 @@ type MenuGameT = {
 };
 
 export const MenuGame: React.FC<MenuGameT> = ({ onClose, onNext, onRestart, count, status }) => {
+  const { user } = useAppSelector((store) => store.user);
+
+  const endgame = status === 'geme_over' || status === 'end';
+
+  useQuery(
+    `${count}-sendToLeaderBoard-${user?.id}`,
+    () =>
+      sendStatistics({
+        data: { GROKpoints: count, username: user?.display_name || user?.first_name || '', avatar: user?.avatar },
+        ratingFieldName: 'GROKpoints',
+        teamName: '',
+      }),
+    {
+      enabled: count > 0 && endgame,
+    }
+  );
+
   return (
     <div className={styles.menu}>
       {status === 'pause' && (

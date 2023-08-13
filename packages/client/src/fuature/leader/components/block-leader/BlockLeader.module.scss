@@ -13,20 +13,23 @@
       }
 
     .Avatar {
-        display: block;
+        display: flex;
+        align-items: center;
         width: 90px;
         height: 90px;
         margin-right: 25px;
         
-
         img {
             max-width: 100%;
             border-radius: 50%;
+            height: 100%;
         }
     }
     
     .Username {
-        width: 200px;
+        width: 400px;
+        display: flex;
+        gap: 5px;
     }
 
     .TopPlace {
