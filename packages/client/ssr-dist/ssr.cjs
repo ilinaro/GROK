@@ -43972,7 +43972,7 @@ const Game = () => {
     }), /* @__PURE__ */ jsx("div", {
       className: styles$q.Healt,
       children: /* @__PURE__ */ jsx(HealtSVG, {})
-    }), /* @__PURE__ */ jsx("canvas", {
+    }), typeof window === "undefined" && /* @__PURE__ */ jsx("canvas", {
       ref: canvasRef
     }), menu2 && /* @__PURE__ */ jsx(MenuGame, {
       onClose: handleCloseMenu,

@@ -4,8 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "": "rm -rf dist && tsc && vite build --config vite.config.ts",
-    "build:ssr": "tsc && vite build --config ssr.config.ts",
+    "build": "rm -rf dist && tsc && vite build --config vite.config.ts",
+    "build:ssr": "tsc && vite build --config ssr.config.ts && yarn build",
     "preview": "vite preview",
     "typecheck": "tsc -p ./tsconfig.json",
     "lint": "eslint src/ --ext .ts",
