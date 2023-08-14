@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 
 import { AuthForm } from '../AuthForm';
@@ -16,6 +16,7 @@ import authService from '@services/auth.service';
 import { baseValidationRules } from 'fuature/profile/validation';
 import styles from './LoginForm.module.scss';
 import { useForm } from 'react-hook-form';
+import { YandexSVG } from '@components/design-system/SVG/YandexSVG';
 
 type LoginT = {};
 
@@ -83,6 +84,10 @@ export const LoginForm: React.FC<LoginT> = () => {
     );
   };
 
+  const handleClick = () => {
+    authService.oauthGetServiceId();
+  };
+
   return (
     <AuthForm title="Вход" onSubmit={handleSubmit(onSubmit)} footer={footer()} className={styles.containerLogin}>
       {!!isError && <FormError view={'error'} description={error.response?.data!.reason} />}
@@ -104,6 +109,9 @@ export const LoginForm: React.FC<LoginT> = () => {
       />
       <Button color={'pink'} style={{ marginTop: '22px' }} type={'submit'} loading={isLoading}>
         <BodyNormal weight={'normal'}>Войти</BodyNormal>
+      </Button>
+      <Button color={'red'} style={{ marginTop: '22px' }} type={'button'} onClick={handleClick}>
+        <YandexSVG />
       </Button>
     </AuthForm>
   );

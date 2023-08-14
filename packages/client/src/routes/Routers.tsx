@@ -14,12 +14,14 @@ import { ProgressPage } from '@pages/progress';
 import { RegistrationPage } from '@pages/registration';
 import { RouteNames } from './routeNames';
 import { StartPage } from '@pages/start';
-import { Navigate, createBrowserRouter } from 'react-router-dom';
+import { Navigate, createBrowserRouter, useLocation } from 'react-router-dom';
 import { ReactElement } from 'react';
 import { useAppDispatch } from '@store/hooks';
 import { useQuery } from 'react-query';
 import userService from '@services/user.service';
 import { setUserAC } from '@store/actions/userAction';
+import authService from '@services/auth.service';
+import { OAuth } from 'fuature/login/components/OAuth/OAuth';
 import { ToggleTheme } from '@components/specific/Toggle';
 
 type PrivateRouteProps = {
@@ -27,6 +29,9 @@ type PrivateRouteProps = {
 };
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
+  const { search } = useLocation();
+  const authCode = search.slice(6);
+
   const dispatch = useAppDispatch();
   const {
     data: user,
@@ -34,23 +39,26 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
     isError,
     isSuccess,
   } = useQuery(['user'], () => userService.getUser(), {
-    enabled: true,
+    enabled: !authCode,
     onSuccess: (data) => {
       dispatch(setUserAC(data));
     },
   });
 
-  const previousPath = window.location.pathname;
-  const authPath = ['/login', '/registration'];
+  if (authCode) return <OAuth code={authCode} />;
+
+  const previousPath = window.location.pathname as RouteNames;
+  const authPath = [RouteNames.LOGIN, RouteNames.REGISTRATION];
   const isExcludePath: boolean = authPath.includes(previousPath);
 
-  /*if (isSuccess && isExcludePath && !isLoading) {
-    return <Navigate to="/" />;
-  } else if (!isSuccess && !isExcludePath && !isLoading) {
-    return <Navigate to="/" />;
-  } else {
-    return children;
-  }*/
+  // if (isSuccess && isExcludePath && !isLoading) {
+  //   return <Navigate to="/" />;
+  // } else if (!isSuccess && !isExcludePath && !isLoading) {
+  //   return <Navigate to="/login" />;
+  // } else {
+  //   return children;
+  // }
+
   return children;
 };
 
