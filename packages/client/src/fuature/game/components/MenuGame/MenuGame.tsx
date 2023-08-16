@@ -21,12 +21,13 @@ export const MenuGame: React.FC<MenuGameT> = ({ onClose, onNext, onRestart, coun
   const { user } = useAppSelector((store) => store.user);
 
   const endgame = status === 'geme_over' || status === 'end';
+  const username = user?.display_name || user?.first_name || '';
 
   useQuery(
     `${count}-sendToLeaderBoard-${user?.id}`,
     () =>
       sendStatistics({
-        data: { GROKpoints: count, username: user?.display_name || user?.first_name || '', avatar: user?.avatar },
+        data: { GROKpoints: count, username, avatar: user?.avatar },
         ratingFieldName: 'GROKpoints',
         teamName: '',
       }),

@@ -15,8 +15,7 @@ interface IGetLeaderBoardRequest {
 
 export const sendStatistics = async (data: ISendToLeaderBoardRequest) => {
   try {
-    const response = await httpService.post(game.sendStatistics, data);
-    console.log(response);
+    await httpService.post(game.sendStatistics, data);
   } catch (e) {
     console.log(e);
   }

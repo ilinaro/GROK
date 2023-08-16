@@ -25,8 +25,6 @@ export const Leader: React.FC<LeaderT> = () => {
       {leaders.map((leader, index) => {
         const currentPlace = index + 1;
 
-        console.log(leader);
-
         return (
           <BlockLeader
             key={index}
