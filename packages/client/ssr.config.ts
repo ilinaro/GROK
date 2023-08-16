@@ -29,14 +29,14 @@ export default defineConfig({
     outDir: 'ssr-dist',
     //lib говорит о том, что мы делаем сборку как отдельный пакет, который может использоваться в другом пакете, например в npm
     lib: {
-      entry: path.resolve(__dirname, 'ssr.tsx'),
+      entry: path.resolve(__dirname, 'ssr/ssr.tsx'),
       name: 'Client',
       formats: ['cjs'], // ES6 не подойдет для node
     },
     rollupOptions: {
-      // output: {
-      //   dir: 'ssr-dist',
-      // },
+      output: {
+        dir: 'ssr-dist',
+      },
       external: ['utils/sw/Cache', 'utils/sw/sw', 'utils/hashCode', 'utils/logger', 'routes'],
     },
   },
@@ -49,13 +49,3 @@ export default defineConfig({
     },
   },
 });
-
-// external: [
-//   '@store/index',
-//   '@pages/error',
-//   '@pages/forum/id',
-//   '@pages/forum',
-//   '@pages/game',
-//   '@pages/leaders',
-//   '@pages/login'
-// ]

@@ -23,9 +23,10 @@ function App() {
 
   return (
     <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
+      {/* <QueryClientProvider client={queryClient}>
         <RouterProvider router={Routers} />
-      </QueryClientProvider>
+      </QueryClientProvider> */}
+      SSR
     </Provider>
   );
 }
