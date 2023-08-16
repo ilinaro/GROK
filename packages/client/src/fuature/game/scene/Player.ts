@@ -10,10 +10,13 @@ class Player {
   gravity: number;
   speed: number;
   maxSpeed: number;
-
+  life: number;
+  bonus: number;
   constructor(
     private context: CanvasRenderingContext2D | null,
     private mapBlocks: {
+      type?: 'pin' | 'step' | 'map';
+      used?: boolean;
       width: number;
       height: number;
       draw(context: CanvasRenderingContext2D): unknown;
@@ -40,7 +43,8 @@ class Player {
 
     this.canvasWidth = canvasWidth;
     this.canvasHeight = canvasHeight;
-
+    this.life = 2;
+    this.bonus = 0;
     this.ball = ball;
     this.ball.onload = () => {
       this.draw();
@@ -49,7 +53,6 @@ class Player {
     this.sides = {
       bottom: this.position.y + this.height,
     };
-    console.log(this.mapBlocks);
   }
 
   draw() {
@@ -105,15 +108,28 @@ class Player {
         this.position.y + this.height >= mapBlock.position.y &&
         this.position.y <= mapBlock.position.y + mapBlock.height
       ) {
-        //  ведение по оси x влево
-        if (this.velocity.x < 0) {
-          this.position.x = mapBlock.position.x + mapBlock.width + 1;
-          break;
+        if (this.mapBlocks[i].type === 'pin') {
+          this.mapBlocks[i].type = 'map';
+          this.mapBlocks[i].used = true;
+          this.life = this.life - 1;
         }
+        if (this.mapBlocks[i].type === 'step') {
+          if (!this.mapBlocks[i].used) {
+            this.bonus = this.bonus + 1;
+          }
+          this.mapBlocks[i].used = true;
+        }
+        //  ведение по оси X влево
+        if (this.mapBlocks[i].type === 'map' || this.mapBlocks[i].type === 'pin') {
+          if (this.velocity.x < 0) {
+            this.position.x = mapBlock.position.x + mapBlock.width + 1;
+            break;
+          }
 
-        if (this.velocity.x > 0) {
-          this.position.x = mapBlock.position.x - this.width - 1;
-          break;
+          if (this.velocity.x > 0) {
+            this.position.x = mapBlock.position.x - this.width - 1;
+            break;
+          }
         }
       }
     }
@@ -127,24 +143,37 @@ class Player {
     for (let i = 0; i < this.mapBlocks.length; i++) {
       const mapBlock = this.mapBlocks[i];
 
-      // столкновение справой стороны блока и леовй стороны игрока
+      // столкновение сверху стороны блока и снизу стороны игрока
       if (
         this.position.x <= mapBlock.position.x + mapBlock.width &&
         this.position.x + this.width >= mapBlock.position.x &&
         this.position.y + this.height >= mapBlock.position.y &&
         this.position.y <= mapBlock.position.y + mapBlock.height
       ) {
-        //  ведение по оси x влево
-        if (this.velocity.y < 0) {
-          this.velocity.y = 0;
-          this.position.y = mapBlock.position.y + mapBlock.height + 1;
-          break;
+        if (this.mapBlocks[i].type === 'pin') {
+          this.mapBlocks[i].type = 'map';
+          this.mapBlocks[i].used = true;
+          this.life = this.life - 1;
         }
+        if (this.mapBlocks[i].type === 'step') {
+          if (!this.mapBlocks[i].used) {
+            this.bonus = this.bonus + 1;
+          }
+          this.mapBlocks[i].used = true;
+        }
+        if (this.mapBlocks[i].type === 'map' || this.mapBlocks[i].type === 'pin') {
+          //  ведение по оси Y влево
+          if (this.velocity.y < 0) {
+            this.velocity.y = 0;
+            this.position.y = mapBlock.position.y + mapBlock.height + 1;
+            break;
+          }
 
-        if (this.velocity.y > 0) {
-          this.velocity.y = 0;
-          this.position.y = mapBlock.position.y - this.height - 1;
-          break;
+          if (this.velocity.y > 0) {
+            this.velocity.y = 0;
+            this.position.y = mapBlock.position.y - this.height - 1;
+            break;
+          }
         }
       }
     }

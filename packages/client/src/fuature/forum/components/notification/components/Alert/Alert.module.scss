@@ -1,0 +1,26 @@
+.Alert__wrapper {
+  color: #0a0a0a;
+  width: 400px;
+  height: 75px;
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  background: rgba(131, 241, 177, 0.62);
+  display: none;
+  grid-template-areas: 'icon box btn_success btn_error btn_close';
+  grid-auto-columns: 45px auto auto auto auto;
+}
+
+.Alert__error {
+  background: rgba(248, 2, 2, 0.33);
+}
+.close_btn:after {
+  content: "\00d7";
+  font-size: 28px;
+  grid-area: btn_close;
+  cursor: pointer;
+}
+.Alert__wrapper_active {
+  display: grid;
+}
+
