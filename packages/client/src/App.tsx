@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Provider } from 'react-redux';
 import { store } from '../src/store/index';
 import { RouterProvider } from 'react-router-dom';
-import { Routers } from './routes';
+import { SSRRouters, Routers } from './routes';
 
 function App() {
   const [queryClient] = useState(
@@ -23,10 +23,10 @@ function App() {
 
   return (
     <Provider store={store}>
-      {/* <QueryClientProvider client={queryClient}>
-        <RouterProvider router={Routers} />
-      </QueryClientProvider> */}
-      SSR
+      <QueryClientProvider client={queryClient}>
+        <SSRRouters />
+        {/* <RouterProvider router={Routers} /> */}
+      </QueryClientProvider>
     </Provider>
   );
 }
