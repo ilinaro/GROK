@@ -31,7 +31,7 @@ async function startServer() {
   // const distPath = path.dirname(require.resolve('../client/dist/index.html'));
   const distPath = path.dirname(require.resolve('client/dist/index.html'));
   // const ssrClientPath = path.dirname(require.resolve('../client/ssr-dist/client.cjs'));
-  const ssrClientPath = path.dirname(require.resolve('client/ssr-dist/ssr.cjs'));
+  const ssrClientPath = require.resolve('client/ssr-dist/ssr.cjs')
 
   app.use('/assets', express.static(path.resolve(distPath, 'assets')));
 
@@ -39,15 +39,16 @@ async function startServer() {
     const url = req.originalUrl
 
     try {
-      let template = fs.readFileSync(
+      const template = fs.readFileSync(
         path.resolve(distPath, 'index.html'),
         'utf-8',
       )
 
-      const { render } = await import(ssrClientPath);
-
+      console.log(`[DEBUG]: ssrClientPath: ${ssrClientPath}`)
+      const { render } = await import(ssrClientPath)
+      console.log(`[DEBUG]: after client path imported`)
       const appHtml = await render(url)
-
+      console.log(`[DEBUG]: after render url`)
       const html = template.replace(`<!--ssr-outlet-->`, appHtml)
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
