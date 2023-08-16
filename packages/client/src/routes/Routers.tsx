@@ -51,13 +51,13 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
   const authPath = [RouteNames.LOGIN, RouteNames.REGISTRATION];
   const isExcludePath: boolean = authPath.includes(previousPath);
 
-  // if (isSuccess && isExcludePath && !isLoading) {
-  //   return <Navigate to="/" />;
-  // } else if (!isSuccess && !isExcludePath && !isLoading) {
-  //   return <Navigate to="/login" />;
-  // } else {
-  //   return children;
-  // }
+  if (isSuccess && isExcludePath && !isLoading) {
+    return <Navigate to="/" />;
+  } else if (!isSuccess && !isExcludePath && !isLoading) {
+    return <Navigate to="/login" />;
+  } else {
+    return children;
+  }
 
   return children;
 };
