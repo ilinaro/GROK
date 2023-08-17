@@ -1,4 +1,4 @@
-import { NoMatch } from 'fuature/nomatch/NoMatch';
+import { NoMatch } from '../../fuature/nomatch/NoMatch';
 
 type NoMatchPageT = {};
 

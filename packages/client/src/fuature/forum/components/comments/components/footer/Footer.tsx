@@ -21,4 +21,4 @@ export const Footer:React.FC = () => {
       </form>
     </div>
   );
-}
+};

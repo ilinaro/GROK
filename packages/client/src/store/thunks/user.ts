@@ -9,9 +9,9 @@ import {
 import { AppDispatch } from '@store/types';
 import { User } from '@store/types/userTypes';
 import axios from 'axios';
-import { auth } from 'config/apiRoutes.config';
-import { LoginFormT } from 'fuature/login/components/LoginForm/LoginForm';
-import { RegistrationFormT } from 'fuature/registration/components/RegistrationForm/RegistrationForm';
+import { auth } from '@config/apiRoutes.config';
+import { LoginFormT } from '@fuature/login/components/LoginForm/LoginForm';
+import { RegistrationFormT } from '@fuature/registration/components/RegistrationForm/RegistrationForm';
 
 import { NavigateFunction } from 'react-router-dom';
 

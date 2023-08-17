@@ -1,31 +1,31 @@
-import { ErrorPage } from '@pages/error';
+import { ErrorPage } from '../pages/error';
 import { ForumActionCreate } from '../fuature/forum/actions/create';
 import { ForumAnswers } from '../fuature/forum/components/answers';
-import { ForumEventsPage } from '@pages/forum/id';
-import { ForumPage } from '@pages/forum';
+import { ForumEventsPage } from '../pages/forum/id';
+import { ForumPage } from '../pages/forum';
 import { ForumTopics } from '../fuature/forum/components/topics';
-import { GamePage } from '@pages/game';
-import { LeadersPage } from '@pages/leaders';
-import { LoginPage } from '@pages/login';
-import { NoMatchPage } from '@pages/nomatch/NoMatch';
-import { ProfileLayout } from '@layouts/ProfileLayout';
-import { ProfilePage } from '@pages/profile';
-import { ProgressPage } from '@pages/progress';
-import { RegistrationPage } from '@pages/registration';
+import { GamePage } from '../pages/game';
+import { LeadersPage } from '../pages/leaders';
+import { LoginPage } from '../pages/login';
+import { NoMatchPage } from '../pages/nomatch/NoMatch';
+import { ProfileLayout } from '../layouts/ProfileLayout';
+import { ProfilePage } from '../pages/profile';
+import { ProgressPage } from '../pages/progress';
+import { RegistrationPage } from '../pages/registration';
 import { RouteNames } from './routeNames';
-import { StartPage } from '@pages/start';
+import { StartPage } from '../pages/start';
 import { Navigate, createBrowserRouter } from 'react-router-dom';
 import { ReactElement } from 'react';
-import { useAppDispatch } from '@store/hooks';
+import { useAppDispatch } from '../store/hooks';
 import { useQuery } from 'react-query';
-import userService from '@services/user.service';
-import { setUserAC } from '@store/actions/userAction';
+import userService from '../services/user.service';
+import { setUserAC } from '../store/actions/userAction';
 
 type PrivateRouteProps = {
   children: ReactElement;
 };
 
-const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
+export const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
   const dispatch = useAppDispatch();
   const {
     data: user,
@@ -39,7 +39,7 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
     },
   });
 
-  const previousPath = window.location.pathname;
+  const previousPath = typeof window !== 'undefined' ? window.location.pathname : '';
   const authPath = ['/login', '/registration'];
   const isExcludePath: boolean = authPath.includes(previousPath);
 

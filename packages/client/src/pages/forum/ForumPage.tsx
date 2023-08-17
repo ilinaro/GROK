@@ -1,4 +1,4 @@
-import { Forum } from 'fuature/forum';
+import { Forum } from '../../fuature/forum';
 
 type ForumPageT = {};
 

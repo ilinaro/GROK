@@ -2,15 +2,14 @@
 0 silly argv   _: [ 'add' ],
 0 silly argv   scope: 'client',
 0 silly argv   globs: [],
-0 silly argv   lernaVersion: '5.4.3',
+0 silly argv   lernaVersion: '5.6.2',
 0 silly argv   '$0': 'node_modules\\lerna\\cli.js',
-0 silly argv   pkg: '{react-hook-form}'
+0 silly argv   pkg: 'react-hook-form'
 0 silly argv }
-1 notice cli v5.4.3
+1 notice cli v5.6.2
 2 verbose rootPath C:\Users\PtitsynAA\Documents\YandexMiddleFrontend\Module2\GROK
-3 error Error: Invalid tag name "{react-hook-form}": Tags may not have any characters that encodeURIComponent encodes.
-3 error     at invalidTagName (C:\Users\PtitsynAA\Documents\YandexMiddleFrontend\Module2\GROK\node_modules\npm-package-arg\npa.js:94:15)
-3 error     at fromRegistry (C:\Users\PtitsynAA\Documents\YandexMiddleFrontend\Module2\GROK\node_modules\npm-package-arg\npa.js:299:13)
-3 error     at resolve (C:\Users\PtitsynAA\Documents\YandexMiddleFrontend\Module2\GROK\node_modules\npm-package-arg\npa.js:84:12)
-3 error     at npa (C:\Users\PtitsynAA\Documents\YandexMiddleFrontend\Module2\GROK\node_modules\npm-package-arg\npa.js:55:10)
-3 error     at AddCommand.initialize (C:\Users\PtitsynAA\Documents\YandexMiddleFrontend\Module2\GROK\node_modules\@lerna\add\index.js:39:17)
+3 error FetchError: request to https://registry.yarnpkg.com/react-hook-form failed, reason: getaddrinfo ENOTFOUND cp-proxy.vesta.ru
+3 error     at ClientRequest.<anonymous> (C:\Users\PtitsynAA\Documents\YandexMiddleFrontend\Module2\GROK\node_modules\minipass-fetch\lib\index.js:130:14)
+3 error     at ClientRequest.emit (node:events:513:28)
+3 error     at onerror (C:\Users\PtitsynAA\Documents\YandexMiddleFrontend\Module2\GROK\node_modules\agent-base\dist\src\index.js:117:21)
+3 error     at callbackError (C:\Users\PtitsynAA\Documents\YandexMiddleFrontend\Module2\GROK\node_modules\agent-base\dist\src\index.js:136:17)
