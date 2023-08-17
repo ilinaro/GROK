@@ -26,7 +26,7 @@ export const Start: React.FC<StartT> = () => {
       {!openInfo ? (
         <>
           <div className={styles.question} onClick={handleOpen}>
-            <Question size={32} />
+            {typeof window !== 'undefined' && <Question size={32} />}
           </div>
           <div className={clsx({ [styles.performance]: openInfo }, { [styles.next]: !openInfo })}>
             <Link to="/game">
@@ -40,7 +40,7 @@ export const Start: React.FC<StartT> = () => {
       ) : (
         <>
           <div className={styles.question} onClick={handleClose}>
-            <XCircle size={32} />
+            {/* {typeof window !== 'undefined' && <XCircle size={32} />} */}
           </div>
           <Performance onClose={handleClose} />
         </>

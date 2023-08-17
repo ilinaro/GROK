@@ -1,4 +1,4 @@
-import { Login } from 'fuature/login';
+import { Login } from '../../fuature/login';
 import { PrimaryLayout } from '@layouts/PrimaryLayout';
 
 type LoginPageT = {};

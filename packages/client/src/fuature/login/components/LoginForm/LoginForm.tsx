@@ -13,7 +13,7 @@ import { REQUIRED } from 'fuature/profile/constants';
 import { RouteNames } from '@routes/routeNames';
 import { ShowPassSVG } from '@components/design-system/SVG/ShowPassSVG';
 import authService from '@services/auth.service';
-import { baseValidationRules } from 'fuature/profile/validation';
+import { baseValidationRules } from '../../../../fuature/profile/validation';
 import styles from './LoginForm.module.scss';
 import { useForm } from 'react-hook-form';
 
@@ -31,7 +31,7 @@ export interface LoginFormT {
 export const LoginForm: React.FC<LoginT> = () => {
   const queryClient = useQueryClient();
 
-  const { mutate, isLoading, isError, error } = useMutation<void, AxiosError, LoginFormT>(
+  const { mutate, isLoading, isError, error } = useMutation<void, AxiosError<{ reason: string }>, LoginFormT>(
     async (data: LoginFormT) => {
       await authService.signin(data);
     },
@@ -85,10 +85,11 @@ export const LoginForm: React.FC<LoginT> = () => {
 
   return (
     <AuthForm title="Вход" onSubmit={handleSubmit(onSubmit)} footer={footer()} className={styles.containerLogin}>
-      {!!isError && <FormError view={'error'} description={error.response?.data!.reason} />}
+      {!!isError && <FormError view={'error'} description={error.response?.data.reason ?? ''} />}
       <FormInput
         name="login"
         label="Введите логин"
+        //@ts-ignore
         control={control}
         rules={baseValidationRules}
         style={{ marginTop: '22px' }}
@@ -97,6 +98,7 @@ export const LoginForm: React.FC<LoginT> = () => {
         name="password"
         label="Введите пароль"
         type={isPasswordShow ? 'text' : 'password'}
+        //@ts-ignore
         control={control}
         rules={baseValidationRules}
         rightAddon={showOrHidenIcon()}

@@ -1,6 +1,6 @@
-import { RegistrationFormT } from 'fuature/registration/components/RegistrationForm/RegistrationForm';
+import { RegistrationFormT } from '../fuature/registration/components/RegistrationForm/RegistrationForm';
 import httpService from './http.service';
-import { LoginFormT } from 'fuature/login/components/LoginForm/LoginForm';
+import { LoginFormT } from '../fuature/login/components/LoginForm/LoginForm';
 import { AxiosError } from 'axios';
 
 // авторизация

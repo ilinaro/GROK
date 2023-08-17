@@ -1,10 +1,10 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { Provider } from 'react-redux';
-import { store } from '@store/index';
-import { RouterProvider } from 'react-router-dom';
-import { Routers } from './routes';
+import { store } from '../src/store/index';
+// import { RouterProvider } from 'react-router-dom';
+import { SSRRouters } from './routes';
 
 function App() {
   const [queryClient] = useState(
@@ -22,13 +22,13 @@ function App() {
   );
 
   return (
-    <React.StrictMode>
-      <Provider store={store}>
-        <QueryClientProvider client={queryClient}>
-          <RouterProvider router={Routers} />
-        </QueryClientProvider>
-      </Provider>
-    </React.StrictMode>
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <SSRRouters />
+        {/* <RouterProvider router={Routers} /> */}
+        {/* SSR */}
+      </QueryClientProvider>
+    </Provider>
   );
 }
 

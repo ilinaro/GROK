@@ -8,7 +8,7 @@ import { ShowPassSVG } from '@components/design-system/SVG/ShowPassSVG';
 import { PASSWORD_REGEX, REQUIRED } from 'fuature/profile/constants';
 import { changePassword } from '@store/thunks/change-user-data';
 import { IChangePasswordRequest } from '@store/types/userTypes';
-import { baseValidationRules, passwordValidationScheme } from 'fuature/profile/validation';
+import { baseValidationRules, passwordValidationScheme } from '@fuature/profile/validation';
 interface IChangePasswordForm {
   setMode(value: string): void;
 }
