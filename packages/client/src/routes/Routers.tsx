@@ -43,13 +43,14 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
   const authPath = ['/login', '/registration'];
   const isExcludePath: boolean = authPath.includes(previousPath);
 
-  if (isSuccess && isExcludePath && !isLoading) {
+  /*if (isSuccess && isExcludePath && !isLoading) {
     return <Navigate to="/" />;
   } else if (!isSuccess && !isExcludePath && !isLoading) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/" />;
   } else {
     return children;
-  }
+  }*/
+  return children;
 };
 
 export const Routers = createBrowserRouter([
