@@ -14,7 +14,7 @@ import { ProgressPage } from '../pages/progress';
 import { RegistrationPage } from '../pages/registration';
 import { RouteNames } from './routeNames';
 import { StartPage } from '../pages/start';
-import { Navigate, Route, Routes, createBrowserRouter } from 'react-router-dom';
+import { Navigate, createBrowserRouter } from 'react-router-dom';
 import { ReactElement } from 'react';
 import { useAppDispatch } from '../store/hooks';
 import { useQuery } from 'react-query';
@@ -25,7 +25,7 @@ type PrivateRouteProps = {
   children: ReactElement;
 };
 
-const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
+export const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
   const dispatch = useAppDispatch();
   const {
     data: user,
@@ -141,38 +141,3 @@ export const Routers = createBrowserRouter([
     element: <NoMatchPage />,
   },
 ]);
-
-export const SSRRouters = () => {
-  const privatRouter = (route: ReactElement, layout = false) => {
-    return layout ? (
-      // <PrivateRoute>
-      <ProfileLayout>{route}</ProfileLayout>
-    ) : (
-      // </PrivateRoute>
-      // <PrivateRoute>
-      <>{route}</>
-    );
-    // </PrivateRoute>
-  };
-
-  return (
-    <Routes>
-      <Route path={RouteNames.START} element={privatRouter(<StartPage />, true)} />
-      <Route path={RouteNames.PROFILE} element={privatRouter(<ProfilePage />, true)} />
-      <Route path={RouteNames.LEADERS} element={privatRouter(<LeadersPage />, true)} />
-      <Route path={RouteNames.FORUM} element={privatRouter(<ForumPage />, true)} />
-      <Route path={RouteNames.FORUM_EVENTS} element={privatRouter(<ForumEventsPage />, true)} />
-      <Route path={RouteNames.PROGRESS} element={privatRouter(<ProgressPage />, true)} />
-      <Route path={RouteNames.NOMATCH} element={privatRouter(<NoMatchPage />, true)} />
-      <Route path={RouteNames.FORUM_TOPICS} element={privatRouter(<ForumTopics />, true)} />
-      <Route path={RouteNames.FORUM_ANSWERS} element={privatRouter(<ForumAnswers />, true)} />
-      <Route path={RouteNames.FORUM_CREATE} element={privatRouter(<ForumActionCreate />, true)} />
-      {/* </Route > */}
-      <Route path={RouteNames.LOGIN} element={privatRouter(<LoginPage />)} />
-      <Route path={RouteNames.REGISTRATION} element={privatRouter(<RegistrationPage />)} />
-      <Route path={RouteNames.GAME} element={privatRouter(<GamePage />)} />
-      <Route path={RouteNames.ERROR} element={<ErrorPage />} />
-      <Route path={RouteNames.NOMATCH} element={<NoMatchPage />} />
-    </Routes>
-  );
-};

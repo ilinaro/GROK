@@ -74,7 +74,7 @@ export const Game: React.FC<GameT> = () => {
       <div className={styles.Healt}>
         <HealtSVG />
       </div>
-      {typeof window !== 'undefined' && <canvas ref={canvasRef} />}
+      {typeof window === 'undefined' && <canvas ref={canvasRef} />}
       {menu && (
         <MenuGame
           onClose={handleCloseMenu}
