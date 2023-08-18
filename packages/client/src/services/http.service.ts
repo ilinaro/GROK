@@ -35,4 +35,5 @@ const httpService = {
   patch: AxiosAuth.patch,
   delete: AxiosAuth.delete,
 };
+
 export default httpService;

@@ -1,18 +1,17 @@
 import { BodyNormal } from '@components/design-system/Fonts';
 
 import { Button } from '@components/design-system';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FormInput } from '@components/specific/FormInput/FormInput';
 import { useForm } from 'react-hook-form';
 import styles from './RegistrationForm.module.scss';
 import { RouteNames } from '@routes/routeNames';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { HidePassSVG } from '@components/design-system/SVG/HidePassSVG';
 import { ShowPassSVG } from '@components/design-system/SVG/ShowPassSVG';
 import { AuthForm } from '@fuature/login/components/AuthForm';
 import { useMutation, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
-import authService from '@services/auth.service';
 import { FormError } from '@components/specific/FormError';
 import {
   baseValidationRules,
@@ -22,6 +21,8 @@ import {
   passwordValidationScheme,
   phoneValidationScheme,
 } from '@fuature/profile/validation';
+import { useAppSelector } from '@store/hooks';
+import { authApi } from '@api/auth';
 
 type RegistrationT = {};
 
@@ -35,13 +36,18 @@ export interface RegistrationFormT {
 }
 
 export const RegistrationForm: React.FC<RegistrationT> = () => {
+  const navigate = useNavigate();
+
+  const { auth } = useAppSelector((state) => state.user);
+
   const queryClient = useQueryClient();
 
   const [isPasswordShow, setIsPasswordShow] = useState(false);
 
-  const { mutate, isLoading, isError, error } = useMutation<void, AxiosError<{ reason: string }>, RegistrationFormT>(
-    async (data) => {
-      await authService.signup(data);
+  const { mutate, isLoading, error } = useMutation<string, AxiosError<{ reason: string }>, RegistrationFormT>(
+    async (refisterData: RegistrationFormT) => {
+      const { data } = await authApi.signup(refisterData);
+      return data;
     },
     {
       onSuccess: () => {
@@ -50,12 +56,7 @@ export const RegistrationForm: React.FC<RegistrationT> = () => {
     }
   );
 
-  const {
-    control,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<RegistrationFormT>({
+  const { control, handleSubmit, watch } = useForm<RegistrationFormT>({
     defaultValues: {
       first_name: '',
       second_name: '',
@@ -100,6 +101,12 @@ export const RegistrationForm: React.FC<RegistrationT> = () => {
     );
   };
 
+  useEffect(() => {
+    if (auth === true) {
+      navigate(RouteNames.START);
+    }
+  }, [auth]);
+
   return (
     <AuthForm
       title="Регистрация"
@@ -107,7 +114,7 @@ export const RegistrationForm: React.FC<RegistrationT> = () => {
       footer={footer()}
       className={styles.containerRegistration}
     >
-      {!!isError && <FormError view={'error'} description={error.response?.data.reason ?? ''} />}
+      {Boolean(error) && <FormError view={'error'} description={error?.response?.data.reason ?? ''} />}
       <FormInput
         name="first_name"
         label="Имя"

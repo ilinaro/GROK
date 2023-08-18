@@ -29,7 +29,7 @@ export const ProfileForm: React.FC = () => {
 
   const { user } = useAppSelector((store) => store.user);
 
-  const { control, watch, handleSubmit, formState, setValue } = useForm<FieldValues>({
+  const { control, handleSubmit, formState, setValue } = useForm<FieldValues>({
     defaultValues: {
       login: '',
       first_name: '',

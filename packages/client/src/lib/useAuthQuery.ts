@@ -1,15 +1,16 @@
-import authService from '@services/auth.service';
+import { authApi } from '@api/auth';
 import { AxiosError } from 'axios';
+import { useMutation, useQueryClient } from 'react-query';
 import { LoginFormT } from 'fuature/login/components/LoginForm/LoginForm';
 import { RegistrationFormT } from 'fuature/registration/components/RegistrationForm/RegistrationForm';
-import { useMutation, useQueryClient } from 'react-query';
+import { RouteNames } from '@routes/routeNames';
 
 const queryClient = useQueryClient();
 
 export const useSignInQuery = () => {
   return useMutation<void, AxiosError, LoginFormT>(
     async (data) => {
-      await authService.signin(data);
+      await authApi.login(data);
     },
     {
       onSuccess: () => {
@@ -22,7 +23,7 @@ export const useSignInQuery = () => {
 export const useSignUpQuery = () => {
   return useMutation<void, AxiosError, RegistrationFormT>(
     async (data) => {
-      await authService.signup(data);
+      await authApi.signup(data);
     },
     {
       onSuccess: () => {
@@ -35,7 +36,7 @@ export const useSignUpQuery = () => {
 export const useLogoutQuery = () => {
   return useMutation<void, AxiosError>(
     async () => {
-      await authService.logout();
+      await authApi.logout();
     },
     {
       onSuccess: () => {

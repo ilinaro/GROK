@@ -1,10 +1,8 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { useState } from 'react';
 
-import { Provider } from 'react-redux';
-import { store } from '../src/store/index';
-// import { RouterProvider } from 'react-router-dom';
 import { SSRRouters } from './routes';
+import { useAppSelector } from '@store/hooks';
 
 function App() {
   const [queryClient] = useState(
@@ -21,14 +19,14 @@ function App() {
       })
   );
 
+  const { auth } = useAppSelector((state) => state.user);
+
   return (
-    <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
-        <SSRRouters />
-        {/* <RouterProvider router={Routers} /> */}
-        {/* SSR */}
-      </QueryClientProvider>
-    </Provider>
+    <QueryClientProvider client={queryClient}>
+      <SSRRouters />
+      {/* <RouterProvider router={Routers} /> */}
+      {/* SSR */}
+    </QueryClientProvider>
   );
 }
 

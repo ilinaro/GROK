@@ -8,14 +8,15 @@ import { Button } from '@components/design-system';
 import { FormError } from '@components/specific/FormError';
 import { FormInput } from '@components/specific/FormInput/FormInput';
 import { HidePassSVG } from '@components/design-system/SVG/HidePassSVG';
-import { Link } from 'react-router-dom';
-import { REQUIRED } from 'fuature/profile/constants';
+import { Link, useNavigate } from 'react-router-dom';
 import { RouteNames } from '@routes/routeNames';
 import { ShowPassSVG } from '@components/design-system/SVG/ShowPassSVG';
-import authService from '@services/auth.service';
 import { baseValidationRules } from '../../../../fuature/profile/validation';
 import styles from './LoginForm.module.scss';
 import { useForm } from 'react-hook-form';
+import { useAppDispatch, useAppSelector } from '@store/hooks';
+import { authApi } from '@api/auth';
+import { loadUser } from '@store/thunks/user';
 
 type LoginT = {};
 
@@ -29,27 +30,32 @@ export interface LoginFormT {
 }
 
 export const LoginForm: React.FC<LoginT> = () => {
+  const navigate = useNavigate();
+
+  const { auth } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+
   const queryClient = useQueryClient();
 
-  const { mutate, isLoading, isError, error } = useMutation<void, AxiosError<{ reason: string }>, LoginFormT>(
-    async (data: LoginFormT) => {
-      await authService.signin(data);
+  const { mutate, isLoading, error } = useMutation<string, AxiosError<{ reason: string }>, LoginFormT>(
+    async (loginData: LoginFormT) => {
+      const { data } = await authApi.login(loginData);
+
+      await dispatch(loadUser());
+
+      return data;
     },
     {
       onSuccess: () => {
         queryClient.refetchQueries(['user']);
+        navigate(RouteNames.START);
       },
     }
   );
 
   const [isPasswordShow, setIsPasswordShow] = useState(false);
 
-  const {
-    control,
-    watch,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginFormT>({
+  const { control, watch, handleSubmit } = useForm<LoginFormT>({
     defaultValues: {
       login: '',
       password: '',
@@ -83,9 +89,15 @@ export const LoginForm: React.FC<LoginT> = () => {
     );
   };
 
+  useEffect(() => {
+    if (auth === true) {
+      navigate(RouteNames.START);
+    }
+  }, [auth]);
+
   return (
     <AuthForm title="Вход" onSubmit={handleSubmit(onSubmit)} footer={footer()} className={styles.containerLogin}>
-      {!!isError && <FormError view={'error'} description={error.response?.data.reason ?? ''} />}
+      {Boolean(error) && <FormError view={'error'} description={error?.response?.data.reason ?? ''} />}
       <FormInput
         name="login"
         label="Введите логин"

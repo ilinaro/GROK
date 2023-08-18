@@ -1,7 +1,13 @@
 import type { ViteDevServer } from 'vite'
-import type { TSsrRenderProps } from 'client/ssr/typing'
 import fs from 'fs'
 import path from 'path'
+import { Request } from 'express'
+import { ApiRepository } from './repository/ApiRepository'
+
+type TSsrRenderProps = (
+  url: string,
+  repository: ApiRepository
+) => Promise<[string, Record<string, unknown>]>
 
 const ssrDevPath = path.dirname(require.resolve('client'))
 const ssrProdPath = require.resolve('client/ssr-dist/ssr.cjs')
@@ -11,7 +17,8 @@ export const getSsrPath = (isDev: boolean) => (isDev ? ssrDevPath : ssrProdPath)
 export async function ssrContent(
   vite: ViteDevServer,
   url: string,
-  isDev: boolean
+  isDev: boolean,
+  req: Request
 ) {
   let render: TSsrRenderProps
 
@@ -28,6 +35,16 @@ export async function ssrContent(
     render = (await import(ssrProdPath)).render
   }
 
-  const appHtml = render(url)
-  return template.replace('<!--ssr-outlet-->', appHtml)
+  const [appHtml, store] = await render(
+    url,
+    new ApiRepository(req.headers['cookie'])
+  )
+
+  const initialState = JSON.stringify(store).replace(/</g, '\\u003c')
+
+  const html = template
+    .replace('<!--ssr-outlet-->', appHtml)
+    .replace('<!--store-data-->', `window.initialState = ${initialState}`)
+
+  return html
 }

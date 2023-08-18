@@ -1,1 +1,1 @@
-export type TSsrRenderProps = (url: string) => string;
+export type TSsrRenderProps = (url: string, repository: unknown) => Promise<[string, Record<string, unknown>]>;

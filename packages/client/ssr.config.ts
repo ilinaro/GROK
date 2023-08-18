@@ -4,6 +4,7 @@ import * as path from 'path';
 
 const aliases = {
   '@app': 'src/app',
+  '@api': 'src/api',
   '@store': 'src/store',
   '@components': 'src/components',
   '@routes': 'src/routes',
@@ -14,6 +15,7 @@ const aliases = {
   '@utils': 'src/utils',
   '@lib': 'src/lib',
   '@config': 'src/config',
+  '@repository': 'src/repository',
 };
 
 const resolvedAliases = Object.fromEntries(
@@ -37,7 +39,14 @@ export default defineConfig({
       output: {
         dir: 'ssr-dist',
       },
-      external: ['utils/sw/Cache', 'utils/sw/sw', 'utils/hashCode', 'utils/logger', 'routes'],
+      external: [
+        'utils/sw/Cache',
+        'utils/sw/sw',
+        'utils/hashCode',
+        'utils/logger',
+        'routes',
+        'config/apiRoutes.config',
+      ],
     },
   },
   ssr: {

@@ -14,31 +14,14 @@ import { ProgressPage } from '../pages/progress';
 import { RegistrationPage } from '../pages/registration';
 import { RouteNames } from './routeNames';
 import { StartPage } from '../pages/start';
-import { Navigate, createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 import { ReactElement } from 'react';
-import { useAppDispatch } from '../store/hooks';
-import { useQuery } from 'react-query';
-import userService from '../services/user.service';
-import { setUserAC } from '../store/actions/userAction';
 
 type PrivateRouteProps = {
   children: ReactElement;
 };
 
 export const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
-  const dispatch = useAppDispatch();
-  const {
-    data: user,
-    isLoading,
-    isError,
-    isSuccess,
-  } = useQuery(['user'], () => userService.getUser(), {
-    enabled: true,
-    onSuccess: (data) => {
-      dispatch(setUserAC(data));
-    },
-  });
-
   const previousPath = typeof window !== 'undefined' ? window.location.pathname : '';
   const authPath = ['/login', '/registration'];
   const isExcludePath: boolean = authPath.includes(previousPath);

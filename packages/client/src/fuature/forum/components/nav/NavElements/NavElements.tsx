@@ -10,7 +10,7 @@ export const NavElements = () => {
   return (
     <>
       {navData.map((element) => (
-        <NavItem data={element} />
+        <NavItem data={element} key={element.name} />
       ))}
     </>
   );

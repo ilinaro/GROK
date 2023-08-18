@@ -1,17 +1,14 @@
+import { AxiosResponse } from 'axios';
 import { User } from '@store/types/userTypes';
-import httpService from './http.service';
 
-const getUser = async () => {
-  try {
-    const { data } = await httpService.get<User>(`auth/user`);
-    return data;
-  } catch {
-    throw new Error('userServiceGetError');
+export interface UserRepository {
+  getCurrentUser(): Promise<AxiosResponse<User>>;
+}
+
+export class UserService {
+  constructor(private _repo: UserRepository) {}
+
+  getCurrentUser() {
+    return this._repo.getCurrentUser();
   }
-};
-
-const userService = {
-  getUser,
-};
-
-export default userService;
+}
