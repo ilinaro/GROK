@@ -1,4 +1,30 @@
-:root {
+html[data-theme='dark'] {
+	--color-violet: #6e3dc8;
+	--color-violet-darken: #5830a5;
+	--color-white: #ffffff;
+	--color-white-transparent: rgba(255, 255, 255, 0.1);
+	--color-white-darken: #8b97ae;
+	--color-blue: #6781f7;
+	--color-pink: #d752aa;
+	--color-pink-disabled: #cf6cae;
+	--color-yellow: #fcba06;
+	--color-black: #192233;
+	--color-black-light: #212c42;
+	--color-disabled: #b8c6d1;
+	//  z-index
+	--index-subheader: 10;
+	--index-bar-mobile: 100;
+	--index-header: 1000;
+	--index-modal: 10000;
+	--index-portal: 100000;
+	// для боковых отступов
+	--web-max-width: 1800px;
+	--web-spacing: 0 var(--web-space);
+	--content-max-width: calc(1480px + (var(--web-space) * 2));
+	--web-space: 30px;
+}
+
+html.light {
 	--color-violet: #6e3dc8;
 	--color-violet-darken: #5830a5;
 	--color-white: #ffffff;
