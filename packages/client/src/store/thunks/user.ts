@@ -1,3 +1,4 @@
+import { AxiosResponse } from 'axios';
 import { setUserLoadingAC, clearUserErrorsAC } from '@store/actions/userAction';
 import { AppDispatch } from '@store/types';
 import { User } from '@store/types/userTypes';
@@ -11,14 +12,15 @@ export const loadUser = createAsyncThunk<User>(auth.user, async (_, thunkApi) =>
   try {
     const service: UserService = thunkApi.extra as UserService;
 
-    const { data } = await service.getCurrentUser();
+    const user = await service.getCurrentUser();
 
-    thunkApi.dispatch(userActions.setUserData(data));
+    thunkApi.dispatch(userActions.setUserData(user));
 
-    return data;
+    return user;
   } catch (error) {
+    console.log(error);
     console.error('Вы не авторизованы');
-    return thunkApi.rejectWithValue(undefined);
+    return thunkApi.rejectWithValue(error);
   }
 });
 

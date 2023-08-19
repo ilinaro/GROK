@@ -58150,7 +58150,7 @@ const styles$e = {
 };
 const useAppDispatch = useDispatch;
 const useAppSelector = useSelector;
-const BASE_URL = "https://ya-praktikum.tech/api/v2";
+const BASE_URL = "http://localhost:3001/api/v2";
 const auth = {
   signup: `${BASE_URL}/auth/signup`,
   signin: `${BASE_URL}/auth/signin`,
@@ -58168,7 +58168,7 @@ const axiosInstance = axios$1.create({
 });
 class ApiRepository {
   async getCurrentUser() {
-    const data = await axiosInstance.get(auth.user);
+    const { data } = await axiosInstance.get(auth.user);
     return data;
   }
 }
@@ -60207,12 +60207,13 @@ const { actions: userActions, reducer: userReducer } = userSlice;
 const loadUser = createAsyncThunk(auth.user, async (_2, thunkApi) => {
   try {
     const service = thunkApi.extra;
-    const { data } = await service.getCurrentUser();
-    thunkApi.dispatch(userActions.setUserData(data));
-    return data;
+    const user2 = await service.getCurrentUser();
+    thunkApi.dispatch(userActions.setUserData(user2));
+    return user2;
   } catch (error) {
+    console.log(error);
     console.error("\u0412\u044B \u043D\u0435 \u0430\u0432\u0442\u043E\u0440\u0438\u0437\u043E\u0432\u0430\u043D\u044B");
-    return thunkApi.rejectWithValue(void 0);
+    return thunkApi.rejectWithValue(error);
   }
 });
 const LoginForm = () => {
@@ -61133,17 +61134,13 @@ const PrivateRoute = ({
   const {
     data: user2,
     isLoading,
-    isError: isError2,
     isSuccess
   } = useQuery(["user"], async () => await authApi.getCurrentUser(), {
     enabled: true,
-    onSuccess: ({
-      data
-    }) => {
+    onSuccess: (data) => {
       dispatch(userActions.setUserData(data));
     }
   });
-  console.log(user2, "user");
   const previousPath = typeof window !== "undefined" ? window.location.pathname : "";
   const authPath = ["/login", "/registration"];
   const isExcludePath = authPath.includes(previousPath);
@@ -75279,7 +75276,7 @@ class UserService {
   constructor(_repo) {
     this._repo = _repo;
   }
-  getCurrentUser() {
+  async getCurrentUser() {
     return this._repo.getCurrentUser();
   }
 }
@@ -75301,7 +75298,6 @@ const render = async (url2, repository) => {
   const store = createStore(new UserService(repository));
   await store.dispatch(loadUser());
   const initialState2 = store.getState();
-  console.log(initialState2);
   const renderResult = renderToString(/* @__PURE__ */ jsx(StaticRouter, {
     location: url2,
     children: /* @__PURE__ */ jsx(Provider, {

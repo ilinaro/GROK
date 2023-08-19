@@ -14,8 +14,6 @@ export const render = async (url: string, repository: UserRepository) => {
 
   const initialState = store.getState();
 
-  console.log(initialState);
-
   const renderResult = renderToString(
     <StaticRouter location={url}>
       <Provider store={store}>

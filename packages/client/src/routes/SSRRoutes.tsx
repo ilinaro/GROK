@@ -31,16 +31,13 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
   const {
     data: user,
     isLoading,
-    isError,
     isSuccess,
   } = useQuery(['user'], async () => await authApi.getCurrentUser(), {
     enabled: true,
-    onSuccess: ({ data }) => {
+    onSuccess: (data) => {
       dispatch(userActions.setUserData(data));
     },
   });
-
-  console.log(user, 'user');
 
   const previousPath = typeof window !== 'undefined' ? window.location.pathname : '';
   const authPath = ['/login', '/registration'];
