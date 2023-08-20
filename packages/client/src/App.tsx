@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { store } from '@store/index';
 import { RouterProvider } from 'react-router-dom';
 import { Routers } from './routes';
+import { ToggleTheme } from '@components/specific/Toggle/ToggleTheme';
 
 function App() {
   const [queryClient] = useState(
@@ -25,6 +26,7 @@ function App() {
     <React.StrictMode>
       <Provider store={store}>
         <QueryClientProvider client={queryClient}>
+          <ToggleTheme />
           <RouterProvider router={Routers} />
         </QueryClientProvider>
       </Provider>
