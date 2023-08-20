@@ -20,6 +20,7 @@ import { useAppDispatch } from '@store/hooks';
 import { useQuery } from 'react-query';
 import userService from '@services/user.service';
 import { setUserAC } from '@store/actions/userAction';
+import { ToggleTheme } from '@components/specific/Toggle';
 
 type PrivateRouteProps = {
   children: ReactElement;
@@ -112,7 +113,10 @@ export const Routers = createBrowserRouter([
     path: RouteNames.LOGIN,
     element: (
       <PrivateRoute>
-        <LoginPage />
+        <>
+          <ToggleTheme />
+          <LoginPage />
+        </>
       </PrivateRoute>
     ),
   },
@@ -120,7 +124,10 @@ export const Routers = createBrowserRouter([
     path: RouteNames.REGISTRATION,
     element: (
       <PrivateRoute>
-        <RegistrationPage />
+        <>
+          <RegistrationPage />
+          <LoginPage />
+        </>
       </PrivateRoute>
     ),
   },

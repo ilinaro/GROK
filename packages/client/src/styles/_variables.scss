@@ -24,18 +24,20 @@ html[data-theme='dark'] {
 	--web-space: 30px;
 }
 
-html.light {
-	--color-violet: #6e3dc8;
+// html.light {
+html[data-theme='light'] {
+	--color-violet: white;
+	// --color-violet: #8e55f8;
 	--color-violet-darken: #5830a5;
-	--color-white: #ffffff;
-	--color-white-transparent: rgba(255, 255, 255, 0.1);
+	--color-white: #253149;
+	--color-white-transparent: #8e55f833;
 	--color-white-darken: #8b97ae;
 	--color-blue: #6781f7;
 	--color-pink: #d752aa;
 	--color-pink-disabled: #cf6cae;
 	--color-yellow: #fcba06;
 	--color-black: #192233;
-	--color-black-light: #212c42;
+	--color-black-light: #5830a5;
 	--color-disabled: #b8c6d1;
 	//  z-index
 	--index-subheader: 10;
