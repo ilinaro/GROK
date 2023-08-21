@@ -7,9 +7,6 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-ssr-dist
 *.local
 .DS_Store
 
@@ -25,3 +22,6 @@ ssr-dist
 
 yarn.lock
 package-lock.json
+node_modules
+dist
+ssr-dist
