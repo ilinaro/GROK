@@ -6,6 +6,7 @@ import { Pause } from '@phosphor-icons/react';
 import { WindowCanvas } from './scene';
 import styles from './Game.module.scss';
 import { useAppSelector } from '@store/hooks';
+import { DisplayOnBrowserMount } from '@utils/DisplayOnBrowserMount';
 
 type GameT = {};
 
@@ -19,8 +20,6 @@ export const Game: React.FC<GameT> = () => {
 
   const { bonus: bonusStore } = useAppSelector((store) => store.game);
   const { life: lifeStore } = useAppSelector((store) => store.game);
-
-  const ALL_LAVEL = 10;
 
   useEffect(() => {
     if (lifeStore === 0 || lifeStore < 1) {
@@ -48,7 +47,6 @@ export const Game: React.FC<GameT> = () => {
 
   const handleOpenPause = () => {
     setMenu(true);
-    // setStatus('pause');
   };
 
   const handleCloseMenu = () => {
@@ -74,7 +72,9 @@ export const Game: React.FC<GameT> = () => {
       <div className={styles.Healt}>
         <HealtSVG />
       </div>
-      {typeof window === 'undefined' && <canvas ref={canvasRef} />}
+      <DisplayOnBrowserMount>
+        <canvas ref={canvasRef} />
+      </DisplayOnBrowserMount>
       {menu && (
         <MenuGame
           onClose={handleCloseMenu}

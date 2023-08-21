@@ -7,7 +7,7 @@ import { useQuery } from 'react-query';
 const dispatch = useAppDispatch();
 
 export const useGetUserQuery = () => {
-  return useQuery(['user'], async () => await authApi.getCurrentUser(), {
+  return useQuery(['user'], () => authApi.getCurrentUser(), {
     enabled: false,
     onSuccess: (data) => {
       dispatch(setUserAC(data));

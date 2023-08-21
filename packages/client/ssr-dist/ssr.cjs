@@ -35061,7 +35061,7 @@ function correctWeight(weight) {
   return weight === "bold" ? 700 : weight === "medium" ? 500 : weight === "normal" ? 400 : 300;
 }
 const BodyBold = "_BodyBold_18kag_1";
-const styles$K = {
+const styles$L = {
   BodyBold
 };
 const useGetCSSVars = (type, arg) => {
@@ -35074,7 +35074,7 @@ const useGetCSSVars = (type, arg) => {
   return root ? getComputedStyle(root).getPropertyValue(`--${type}-${arg}`) || "inherit" : "inherit";
 };
 const Subheader$1 = "_Subheader_2f56s_1";
-const styles$J = {
+const styles$K = {
   Subheader: Subheader$1
 };
 const Subheader = ({
@@ -35093,13 +35093,13 @@ const Subheader = ({
       fontWeight: currentWeight,
       ...sx
     },
-    className: clsx(styles$J.Subheader, className),
+    className: clsx(styles$K.Subheader, className),
     ...props,
     children
   });
 };
 const BodyNormal$1 = "_BodyNormal_15i8z_1";
-const styles$I = {
+const styles$J = {
   BodyNormal: BodyNormal$1
 };
 const BodyNormal = ({
@@ -35118,13 +35118,13 @@ const BodyNormal = ({
       fontWeight: currentWeight,
       ...sx
     },
-    className: clsx(styles$I.BodyNormal, className),
+    className: clsx(styles$J.BodyNormal, className),
     ...props,
     children
   });
 };
 const Title$1 = "_Title_yulmb_1";
-const styles$H = {
+const styles$I = {
   Title: Title$1
 };
 const Title = ({
@@ -35143,15 +35143,15 @@ const Title = ({
       fontWeight: currentWeight,
       ...sx
     },
-    className: clsx(styles$H.Title, className),
+    className: clsx(styles$I.Title, className),
     ...props,
     children
   });
 };
-const styles$G = {};
+const styles$H = {};
 const Error$1 = () => {
   return /* @__PURE__ */ jsx("div", {
-    className: styles$G.Wrapper,
+    className: styles$H.Wrapper,
     children: /* @__PURE__ */ jsx(BodyNormal, {
       children: "Error Component 500"
     })
@@ -35164,7 +35164,7 @@ const RightSide = "_RightSide_1bzi3_21";
 const ForumWrapper = "_ForumWrapper_1bzi3_31";
 const ForumTitle = "_ForumTitle_1bzi3_38";
 const ForumFrame = "_ForumFrame_1bzi3_46";
-const styles$F = {
+const styles$G = {
   ForumMain,
   LeftSide,
   RightSide,
@@ -35176,7 +35176,7 @@ const ForumNavWrap = "_ForumNavWrap_2kiz1_1";
 const ForumNavList = "_ForumNavList_2kiz1_8";
 const ForumNavItem = "_ForumNavItem_2kiz1_18";
 const ForumNavItem__active = "_ForumNavItem__active_2kiz1_29";
-const styles$E = {
+const styles$F = {
   ForumNavWrap,
   ForumNavList,
   ForumNavItem,
@@ -35727,6 +35727,17 @@ function useNavigateUnstable() {
   }, [basename, navigator2, routePathnamesJson, locationPathname, dataRouterContext]);
   return navigate;
 }
+const OutletContext = /* @__PURE__ */ reactExports.createContext(null);
+function useOutlet(context) {
+  let outlet = reactExports.useContext(RouteContext).outlet;
+  if (outlet) {
+    return /* @__PURE__ */ jsx(OutletContext.Provider, {
+      value: context,
+      children: outlet
+    });
+  }
+  return outlet;
+}
 function useResolvedPath(to, _temp2) {
   let {
     relative
@@ -36094,6 +36105,9 @@ function Navigate$3(_ref4) {
     relative
   }), [navigate, jsonPath, relative, replace, state2]);
   return null;
+}
+function Outlet$1(props) {
+  return useOutlet(props.context);
 }
 function Route(_props) {
   process.env.NODE_ENV !== "production" ? invariant$1(false, "A <Route> is only ever to be used as the child of <Routes> element, never rendered directly. Please wrap your <Route> in a <Routes>.") : invariant$1(false);
@@ -36627,9 +36641,9 @@ const NavItem = (props) => {
     className: ({
       isActive
     }) => {
-      const classNames2 = [styles$E.ForumNavItem];
+      const classNames2 = [styles$F.ForumNavItem];
       if (isActive)
-        classNames2.push(styles$E.ForumNavItem__active);
+        classNames2.push(styles$F.ForumNavItem__active);
       return classNames2.join(" ");
     },
     to: "/forum/" + data.path,
@@ -36655,16 +36669,16 @@ const NavElements = () => {
 };
 const ForumNav = () => {
   return /* @__PURE__ */ jsx("nav", {
-    className: styles$E.ForumNavWrap,
+    className: styles$F.ForumNavWrap,
     children: /* @__PURE__ */ jsx("ul", {
-      className: styles$E.ForumNavList,
+      className: styles$F.ForumNavList,
       children: /* @__PURE__ */ jsx(NavElements, {})
     })
   });
 };
 const iconFullScreen = "_iconFullScreen_zdl8q_1";
 const fullScreenActive = "_fullScreenActive_zdl8q_14";
-const styles$D = {
+const styles$E = {
   iconFullScreen,
   fullScreenActive
 };
@@ -36719,27 +36733,25 @@ const classNames = classnames.exports;
 const FullScreen = () => {
   const [isFullscreeen, setFullscreen] = reactExports.useState(false);
   async function eventHandler(event) {
-    if (typeof document !== "undefined") {
-      if (document.fullscreenElement) {
-        try {
-          await document.exitFullscreen();
-          setFullscreen(false);
-        } catch (err) {
-          throw new Error();
-        }
-      } else {
-        try {
-          await document.documentElement.requestFullscreen();
-          setFullscreen(true);
-        } catch (err) {
-          throw new Error();
-        }
+    if (document.fullscreenElement) {
+      try {
+        await document.exitFullscreen();
+        setFullscreen(false);
+      } catch (err) {
+        throw new Error();
+      }
+    } else {
+      try {
+        await document.documentElement.requestFullscreen();
+        setFullscreen(true);
+      } catch (err) {
+        throw new Error();
       }
     }
   }
   return /* @__PURE__ */ jsx("button", {
-    className: classNames(styles$D.iconFullScreen, {
-      [styles$D.fullScreenActive]: isFullscreeen
+    className: classNames(styles$E.iconFullScreen, {
+      [styles$E.fullScreenActive]: isFullscreeen
     }),
     type: "submit",
     id: "toggler",
@@ -36747,14 +36759,14 @@ const FullScreen = () => {
   });
 };
 const notification__button = "_notification__button_yvg46_1";
-const styles$C = {
+const styles$D = {
   notification__button
 };
 const Alert__wrapper = "_Alert__wrapper_1s2v7_2";
 const Alert__error = "_Alert__error_1s2v7_15";
 const close_btn = "_close_btn_1s2v7_19";
 const Alert__wrapper_active = "_Alert__wrapper_active_1s2v7_26";
-const styles$B = {
+const styles$C = {
   Alert__wrapper,
   Alert__error,
   close_btn,
@@ -36768,39 +36780,39 @@ const Alert = (props) => {
   reactExports.useEffect(() => {
   });
   return /* @__PURE__ */ jsxs("div", {
-    className: classNames(styles$B.Alert__wrapper, {
-      [styles$B.Alert__error]: type === "error",
-      [styles$B.Alert__wrapper_active]: isActive
+    className: classNames(styles$C.Alert__wrapper, {
+      [styles$C.Alert__error]: type === "error",
+      [styles$C.Alert__wrapper_active]: isActive
     }),
     children: [props.children, /* @__PURE__ */ jsx("div", {
-      className: styles$B.close_btn,
+      className: styles$C.close_btn,
       onClick: () => !isActive
     })]
   });
 };
 const Alert__title = "_Alert__title_ubocz_1";
-const styles$A = {
+const styles$B = {
   Alert__title
 };
 const AlertTitle = (props) => {
   return /* @__PURE__ */ jsx("h1", {
-    className: styles$A.Alert__title,
+    className: styles$B.Alert__title,
     children: props.children
   });
 };
 const Box__wrapper = "_Box__wrapper_vcp69_1";
-const styles$z = {
+const styles$A = {
   Box__wrapper
 };
 const Box = (props) => {
   return /* @__PURE__ */ jsx("div", {
-    className: styles$z.Box__wrapper,
+    className: styles$A.Box__wrapper,
     children: props.children
   });
 };
 const Alert__icon = "_Alert__icon_aiyhs_1";
 const Alert__icon_err = "_Alert__icon_err_aiyhs_9";
-const styles$y = {
+const styles$z = {
   Alert__icon,
   Alert__icon_err
 };
@@ -36809,24 +36821,24 @@ const AlertIcon = (props) => {
     type
   } = props;
   return /* @__PURE__ */ jsx("div", {
-    className: classNames(styles$y.Alert__icon, {
-      [styles$y.Alert__icon_err]: type === "error"
+    className: classNames(styles$z.Alert__icon, {
+      [styles$z.Alert__icon_err]: type === "error"
     })
   });
 };
 const Alert__description = "_Alert__description_1bn8d_1";
-const styles$x = {
+const styles$y = {
   Alert__description
 };
 const AlertDesc = (props) => {
   return /* @__PURE__ */ jsx("div", {
-    className: styles$x.Alert__description,
+    className: styles$y.Alert__description,
     children: props.children
   });
 };
 const Alert__button = "_Alert__button_10bgd_1";
 const btn__action_cancel = "_btn__action_cancel_10bgd_15";
-const styles$w = {
+const styles$x = {
   Alert__button,
   btn__action_cancel
 };
@@ -36836,8 +36848,8 @@ const AlertButton = (props) => {
     onClick
   } = props;
   return /* @__PURE__ */ jsx("button", {
-    className: classNames(styles$w.Alert__button, {
-      [styles$w.btn__action_cancel]: type === "error"
+    className: classNames(styles$x.Alert__button, {
+      [styles$x.btn__action_cancel]: type === "error"
     }),
     onClick,
     children: props.children
@@ -36885,7 +36897,7 @@ const NotificationAPI = () => {
         children: "\u0412\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0443\u0432\u0435\u0434\u043E\u043C\u043B\u0435\u043D\u0438\u044F?"
       })]
     }), /* @__PURE__ */ jsxs("div", {
-      className: styles$C.notification__button,
+      className: styles$D.notification__button,
       children: [/* @__PURE__ */ jsx(AlertButton, {
         type: "success",
         onClick: enableNotifyAndClose,
@@ -36906,7 +36918,7 @@ const NotificationAPI = () => {
         children: "\u0423\u0432\u0435\u0434\u043E\u043C\u043B\u0435\u043D\u0438\u044F \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D\u044B!"
       })
     }), /* @__PURE__ */ jsx("div", {
-      className: styles$C.notification__button,
+      className: styles$D.notification__button,
       children: /* @__PURE__ */ jsx(AlertButton, {
         type: "success",
         onClick: () => notify(""),
@@ -36923,7 +36935,7 @@ const NotificationAPI = () => {
         children: "\u0423\u0432\u0435\u0434\u043E\u043C\u043B\u0435\u043D\u0438\u044F \u0432\u044B\u043A\u043B\u044E\u0447\u0435\u043D\u044B!"
       })
     }), /* @__PURE__ */ jsx("div", {
-      className: styles$C.notification__button,
+      className: styles$D.notification__button,
       children: /* @__PURE__ */ jsx(AlertButton, {
         type: "success",
         onClick: enableNotifyAndClose,
@@ -36936,18 +36948,18 @@ const ForumLayout = ({
   children
 }) => {
   return /* @__PURE__ */ jsxs("main", {
-    className: styles$F.ForumMain,
+    className: styles$G.ForumMain,
     children: [/* @__PURE__ */ jsx(NotificationAPI, {}), /* @__PURE__ */ jsx("div", {
-      className: styles$F.LeftSide
+      className: styles$G.LeftSide
     }), /* @__PURE__ */ jsx(FullScreen, {}), /* @__PURE__ */ jsx("div", {
-      className: styles$F.RightSide
+      className: styles$G.RightSide
     }), /* @__PURE__ */ jsxs("article", {
-      className: styles$F.ForumWrapper,
+      className: styles$G.ForumWrapper,
       children: [/* @__PURE__ */ jsx("h1", {
-        className: styles$F.ForumTitle,
+        className: styles$G.ForumTitle,
         children: "\u0424\u043E\u0440\u0443\u043C"
       }), /* @__PURE__ */ jsx(ForumNav, {}), /* @__PURE__ */ jsx("article", {
-        className: styles$F.ForumFrame,
+        className: styles$G.ForumFrame,
         children
       })]
     })]
@@ -36956,7 +36968,7 @@ const ForumLayout = ({
 const topic__form = "_topic__form_1yft7_1";
 const topic__container = "_topic__container_1yft7_10";
 const topic_btn__create = "_topic_btn__create_1yft7_38";
-const styles$v = {
+const styles$w = {
   topic__form,
   topic__container,
   topic_btn__create
@@ -36966,7 +36978,7 @@ const Button__pink = "_Button__pink_1soql_16";
 const Button__blue = "_Button__blue_1soql_26";
 const Button__medium = "_Button__medium_1soql_37";
 const Button__content = "_Button__content_1soql_41";
-const styles$u = {
+const styles$v = {
   Button: Button$2,
   Button__pink,
   Button__blue,
@@ -36983,7 +36995,7 @@ const Spinner__white = "_Spinner__white_y9cn3_16";
 const Spinner__bgCircle = "_Spinner__bgCircle_y9cn3_20";
 const Spinner__black = "_Spinner__black_y9cn3_23";
 const Spinner__center = "_Spinner__center_y9cn3_30";
-const styles$t = {
+const styles$u = {
   Spinner: Spinner$1,
   Spinner__usual,
   rotate,
@@ -37005,21 +37017,21 @@ const Spinner = ({
 }) => {
   const radius = (size - strokeWidth) / 2;
   return /* @__PURE__ */ jsxs("svg", {
-    className: clsx(styles$t.Spinner, center && styles$t[`Spinner__center`], styles$t[`Spinner__${type}`], styles$t[`Spinner__${color}`]),
+    className: clsx(styles$u.Spinner, center && styles$u[`Spinner__center`], styles$u[`Spinner__${type}`], styles$u[`Spinner__${color}`]),
     style: {
       width: size,
       height: size
     },
     viewBox: `0 0 ${size} ${size}`,
     children: [/* @__PURE__ */ jsx("circle", {
-      className: clsx(background && styles$t[`Spinner__bgCircle`]),
+      className: clsx(background && styles$u[`Spinner__bgCircle`]),
       cx: size / 2,
       cy: size / 2,
       r: radius,
       fill: "none",
       strokeWidth
     }), /* @__PURE__ */ jsx("circle", {
-      className: styles$t[`Spinner__circle`],
+      className: styles$u[`Spinner__circle`],
       cx: size / 2,
       cy: size / 2,
       r: radius,
@@ -37048,7 +37060,7 @@ const Button$1 = ({
       width: "100%",
       ...style
     } : style,
-    className: clsx(styles$u.Button, styles$u[`Button__${color}`], styles$u[`Button__${size}`], active2 && styles$u[`Button__${color}_active`], className),
+    className: clsx(styles$v.Button, styles$v[`Button__${color}`], styles$v[`Button__${size}`], active2 && styles$v[`Button__${color}_active`], className),
     disabled: loading || disabled,
     children: loading ? /* @__PURE__ */ jsxs(Fragment, {
       children: [/* @__PURE__ */ jsx(Spinner, {
@@ -37057,15 +37069,15 @@ const Button$1 = ({
         color: "white",
         type: "usual"
       }), /* @__PURE__ */ jsx("div", {
-        className: styles$u[`Button__content`],
+        className: styles$v[`Button__content`],
         children: /* @__PURE__ */ jsx(BodyNormal, {
-          className: styles$u.s,
+          className: styles$v.s,
           weight: "normal",
           children: loadingText
         })
       })]
     }) : /* @__PURE__ */ jsx("div", {
-      className: styles$u[`Button__content`],
+      className: styles$v[`Button__content`],
       children
     })
   });
@@ -38887,10 +38899,10 @@ const ForumCreateForm = (props) => {
     setDesc("");
   };
   return /* @__PURE__ */ jsxs("form", {
-    className: styles$v.topic__form,
+    className: styles$w.topic__form,
     onSubmit: createTopic,
     children: [/* @__PURE__ */ jsxs("div", {
-      className: styles$v.topic__container,
+      className: styles$w.topic__container,
       children: [/* @__PURE__ */ jsx("label", {
         children: "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435"
       }), /* @__PURE__ */ jsx("input", {
@@ -38908,7 +38920,7 @@ const ForumCreateForm = (props) => {
         onChange: (e) => setDesc(e.target.value)
       })]
     }), /* @__PURE__ */ jsx(Button$1, {
-      className: styles$v.topic_btn__create,
+      className: styles$w.topic_btn__create,
       type: "submit",
       onClick: () => notify("\u0421\u043E\u0437\u0434\u0430\u043D \u043D\u043E\u0432\u044B\u0439 \u0442\u043E\u043F\u0438\u043A: " + topic2),
       children: /* @__PURE__ */ jsx(BodyNormal, {
@@ -38936,7 +38948,7 @@ const subj__avatar$1 = "_subj__avatar_5vt2r_54";
 const subj__icons$1 = "_subj__icons_5vt2r_65";
 const subj_icon__like$1 = "_subj_icon__like_5vt2r_71";
 const subj_icon__addMsg$1 = "_subj_icon__addMsg_5vt2r_79";
-const styles$s = {
+const styles$t = {
   topicsWrapper: topicsWrapper$1,
   leftSide: leftSide$1,
   rightSide: rightSide$1,
@@ -38956,32 +38968,32 @@ const AnswerItem = (props) => {
     answers
   } = props;
   return /* @__PURE__ */ jsx("div", {
-    className: styles$s.topicsWrapper,
+    className: styles$t.topicsWrapper,
     children: /* @__PURE__ */ jsxs("div", {
-      className: styles$s.leftSide,
+      className: styles$t.leftSide,
       children: [/* @__PURE__ */ jsx("h1", {
-        className: styles$s.subj__title,
+        className: styles$t.subj__title,
         children: answers.title
       }), /* @__PURE__ */ jsx("p", {
-        className: styles$s.subj_desc,
+        className: styles$t.subj_desc,
         children: answers.desc
       }), /* @__PURE__ */ jsx("p", {
-        className: styles$s.subj_desc,
+        className: styles$t.subj_desc,
         children: answers.desc
       }), /* @__PURE__ */ jsx("p", {
-        className: styles$s.subj_desc,
+        className: styles$t.subj_desc,
         children: answers.desc
       }), /* @__PURE__ */ jsx("p", {
-        className: styles$s.subj_desc,
+        className: styles$t.subj_desc,
         children: answers.desc
       }), /* @__PURE__ */ jsx("p", {
-        className: styles$s.subj_desc,
+        className: styles$t.subj_desc,
         children: answers.desc
       }), /* @__PURE__ */ jsx("p", {
-        className: styles$s.subj_desc,
+        className: styles$t.subj_desc,
         children: answers.desc
       }), /* @__PURE__ */ jsx("p", {
-        className: styles$s.subj_desc,
+        className: styles$t.subj_desc,
         children: answers.desc
       })]
     })
@@ -39013,7 +39025,7 @@ const ForumAnswers = () => {
   });
 };
 const wrapper = "_wrapper_1xgcw_1";
-const styles$r = {
+const styles$s = {
   wrapper
 };
 const Header$2 = "_Header_mo81f_1";
@@ -39023,7 +39035,7 @@ const Desc = "_Desc_mo81f_23";
 const topic__info = "_topic__info_mo81f_33";
 const username = "_username_mo81f_41";
 const time__topic = "_time__topic_mo81f_47";
-const styles$q = {
+const styles$r = {
   Header: Header$2,
   topic,
   title,
@@ -39034,24 +39046,24 @@ const styles$q = {
 };
 const Header$1 = () => {
   return /* @__PURE__ */ jsxs("div", {
-    className: styles$q.Header,
+    className: styles$r.Header,
     children: [/* @__PURE__ */ jsxs("div", {
-      className: styles$q.topic__info,
+      className: styles$r.topic__info,
       children: [/* @__PURE__ */ jsx("p", {
-        className: styles$q.username,
+        className: styles$r.username,
         children: "Username"
       }), /* @__PURE__ */ jsx("p", {
-        className: styles$q.time__topic,
+        className: styles$r.time__topic,
         children: "Timestamp"
       })]
     }), /* @__PURE__ */ jsxs("div", {
-      className: styles$q.topic,
+      className: styles$r.topic,
       children: [/* @__PURE__ */ jsx(Title, {
-        className: styles$q.title,
+        className: styles$r.title,
         children: "This is Topic tittle"
       }), /* @__PURE__ */ jsx("textarea", {
         readOnly: true,
-        className: styles$q.Desc,
+        className: styles$r.Desc,
         children: "this is descriptions posts"
       })]
     })]
@@ -39065,7 +39077,7 @@ const comment__time = "_comment__time_o799x_22";
 const comment__content = "_comment__content_o799x_28";
 const comment__avatar = "_comment__avatar_o799x_36";
 const comment__text = "_comment__text_o799x_43";
-const styles$p = {
+const styles$q = {
   comments__wrap,
   comment__wrap,
   comment__head,
@@ -39077,24 +39089,24 @@ const styles$p = {
 };
 const Content = () => {
   return /* @__PURE__ */ jsx("div", {
-    className: styles$p.comments__wrap,
+    className: styles$q.comments__wrap,
     children: /* @__PURE__ */ jsxs("div", {
-      className: styles$p.comment__wrap,
+      className: styles$q.comment__wrap,
       children: [/* @__PURE__ */ jsxs("div", {
-        className: styles$p.comment__head,
+        className: styles$q.comment__head,
         children: [/* @__PURE__ */ jsx("p", {
-          className: styles$p.comment__user,
+          className: styles$q.comment__user,
           children: "testtest"
         }), /* @__PURE__ */ jsx("p", {
-          className: styles$p.comment__time,
+          className: styles$q.comment__time,
           children: "10 Jun 2023"
         })]
       }), /* @__PURE__ */ jsxs("div", {
-        className: styles$p.comment__content,
+        className: styles$q.comment__content,
         children: [/* @__PURE__ */ jsx("span", {
-          className: styles$p.comment__avatar
+          className: styles$q.comment__avatar
         }), /* @__PURE__ */ jsx("p", {
-          className: styles$p.comment__text,
+          className: styles$q.comment__text,
           children: "\u041F\u0440\u0438\u0432\u0435\u0442, \u043A\u0430\u043A \u0434\u0435\u043B\u0430? :)"
         })]
       })]
@@ -39106,7 +39118,7 @@ const comment_add__form = "_comment_add__form_nr68v_5";
 const comment__textaria = "_comment__textaria_nr68v_12";
 const comment_add__title = "_comment_add__title_nr68v_19";
 const comment_add__btn = "_comment_add__btn_nr68v_24";
-const styles$o = {
+const styles$p = {
   comment__footer,
   comment_add__form,
   comment__textaria,
@@ -39119,20 +39131,20 @@ const Footer = () => {
   } = useNotification();
   const [comment, setComment] = reactExports.useState("");
   return /* @__PURE__ */ jsxs("div", {
-    className: styles$o.comment__footer,
+    className: styles$p.comment__footer,
     children: [/* @__PURE__ */ jsx(Title, {
-      className: styles$o.comment_add__title,
+      className: styles$p.comment_add__title,
       children: "\u041E\u0441\u0442\u0430\u0432\u0438\u0442\u044C \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439"
     }), /* @__PURE__ */ jsxs("form", {
-      className: styles$o.comment_add__form,
+      className: styles$p.comment_add__form,
       children: [/* @__PURE__ */ jsx("textarea", {
-        className: styles$o.comment__textaria,
+        className: styles$p.comment__textaria,
         name: "comment",
         required: true,
         value: comment,
         onChange: (e) => setComment(e.target.value)
       }), /* @__PURE__ */ jsx(Button$1, {
-        className: styles$o.comment_add__btn,
+        className: styles$p.comment_add__btn,
         onClick: () => {
           notify("\u0414\u043E\u0431\u0430\u0432\u043B\u0435\u043D \u043D\u043E\u0432\u044B\u0439 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439! - " + comment);
         },
@@ -39144,7 +39156,7 @@ const Footer = () => {
 const ForumComments = () => {
   return /* @__PURE__ */ jsx(ForumLayout, {
     children: /* @__PURE__ */ jsxs("div", {
-      className: styles$r.wrapper,
+      className: styles$s.wrapper,
       children: [/* @__PURE__ */ jsx(Header$1, {}), /* @__PURE__ */ jsx(Content, {}), /* @__PURE__ */ jsx(Footer, {})]
     })
   });
@@ -39173,7 +39185,7 @@ const subj__avatar = "_subj__avatar_1fg3b_54";
 const subj__icons = "_subj__icons_1fg3b_65";
 const subj_icon__like = "_subj_icon__like_1fg3b_71";
 const subj_icon__addMsg = "_subj_icon__addMsg_1fg3b_79";
-const styles$n = {
+const styles$o = {
   topicsWrapper,
   leftSide,
   rightSide,
@@ -39195,35 +39207,35 @@ const TopicsItem = (props) => {
   } = props;
   return /* @__PURE__ */ jsxs("div", {
     itemID: topics.id,
-    className: styles$n.topicsWrapper,
+    className: styles$o.topicsWrapper,
     children: [/* @__PURE__ */ jsxs("div", {
-      className: styles$n.leftSide,
+      className: styles$o.leftSide,
       children: [/* @__PURE__ */ jsx("h1", {
-        className: styles$n.subj__title,
+        className: styles$o.subj__title,
         children: topics.title
       }), /* @__PURE__ */ jsx("p", {
-        className: styles$n.subj_desc,
+        className: styles$o.subj_desc,
         children: topics.desc
       })]
     }), /* @__PURE__ */ jsxs("div", {
-      className: styles$n.rightSide,
+      className: styles$o.rightSide,
       children: [/* @__PURE__ */ jsx("div", {
-        className: styles$n.subj__countries,
+        className: styles$o.subj__countries,
         children: /* @__PURE__ */ jsxs("div", {
-          className: styles$n.subj__icons,
+          className: styles$o.subj__icons,
           children: [/* @__PURE__ */ jsx("i", {
-            className: styles$n.subj_icon__like
+            className: styles$o.subj_icon__like
           }), /* @__PURE__ */ jsx(Link, {
-            className: styles$n.subj_icon__addMsg,
+            className: styles$o.subj_icon__addMsg,
             to: "/forum/" + topics.id
           })]
         })
       }), /* @__PURE__ */ jsxs("div", {
-        className: styles$n.subj__profileEnv,
+        className: styles$o.subj__profileEnv,
         children: [/* @__PURE__ */ jsx("div", {
-          className: styles$n.subj__avatar
+          className: styles$o.subj__avatar
         }), /* @__PURE__ */ jsx("div", {
-          className: styles$n.subj__timestamp,
+          className: styles$o.subj__timestamp,
           children: topics.timestamp
         })]
       })]
@@ -39259,20 +39271,20 @@ const ForumTopics = () => {
   });
 };
 const GameLayout$1 = "_GameLayout_fecqh_1";
-const styles$m = {
+const styles$n = {
   GameLayout: GameLayout$1
 };
 const GameLayout = ({
   children
 }) => {
   return /* @__PURE__ */ jsx("div", {
-    className: styles$m.GameLayout,
+    className: styles$n.GameLayout,
     children
   });
 };
 const GamePage = () => /* @__PURE__ */ jsx(GameLayout, {});
 const Wrapper$3 = "_Wrapper_1kc13_1";
-const styles$l = {
+const styles$m = {
   Wrapper: Wrapper$3
 };
 const Container$1 = "_Container_60e2q_1";
@@ -39280,7 +39292,7 @@ const Avatar$1 = "_Avatar_60e2q_16";
 const Username = "_Username_60e2q_28";
 const TopPlace = "_TopPlace_60e2q_33";
 const Winner = "_Winner_60e2q_51";
-const styles$k = {
+const styles$l = {
   Container: Container$1,
   Avatar: Avatar$1,
   Username,
@@ -39296,11 +39308,11 @@ const BlockLeader = ({
   const isFirstPlace = place === 1;
   return /* @__PURE__ */ jsxs("div", {
     "data-testid": "container",
-    className: clsx(styles$k.Container, {
-      [styles$k.Winner]: isFirstPlace
+    className: clsx(styles$l.Container, {
+      [styles$l.Winner]: isFirstPlace
     }),
     children: [/* @__PURE__ */ jsx("picture", {
-      className: styles$k.Avatar,
+      className: styles$l.Avatar,
       children: avatar ? /* @__PURE__ */ jsx("img", {
         src: `https://ya-praktikum.tech/api/v2/resources/${avatar}`,
         alt: "avatar"
@@ -39309,7 +39321,7 @@ const BlockLeader = ({
       })
     }), /* @__PURE__ */ jsxs(Subheader, {
       "data-testid": "username",
-      className: styles$k.Username,
+      className: styles$l.Username,
       weight: "bold",
       children: [/* @__PURE__ */ jsxs(Subheader, {
         children: [place, ". "]
@@ -39321,7 +39333,7 @@ const BlockLeader = ({
       children: points
     }), isFirstPlace && /* @__PURE__ */ jsx("div", {
       "data-testid": "top-place",
-      className: styles$k.TopPlace
+      className: styles$l.TopPlace
     })]
   });
 };
@@ -54862,7 +54874,7 @@ const Leader = () => {
   }));
   const leaders = reactExports.useMemo(() => formatLeaderBoard(data), [data]);
   return /* @__PURE__ */ jsxs("div", {
-    className: styles$l.Wrapper,
+    className: styles$m.Wrapper,
     children: [/* @__PURE__ */ jsx(Title, {
       weight: "bold",
       children: "\u041B\u0438\u0434\u0435\u0440\u044B"
@@ -54880,16 +54892,16 @@ const Leader = () => {
 const LeadersPage = () => /* @__PURE__ */ jsx(Leader, {});
 const LogoContainer = "_LogoContainer_1rgh2_1";
 const Logo$1 = "_Logo_1rgh2_1";
-const styles$j = {
+const styles$k = {
   LogoContainer,
   Logo: Logo$1
 };
 const Logo = () => /* @__PURE__ */ jsx(Link, {
   to: "/",
   children: /* @__PURE__ */ jsx("div", {
-    className: styles$j.LogoContainer,
+    className: styles$k.LogoContainer,
     children: /* @__PURE__ */ jsx(Title, {
-      className: styles$j.Logo,
+      className: styles$k.Logo,
       color: "white",
       weight: "bold",
       children: "GROK"
@@ -54898,7 +54910,7 @@ const Logo = () => /* @__PURE__ */ jsx(Link, {
 });
 const Wrapper$2 = "_Wrapper_uukye_1";
 const backgroundItem = "_backgroundItem_uukye_6";
-const styles$i = {
+const styles$j = {
   Wrapper: Wrapper$2,
   backgroundItem
 };
@@ -54906,15 +54918,15 @@ const AuthLayout = ({
   children
 }) => {
   return /* @__PURE__ */ jsxs("div", {
-    className: styles$i.Wrapper,
+    className: styles$j.Wrapper,
     children: [/* @__PURE__ */ jsx("div", {
-      className: styles$i.backgroundItem,
+      className: styles$j.backgroundItem,
       children: /* @__PURE__ */ jsx(Logo, {})
     }), /* @__PURE__ */ jsx("div", {
-      className: styles$i.backgroundItem,
+      className: styles$j.backgroundItem,
       children: /* @__PURE__ */ jsx(UnionSVG, {})
     }), children, /* @__PURE__ */ jsx("div", {
-      className: styles$i.backgroundItem,
+      className: styles$j.backgroundItem,
       children: /* @__PURE__ */ jsx(EllipseSVG, {})
     })]
   });
@@ -54923,7 +54935,7 @@ const containerForm = "_containerForm_qirsw_1";
 const ani = "_ani_qirsw_1";
 const form = "_form_qirsw_33";
 const footerForm = "_footerForm_qirsw_39";
-const styles$h = {
+const styles$i = {
   containerForm,
   ani,
   form,
@@ -54938,16 +54950,16 @@ const AuthForm = ({
   ...props
 }) => {
   return /* @__PURE__ */ jsxs("div", {
-    className: clsx(styles$h.containerForm, className),
+    className: clsx(styles$i.containerForm, className),
     ...props,
     children: [/* @__PURE__ */ jsx("h1", {
       children: title2
     }), /* @__PURE__ */ jsx("form", {
-      className: styles$h.form,
+      className: styles$i.form,
       onSubmit,
       children
     }), /* @__PURE__ */ jsx("div", {
-      className: styles$h.footerForm,
+      className: styles$i.footerForm,
       children: footer
     })]
   });
@@ -54981,7 +54993,7 @@ const CrosCircleSVG = ({
 const FormError$1 = "_FormError_lkezn_1";
 const active = "_active_lkezn_1";
 const FormError__content = "_FormError__content_lkezn_22";
-const styles$g = {
+const styles$h = {
   FormError: FormError$1,
   active,
   FormError__content,
@@ -55010,17 +55022,17 @@ const FormError = ({
     })
   };
   return /* @__PURE__ */ jsxs("div", {
-    className: styles$g.FormError,
+    className: styles$h.FormError,
     children: [/* @__PURE__ */ jsx("div", {
-      className: styles$g.FormError__icon,
+      className: styles$h.FormError__icon,
       children: iconView[view]
     }), /* @__PURE__ */ jsxs("div", {
-      className: styles$g.FormError__content,
+      className: styles$h.FormError__content,
       children: [/* @__PURE__ */ jsx("div", {
-        className: styles$g["FormError__content-title"],
+        className: styles$h["FormError__content-title"],
         children: title2
       }), /* @__PURE__ */ jsx("div", {
-        className: styles$g["FormError__content-description"],
+        className: styles$h["FormError__content-description"],
         children: description
       })]
     })]
@@ -56636,7 +56648,7 @@ const placeholder$1 = "_placeholder_spz02_33";
 const icon$1 = "_icon_spz02_49";
 const iconRight$1 = "_iconRight_spz02_57";
 const iconLeft$1 = "_iconLeft_spz02_60";
-const styles$f = {
+const styles$g = {
   formInput: formInput$1,
   inputContainer: inputContainer$1,
   input: input$1,
@@ -58002,23 +58014,23 @@ const FormInput = ({
     rules
   });
   return /* @__PURE__ */ jsxs("label", {
-    className: styles$f.formInput,
+    className: styles$g.formInput,
     ...props,
     children: [/* @__PURE__ */ jsxs("div", {
-      className: styles$f.inputContainer,
+      className: styles$g.inputContainer,
       children: [mask ? /* @__PURE__ */ jsx(InputMask, {
         mask,
-        className: styles$f.input,
+        className: styles$g.input,
         placeholder: " ",
         ...inputProps
       }) : /* @__PURE__ */ jsx("input", {
         ref,
         type,
-        className: styles$f.input,
+        className: styles$g.input,
         placeholder: " ",
         ...inputProps
       }), /* @__PURE__ */ jsx("span", {
-        className: styles$f.placeholder,
+        className: styles$g.placeholder,
         children: label
       })]
     }), /* @__PURE__ */ jsx(BodyNormal, {
@@ -58030,7 +58042,7 @@ const FormInput = ({
       },
       children: error == null ? void 0 : error.message
     }), rightAddon && /* @__PURE__ */ jsx("div", {
-      className: clsx(styles$f.icon, styles$f.iconRight),
+      className: clsx(styles$g.icon, styles$g.iconRight),
       children: rightAddon
     })]
   });
@@ -58145,12 +58157,12 @@ const passwordValidationScheme = {
   }
 };
 const containerLogin = "_containerLogin_1w2hn_1";
-const styles$e = {
+const styles$f = {
   containerLogin
 };
 const useAppDispatch = useDispatch;
 const useAppSelector = useSelector;
-const BASE_URL = "http://localhost:3001/api/v2";
+const BASE_URL = "https://ya-praktikum.tech/api/v2";
 const auth = {
   signup: `${BASE_URL}/auth/signup`,
   signin: `${BASE_URL}/auth/signin`,
@@ -58179,14 +58191,17 @@ class AuthApi {
   getCurrentUser() {
     return this._userRepository.getCurrentUser();
   }
-  login(data) {
-    return axiosInstance.post(auth.signin, data);
+  async login(loginData) {
+    const { data } = await axiosInstance.post(auth.signin, loginData);
+    return data;
   }
-  signup(data) {
-    return axiosInstance.post(auth.signup, data);
+  async signup(registerData) {
+    const { data } = await axiosInstance.post(auth.signup, registerData);
+    return data;
   }
-  logout() {
-    return axiosInstance.post(auth.logout);
+  async logout() {
+    const { data } = await axiosInstance.post(auth.logout);
+    return data;
   }
 }
 const authApi = new AuthApi(new ApiRepository());
@@ -60162,7 +60177,7 @@ typeof queueMicrotask === "function" ? queueMicrotask.bind(typeof window !== "un
   });
 };
 F();
-const initialState$1 = {
+const initialState$2 = {
   user: null,
   auth: false,
   error: null,
@@ -60170,7 +60185,7 @@ const initialState$1 = {
 };
 const userSlice = createSlice({
   name: "userSlice",
-  initialState: initialState$1,
+  initialState: initialState$2,
   reducers: {
     setUserData: (state2, action) => {
       state2.user = action.payload;
@@ -60229,9 +60244,7 @@ const LoginForm = () => {
     isLoading,
     error
   } = useMutation(async (loginData) => {
-    const {
-      data
-    } = await authApi.login(loginData);
+    const data = await authApi.login(loginData);
     await dispatch(loadUser());
     return data;
   }, {
@@ -60288,10 +60301,10 @@ const LoginForm = () => {
     title: "\u0412\u0445\u043E\u0434",
     onSubmit: handleSubmit(onSubmit),
     footer: footer(),
-    className: styles$e.containerLogin,
-    children: [Boolean(error) && /* @__PURE__ */ jsx(FormError, {
+    className: styles$f.containerLogin,
+    children: [!!error && /* @__PURE__ */ jsx(FormError, {
       view: "error",
-      description: (_b = (_a = error == null ? void 0 : error.response) == null ? void 0 : _a.data.reason) != null ? _b : ""
+      description: (_b = (_a = error.response) == null ? void 0 : _a.data.reason) != null ? _b : ""
     }), /* @__PURE__ */ jsx(FormInput, {
       name: "login",
       label: "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043B\u043E\u0433\u0438\u043D",
@@ -60330,32 +60343,127 @@ const Login = () => {
   });
 };
 const PrimaryLayout$1 = "_PrimaryLayout_41owu_1";
-const styles$d = {
+const styles$e = {
   PrimaryLayout: PrimaryLayout$1
 };
 const PrimaryLayout = ({
   children
 }) => /* @__PURE__ */ jsx("div", {
-  className: styles$d.PrimaryLayout,
+  className: styles$e.PrimaryLayout,
   children
 });
 const LoginPage = () => /* @__PURE__ */ jsx(PrimaryLayout, {
   children: /* @__PURE__ */ jsx(Login, {})
 });
-const styles$c = {};
+const styles$d = {};
 const NoMatch = () => {
   return /* @__PURE__ */ jsx("div", {
-    className: styles$c.Wrapper,
+    className: styles$d.Wrapper,
     children: /* @__PURE__ */ jsx(BodyNormal, {
       children: "NoMatch Component 404"
     })
   });
 };
 const NoMatchPage = () => /* @__PURE__ */ jsx(NoMatch, {});
-const styles$b = {};
+const ErrorBoundaryContext = reactExports.createContext(null);
+const initialState$1 = {
+  didCatch: false,
+  error: null
+};
+class ErrorBoundary extends reactExports.Component {
+  constructor(props) {
+    super(props);
+    this.resetErrorBoundary = this.resetErrorBoundary.bind(this);
+    this.state = initialState$1;
+  }
+  static getDerivedStateFromError(error) {
+    return {
+      didCatch: true,
+      error
+    };
+  }
+  resetErrorBoundary() {
+    const {
+      error
+    } = this.state;
+    if (error !== null) {
+      var _this$props$onReset, _this$props;
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+      (_this$props$onReset = (_this$props = this.props).onReset) === null || _this$props$onReset === void 0 ? void 0 : _this$props$onReset.call(_this$props, {
+        args,
+        reason: "imperative-api"
+      });
+      this.setState(initialState$1);
+    }
+  }
+  componentDidCatch(error, info) {
+    var _this$props$onError, _this$props2;
+    (_this$props$onError = (_this$props2 = this.props).onError) === null || _this$props$onError === void 0 ? void 0 : _this$props$onError.call(_this$props2, error, info);
+  }
+  componentDidUpdate(prevProps, prevState) {
+    const {
+      didCatch
+    } = this.state;
+    const {
+      resetKeys
+    } = this.props;
+    if (didCatch && prevState.error !== null && hasArrayChanged(prevProps.resetKeys, resetKeys)) {
+      var _this$props$onReset2, _this$props3;
+      (_this$props$onReset2 = (_this$props3 = this.props).onReset) === null || _this$props$onReset2 === void 0 ? void 0 : _this$props$onReset2.call(_this$props3, {
+        next: resetKeys,
+        prev: prevProps.resetKeys,
+        reason: "keys"
+      });
+      this.setState(initialState$1);
+    }
+  }
+  render() {
+    const {
+      children,
+      fallbackRender,
+      FallbackComponent,
+      fallback
+    } = this.props;
+    const {
+      didCatch,
+      error
+    } = this.state;
+    let childToRender = children;
+    if (didCatch) {
+      const props = {
+        error,
+        resetErrorBoundary: this.resetErrorBoundary
+      };
+      if (reactExports.isValidElement(fallback)) {
+        childToRender = fallback;
+      } else if (typeof fallbackRender === "function") {
+        childToRender = fallbackRender(props);
+      } else if (FallbackComponent) {
+        childToRender = reactExports.createElement(FallbackComponent, props);
+      } else {
+        throw new Error("react-error-boundary requires either a fallback, fallbackRender, or FallbackComponent prop");
+      }
+    }
+    return reactExports.createElement(ErrorBoundaryContext.Provider, {
+      value: {
+        didCatch,
+        error,
+        resetErrorBoundary: this.resetErrorBoundary
+      }
+    }, childToRender);
+  }
+}
+function hasArrayChanged() {
+  let a2 = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : [];
+  let b2 = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : [];
+  return a2.length !== b2.length || a2.some((item, index) => !Object.is(item, b2[index]));
+}
+const styles$c = {};
 const Header = () => {
   return /* @__PURE__ */ jsx("div", {
-    className: styles$b.Header,
+    className: styles$c.Header,
     children: /* @__PURE__ */ jsx(Logo, {})
   });
 };
@@ -60366,7 +60474,7 @@ const Leaders = "_Leaders_14ezm_23";
 const Profile$1 = "_Profile_14ezm_26";
 const Progress$1 = "_Progress_14ezm_29";
 const Forum = "_Forum_14ezm_32";
-const styles$a = {
+const styles$b = {
   Navigate: Navigate$2,
   Active,
   Home,
@@ -60380,63 +60488,77 @@ const Navigate$1 = () => {
   const queryClient = useQueryClient();
   const {
     mutate
-  } = useMutation(async () => {
-    const {
-      data
-    } = await authApi.logout();
-    return data;
-  }, {
+  } = useMutation(() => authApi.logout(), {
     onSuccess: () => {
       queryClient.refetchQueries(["user"]);
       navigate(RouteNames.LOGIN);
     }
   });
   return /* @__PURE__ */ jsxs("nav", {
-    className: styles$a.Navigate,
+    className: styles$b.Navigate,
     children: [/* @__PURE__ */ jsx(NavLink, {
       className: ({
         isActive
       }) => clsx({
-        [styles$a.Active]: isActive
-      }, styles$a.Home),
+        [styles$b.Active]: isActive
+      }, styles$b.Home),
       to: "/",
       children: "\u0421\u0442\u0430\u0440\u0442"
     }), /* @__PURE__ */ jsx(NavLink, {
       className: ({
         isActive
       }) => clsx({
-        [styles$a.Active]: isActive
-      }, styles$a.Leaders),
+        [styles$b.Active]: isActive
+      }, styles$b.Leaders),
       to: "/leaders",
       children: "\u041B\u0438\u0434\u0435\u0440\u044B"
     }), /* @__PURE__ */ jsx(NavLink, {
       className: ({
         isActive
       }) => clsx({
-        [styles$a.Active]: isActive
-      }, styles$a.Profile),
+        [styles$b.Active]: isActive
+      }, styles$b.Profile),
       to: "/profile",
       children: "\u041F\u0440\u043E\u0444\u0438\u043B\u044C"
     }), /* @__PURE__ */ jsx(NavLink, {
       className: ({
         isActive
       }) => clsx({
-        [styles$a.Active]: isActive
-      }, styles$a.Progress),
+        [styles$b.Active]: isActive
+      }, styles$b.Progress),
       to: "/progress",
       children: "\u041F\u0440\u043E\u0433\u0440\u0435\u0441\u0441"
     }), /* @__PURE__ */ jsx(NavLink, {
       className: ({
         isActive
       }) => clsx({
-        [styles$a.Active]: isActive
-      }, styles$a.Forum),
+        [styles$b.Active]: isActive
+      }, styles$b.Forum),
       to: "/forum",
       children: "\u0424\u043E\u0440\u0443\u043C"
     }), /* @__PURE__ */ jsx(Button$1, {
       fullWidth: true,
       onClick: () => mutate(),
       children: "\u0412\u044B\u0439\u0442\u0438"
+    })]
+  });
+};
+const ErrorFallback$1 = "_ErrorFallback_5mrsb_1";
+const styles$a = {
+  ErrorFallback: ErrorFallback$1
+};
+const ErrorFallback = ({
+  error
+}) => {
+  return /* @__PURE__ */ jsxs("div", {
+    className: styles$a.ErrorFallback,
+    children: [/* @__PURE__ */ jsx(BodyNormal, {
+      style: {
+        fontSize: 20
+      },
+      children: "\u0427\u0442\u043E-\u0442\u043E \u043F\u043E\u0448\u043B\u043E \u043D\u0435 \u0442\u0430\u043A..."
+    }), /* @__PURE__ */ jsx("pre", {
+      children: error.message
     })]
   });
 };
@@ -60465,9 +60587,12 @@ const ProfileLayout = ({
       children: [/* @__PURE__ */ jsx("div", {
         className: styles$9.Navigate,
         children: /* @__PURE__ */ jsx(Navigate$1, {})
-      }), /* @__PURE__ */ jsx("div", {
+      }), /* @__PURE__ */ jsxs("div", {
         className: styles$9.Outlet,
-        children
+        children: [children, /* @__PURE__ */ jsx(ErrorBoundary, {
+          FallbackComponent: ErrorFallback,
+          children: /* @__PURE__ */ jsx(Outlet$1, {})
+        })]
       })]
     })]
   });
@@ -60880,12 +61005,7 @@ const Profile = () => {
   const queryClient = useQueryClient();
   const {
     mutate
-  } = useMutation(async () => {
-    const {
-      data
-    } = await authApi.logout();
-    return data;
-  }, {
+  } = useMutation(() => authApi.logout(), {
     onSuccess: () => {
       queryClient.refetchQueries(["user"]);
       navigate(RouteNames.LOGIN);
@@ -60965,12 +61085,7 @@ const RegistrationForm = () => {
     mutate,
     isLoading,
     error
-  } = useMutation(async (refisterData) => {
-    const {
-      data
-    } = await authApi.signup(refisterData);
-    return data;
-  }, {
+  } = useMutation((refisterData) => authApi.signup(refisterData), {
     onSuccess: () => {
       queryClient.refetchQueries(["user"]);
     }
@@ -61135,7 +61250,7 @@ const PrivateRoute = ({
     data: user2,
     isLoading,
     isSuccess
-  } = useQuery(["user"], async () => await authApi.getCurrentUser(), {
+  } = useQuery(["user"], () => authApi.getCurrentUser(), {
     enabled: true,
     onSuccess: (data) => {
       dispatch(userActions.setUserData(data));
@@ -61268,7 +61383,6 @@ function App() {
       }
     }
   }));
-  useAppSelector((state2) => state2.user);
   return /* @__PURE__ */ jsx(QueryClientProvider, {
     client: queryClient,
     children: /* @__PURE__ */ jsx(SSRRouters, {})
@@ -75265,10 +75379,7 @@ const createStore = (service, preloadedState) => {
     reducer: rootReducer,
     preloadedState,
     middleware: (getDefaultMiddleWare) => getDefaultMiddleWare({
-      thunk: { extraArgument: service },
-      serializableCheck: {
-        ignoredActionPaths: ["payload"]
-      }
+      thunk: { extraArgument: service }
     })
   });
 };

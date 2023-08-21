@@ -1,10 +1,10 @@
-import { ArrowCircleLeft, ArrowCircleRight, ArrowCircleUp } from '@phosphor-icons/react';
-import { BodyBold, Subheader, Title } from '@components/design-system/Fonts';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Subheader, Title } from '@components/design-system/Fonts';
 
 import { Ball } from '@components/specific/Ball';
 import clsx from 'clsx';
 import styles from './Performance.module.scss';
+import { ArrowCircleLeft, ArrowCircleRight, ArrowCircleUp } from '@phosphor-icons/react';
 
 type PerformanceT = {
   onClose: () => void;

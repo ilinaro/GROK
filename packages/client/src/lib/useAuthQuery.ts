@@ -1,9 +1,8 @@
 import { authApi } from '@api/auth';
 import { AxiosError } from 'axios';
 import { useMutation, useQueryClient } from 'react-query';
-import { LoginFormT } from 'fuature/login/components/LoginForm/LoginForm';
-import { RegistrationFormT } from 'fuature/registration/components/RegistrationForm/RegistrationForm';
-import { RouteNames } from '@routes/routeNames';
+import { LoginFormT } from '@fuature/login/components/LoginForm/LoginForm';
+import { RegistrationFormT } from '@fuature/registration/components/RegistrationForm/RegistrationForm';
 
 const queryClient = useQueryClient();
 

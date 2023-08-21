@@ -16,9 +16,6 @@ export const createStore = (service: UserService, preloadedState?: StoreState) =
     middleware: (getDefaultMiddleWare) =>
       getDefaultMiddleWare({
         thunk: { extraArgument: service },
-        serializableCheck: {
-          ignoredActionPaths: ['payload'],
-        },
       }),
   });
 };

@@ -32,7 +32,7 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
     data: user,
     isLoading,
     isSuccess,
-  } = useQuery(['user'], async () => await authApi.getCurrentUser(), {
+  } = useQuery(['user'], () => authApi.getCurrentUser(), {
     enabled: true,
     onSuccess: (data) => {
       dispatch(userActions.setUserData(data));

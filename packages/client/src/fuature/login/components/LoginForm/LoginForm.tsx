@@ -11,7 +11,7 @@ import { HidePassSVG } from '@components/design-system/SVG/HidePassSVG';
 import { Link, useNavigate } from 'react-router-dom';
 import { RouteNames } from '@routes/routeNames';
 import { ShowPassSVG } from '@components/design-system/SVG/ShowPassSVG';
-import { baseValidationRules } from '../../../../fuature/profile/validation';
+import { baseValidationRules } from '../../../profile/validation';
 import styles from './LoginForm.module.scss';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
@@ -39,7 +39,7 @@ export const LoginForm: React.FC<LoginT> = () => {
 
   const { mutate, isLoading, error } = useMutation<string, AxiosError<{ reason: string }>, LoginFormT>(
     async (loginData: LoginFormT) => {
-      const { data } = await authApi.login(loginData);
+      const data = await authApi.login(loginData);
 
       await dispatch(loadUser());
 
@@ -97,7 +97,7 @@ export const LoginForm: React.FC<LoginT> = () => {
 
   return (
     <AuthForm title="Вход" onSubmit={handleSubmit(onSubmit)} footer={footer()} className={styles.containerLogin}>
-      {Boolean(error) && <FormError view={'error'} description={error?.response?.data.reason ?? ''} />}
+      {!!error && <FormError view={'error'} description={error.response?.data.reason ?? ''} />}
       <FormInput
         name="login"
         label="Введите логин"

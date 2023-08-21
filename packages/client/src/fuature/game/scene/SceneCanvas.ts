@@ -1,6 +1,6 @@
 import Events from './Events';
 import Player from './Player';
-import { mapBlocks } from './../data/map';
+import { mapBlocks } from '../data/map';
 
 export class SceneCanvas {
   private animationId = 0;

@@ -45,10 +45,7 @@ export const RegistrationForm: React.FC<RegistrationT> = () => {
   const [isPasswordShow, setIsPasswordShow] = useState(false);
 
   const { mutate, isLoading, error } = useMutation<string, AxiosError<{ reason: string }>, RegistrationFormT>(
-    async (refisterData: RegistrationFormT) => {
-      const { data } = await authApi.signup(refisterData);
-      return data;
-    },
+    (refisterData: RegistrationFormT) => authApi.signup(refisterData),
     {
       onSuccess: () => {
         queryClient.refetchQueries(['user']);

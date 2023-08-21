@@ -20,9 +20,9 @@ export const ProfileLayout: React.FC<ProfileLayoutT> = ({ children }) => {
         </div>
         <div className={styles.Outlet}>
           {children}
-          {/* <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <ErrorBoundary FallbackComponent={ErrorFallback}>
             <Outlet />
-          </ErrorBoundary> */}
+          </ErrorBoundary>
         </div>
       </div>
     </div>

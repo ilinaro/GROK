@@ -13,16 +13,19 @@ class AuthApi implements IAuthApi {
     return this._userRepository.getCurrentUser();
   }
 
-  login(data: LoginFormT) {
-    return axiosInstance.post<string>(auth.signin, data);
+  async login(loginData: LoginFormT) {
+    const { data } = await axiosInstance.post<string>(auth.signin, loginData);
+    return data;
   }
 
-  signup(data: RegistrationFormT) {
-    return axiosInstance.post<string>(auth.signup, data);
+  async signup(registerData: RegistrationFormT) {
+    const { data } = await axiosInstance.post<string>(auth.signup, registerData);
+    return data;
   }
 
-  logout() {
-    return axiosInstance.post<string>(auth.logout);
+  async logout() {
+    const { data } = await axiosInstance.post<string>(auth.logout);
+    return data;
   }
 }
 

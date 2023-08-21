@@ -14,18 +14,12 @@ export const Navigate: React.FC<NavigateT> = () => {
 
   const queryClient = useQueryClient();
 
-  const { mutate } = useMutation<string, AxiosError<{ reason: string }>>(
-    async () => {
-      const { data } = await authApi.logout();
-      return data;
+  const { mutate } = useMutation<string, AxiosError<{ reason: string }>>(() => authApi.logout(), {
+    onSuccess: () => {
+      queryClient.refetchQueries(['user']);
+      navigate(RouteNames.LOGIN);
     },
-    {
-      onSuccess: () => {
-        queryClient.refetchQueries(['user']);
-        navigate(RouteNames.LOGIN);
-      },
-    }
-  );
+  });
 
   return (
     <nav className={styles.Navigate}>

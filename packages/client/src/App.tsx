@@ -2,7 +2,6 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { useState } from 'react';
 
 import { SSRRouters } from './routes';
-import { useAppSelector } from '@store/hooks';
 
 function App() {
   const [queryClient] = useState(
@@ -19,13 +18,9 @@ function App() {
       })
   );
 
-  const { auth } = useAppSelector((state) => state.user);
-
   return (
     <QueryClientProvider client={queryClient}>
       <SSRRouters />
-      {/* <RouterProvider router={Routers} /> */}
-      {/* SSR */}
     </QueryClientProvider>
   );
 }
