@@ -1,9 +1,9 @@
 import type { Request, Response } from 'express';
-import type { TUserData } from 'server/api/auth/typing';
+import type { TUserData } from '../../authMiddleware/typing';
 import type { TApiFunction } from 'server/api/forum/typing';
 import { dbConnect } from 'server/api/sequelize';
-import { isValidPostData } from 'server/api/postDataValidator';
-import type { TApiResponseData } from 'server/api/typing';
+import { isValidPostData } from 'server/api/utils/postDataValidator';
+import type { TApiResponseData } from '../typing';
 import { forumApi } from './forumApi';
 import { topicApi } from './topicApi';
 import { messageApi } from './messageApi';

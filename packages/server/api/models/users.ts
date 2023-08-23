@@ -6,7 +6,7 @@ import { sequelize } from 'server/api/sequelize';
 export type TUser = {
   id: number;
   login: string;
-  nickname: string;
+  display_name: string;
   avatar: string;
 };
 const userOptions = {
@@ -24,7 +24,7 @@ const userModel: ModelAttributes<Model, TUser> = {
     type: DataType.STRING,
     allowNull: false,
   },
-  nickname: {
+  display_name: {
     type: DataType.STRING,
   },
   avatar: {
