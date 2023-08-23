@@ -4,7 +4,7 @@ import { sequelize } from 'server/api/sequelize';
 import { Users } from './';
 
 // Модель таблицы Forums
-type TForum = {
+export type TForum = {
   id: number;
   name: string;
   user_id: number;
@@ -15,6 +15,7 @@ const forumOptions = {
   timestamps: false,
   tableName: 'Forums',
 };
+
 const forumModel: ModelAttributes<Model, TForum> = {
   id: {
     type: DataType.INTEGER,

@@ -4,7 +4,7 @@ import { sequelize } from 'server/api/sequelize';
 import { Users, Messages, Reactions } from './';
 
 // Модель таблицы MessagesReactions
-type TMessageReaction = {
+export type TMessageReaction = {
   message_id: number;
   user_id: number;
   reaction_id: number;

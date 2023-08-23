@@ -1,22 +1,20 @@
 import { DataType, Model } from 'sequelize-typescript';
 import type { ModelAttributes } from 'sequelize/types';
 import { sequelize } from 'server/api/sequelize';
-import { Users, Forums } from './';
 
-// Модель таблицы Topics
-type TTopic = {
+// Модель таблицы Reactions
+export type TReaction = {
   id: number;
   name: string;
-  forum_id: number;
-  user_id: number;
-  created_at: Date;
+  image: string;
 };
 
-const topicOptions = {
+const reactionOptions = {
   timestamps: false,
-  tableName: 'Topics',
+  tableName: 'Reactions',
 };
-const topicModel: ModelAttributes<Model, TTopic> = {
+
+const reactionModel: ModelAttributes<Model, TReaction> = {
   id: {
     type: DataType.INTEGER,
     autoIncrement: true,
@@ -26,33 +24,14 @@ const topicModel: ModelAttributes<Model, TTopic> = {
   name: {
     type: DataType.STRING,
     allowNull: false,
+    unique: true,
   },
-  forum_id: {
-    type: DataType.INTEGER,
+  image: {
+    type: DataType.STRING,
     allowNull: false,
-    references: {
-      model: Forums,
-      key: 'id',
-    },
-  },
-  user_id: {
-    type: DataType.INTEGER,
-    allowNull: false,
-    references: {
-      model: Users,
-      key: 'id',
-    },
-  },
-  created_at: {
-    type: DataType.DATE,
-    allowNull: false,
-    defaultValue: DataType.NOW,
   },
 };
 
-const Topics = sequelize.define('Topics', topicModel, topicOptions);
+const Reactions = sequelize.define('Reactions', reactionModel, reactionOptions);
 
-Topics.belongsTo(Forums, {foreignKey: 'forum_id'});
-Topics.belongsTo(Users, {foreignKey: 'user_id'});
-
-export { Topics };
+export { Reactions };

@@ -4,7 +4,7 @@ import { sequelize } from 'server/api/sequelize';
 import { Users, Topics } from './';
 
 // Модель таблицы Messages
-type TMessage = {
+export type TMessage = {
   id: number;
   user_id: number;
   text: string;
