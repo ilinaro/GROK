@@ -4,8 +4,23 @@ import { yandexEndpoint } from './constants';
 import { filterCookies } from './filterCookies';
 import { yandexProxyResponseHandler } from 'server/api/utils';
 
-// Прокси для запросов к Яндекс Свагер Апи
-export const yandexProxy = (): RequestHandler => {
+// Прокси для запросов к Яндекс Апи
+export const yandexProxyAll = (): RequestHandler => {
+  return createProxyMiddleware({
+    changeOrigin: true,
+    cookieDomainRewrite: {
+      '*': '',
+    },
+    target: yandexEndpoint,
+    onProxyReq: (proxyReq, req) => {
+      const filteredCookies = filterCookies(req);
+      proxyReq.setHeader('cookie', filteredCookies);
+    },
+  });
+};
+
+// Прокси для запросов к Яндекс Апи
+export const yandexProxyUserInfoOnly = (): RequestHandler => {
   return createProxyMiddleware({
     changeOrigin: true,
     cookieDomainRewrite: {
