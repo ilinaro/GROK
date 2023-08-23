@@ -1,9 +1,9 @@
-import {Users} from 'server/api/models';
-import type {TUser} from 'server/api/auth/typing';
-import {dbConnect} from 'server/api/sequelize';
+import { Users } from 'server/api/models';
+import type { TUser } from 'server/api/models';
+import { dbConnect } from 'server/api/sequelize';
 
 export const userAPI = {
-  createOrUpdate: async (data: TUser) => {
+  createOrUpadate: async (data: TUser) => {
     const {
       id,
       login,

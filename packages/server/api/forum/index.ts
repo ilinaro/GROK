@@ -1,15 +1,17 @@
-import type { Request, Response } from 'express';
-import { dbConnect } from 'server/api/sequelize';
-import { isValidPostData } from 'server/api/postDataValidator';
+import type {Request, Response} from 'express';
+import type { TUserData } from 'server/authMiddleware/typing';
+import {dbConnect} from 'server/api/sequelize';
+import { isValidPostData } from 'server/api/utils/postDataValidator';
 
-// Апи Форума
-export const forumApi = async (req: Request, res: Response): Promise<void> => {
+// Forum API
+export const forumApiHandler = async (
+  req: Request,
+  res: Response,
+  userData: TUserData,
+): Promise<void> => {
   const postData = req.body;
   const isValid = isValidPostData(postData);
-  if (!isValid) {
-    res.status(400).json({reason: 'Неправильный запрос'});
-  }
-    await dbConnect();
-    // апи будет тут, ниже пример с поиском юзеров
-    res.json([]);
+  if (!isValid) res.status(400).json({error: 'Неправильный запрос'});
+  await dbConnect();
+  res.json([]);
 };

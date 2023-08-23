@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express';
-import { yandexAuthUri } from 'server/api/auth/constants';
+import { yandexAuthUri } from '../constants';
 import type { IncomingMessage } from 'http';
-import { userAPI } from '../user'
+import { userAPI } from '../../api/user'
 
 const yandexProxyResponseHandler = (
   proxyRes: IncomingMessage,
