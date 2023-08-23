@@ -1,6 +1,7 @@
 import type { Request, Response } from 'express';
 import { yandexAuthUri } from 'server/api/auth/constants';
 import type { IncomingMessage } from 'http';
+import { userAPI } from '../user'
 
 const yandexProxyResponseHandler = (
   proxyRes: IncomingMessage,
@@ -16,9 +17,10 @@ const yandexProxyResponseHandler = (
       responseBody += chunk;
     });
     // Затем обрабатываем полученный ответ
-    proxyRes.on('end', () => {
+    proxyRes.on('end', async () => {
       try {
         const data = JSON.parse(responseBody);
+        await userAPI.createOrUpdate(data);
         // Тут добавляем юзера в БД, если нет
         // И грузим его тему
         const currentTheme = 100;

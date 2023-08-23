@@ -3,7 +3,7 @@ import type {TUser} from 'server/api/auth/typing';
 import {dbConnect} from 'server/api/sequelize';
 
 export const userAPI = {
-  upsert: async (data: TUser) => {
+  createOrUpdate: async (data: TUser) => {
     const {
       id,
       login,
