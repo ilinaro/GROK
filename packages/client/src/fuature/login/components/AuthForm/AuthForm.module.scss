@@ -45,12 +45,18 @@
 	position: absolute;
 	bottom: -50px;
 	color: var(--color-main);
+	background-color: var(--background-main);
+	border-radius: 12px;
 
 	& a {
 		color: var(--color-blue);
 		text-decoration: none;
-		background-color: var(--background-href);
-		border-radius: 12px;
 		padding: 0 5px;
+		transition: color 0.2s;
+
+		&:hover {
+
+			color: var(--color-blue-dark);
+		}
 	}
 }
