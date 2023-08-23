@@ -1,7 +1,7 @@
 .FormContainer {
     max-width: 318px;
     margin: 50px 0;
-    background-color: var(--color-black);
+    background-color: var(--background-form-profile);
     padding: 25px;
     border-radius: 15px;
 
@@ -9,9 +9,12 @@
     fieldset {
         display: flex;
         flex-direction: column;
-        & > * {
+
+        &>* {
             margin: 10px 0;
-        };
+        }
+
+        ;
     }
 }
 

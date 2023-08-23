@@ -1,8 +1,11 @@
 :root {
 	--color-violet: #6e3dc8;
 	--color-violet-darken: #5830a5;
+	--color-violet-middle: #7053a5;
 	--color-white: #ffffff;
 	--color-white-transparent: rgba(255, 255, 255, 0.1);
+	--color-violet-transparent: rgba(145, 79, 199, 0.1);
+	--color-violet-darken-transparent: rgba(145, 79, 199, 0.479);
 	--color-white-darken: #8b97ae;
 	--color-white-light: #bdc3cf;
 	--color-blue: #6781f7;
@@ -26,54 +29,29 @@
 	--web-space: 30px;
 }
 
-
-
-
-
-
-
-
 html[data-theme='dark'] {
 	--background-main: var(--color-violet);
 	--background-form: var(--color-violet-darken);
+	--background-form-profile: var(--color-black);
+	--background-navigate: var(--color-white-transparent);
+	--background-outlet: var(--color-black-light);
+	--background-leader: var(--color-violet);
+	--border-left-navigate: var(--color-white-darken);
 	--color-main: var(--color-white);
 	--color-form-background: var(--color-white-darken);
-
+	--color-button-changePass: var(--background-form-profile);
 }
 
-// html.light {
 html[data-theme='light'] {
 	--background-main: var(--color-white);
 	--background-form: var(--color-violet);
+	--background-form-profile: var(--color-violet-middle);
 	--background-href: var(--color-white);
+	--background-navigate: var(--color-violet-transparent);
+	--background-outlet: var(--color-violet-darken-transparent);
+	--background-leader: var(--color-white);
+	--border-left-navigate: var(--color-violet-darken);
 	--color-main: var(--color-violet-darken);
 	--color-form-background: var(--color-white-light);
-
-
-
-
-	// --color-violet: white;
-	// // --color-violet: #8e55f8;
-	// --color-violet-darken: #5830a5;
-	// --color-white: #253149;
-	// --color-white-transparent: #8e55f833;
-	// --color-white-darken: #8b97ae;
-	// --color-blue: #6781f7;
-	// --color-pink: #d752aa;
-	// --color-pink-disabled: #cf6cae;
-	// --color-yellow: #fcba06;
-	// --color-black: #192233;
-	// --color-black-light: #5830a5;
-	// --color-disabled: #b8c6d1;
-	// //  z-index
-	// --index-subheader: 10;
-	// --index-bar-mobile: 100;
-	// --index-header: 1000;
-	// --index-modal: 10000;
-	// --index-portal: 100000;
-	// // для боковых отступов
-	// --web-max-width: 1800px;
-	// --web-spacing: 0 var(--web-space);
-	// --content-max-width: calc(1480px + (var(--web-space) * 2));
-	// --web-space: 30px;
+	--color-button-changePass: var(--background-form-profile);
 }

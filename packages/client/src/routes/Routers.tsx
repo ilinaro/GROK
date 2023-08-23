@@ -125,8 +125,8 @@ export const Routers = createBrowserRouter([
     element: (
       <PrivateRoute>
         <>
+          <ToggleTheme />
           <RegistrationPage />
-          <LoginPage />
         </>
       </PrivateRoute>
     ),

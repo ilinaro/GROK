@@ -18,15 +18,21 @@ export const Profile: React.FC = () => {
   return (
     <div className={styles.Wrapper}>
       <Title weight={'bold'}>Профиль</Title>
-      {modes[mode]}
-      {mode !== 'changePassword' && (
-        <Button color={'blue'} onClick={() => setMode('changePassword')}>
-          Сменить пароль
-        </Button>
-      )}
-      <Button color={'pink'} onClick={() => logout()}>
-        Выйти
-      </Button>
+      <div className={styles.container}>
+        {modes[mode]}
+        {mode !== 'changePassword' && (
+          <Button
+            style={{
+              backgroundColor: 'var(--color-button-changePass',
+              borderColor: 'var(--color-button-changePass',
+            }}
+            fullWidth={true}
+            onClick={() => setMode('changePassword')}
+          >
+            Сменить пароль
+          </Button>
+        )}
+      </div>
     </div>
   );
 };
