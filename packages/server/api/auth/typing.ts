@@ -1,4 +1,4 @@
-type TUser = {
+export type TUser = {
   id: number;
   first_name: string;
   second_name: string;
@@ -8,7 +8,6 @@ type TUser = {
   email: string;
   phone: string;
 };
-
 // Тип данных ответа от проверки авторизации
 export type TCheckAuth = {
   isAuth: boolean; // Авторизован ли

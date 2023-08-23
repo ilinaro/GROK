@@ -1,9 +1,9 @@
 import axios from 'axios';
-import type {Request} from 'express';
-import {filterCookies} from './filterCookies';
-import {yandexEndpoint} from './constants';
-import type {TCheckAuth} from './typing';
-
+import type { TUser } from 'server/api/auth/typing';
+import type { Request } from 'express';
+import { filterCookies } from './filterCookies';
+import { yandexEndpoint } from './constants';
+import type { TCheckAuth } from './typing';
 // Проверка активной авторизации
 export const yandexCheckAuthorization = async (req: Request): Promise<TCheckAuth> => {
   const filteredCookies = filterCookies(req);
@@ -14,6 +14,8 @@ export const yandexCheckAuthorization = async (req: Request): Promise<TCheckAuth
         cookie: filteredCookies,
       },
     });
+    const userId = (data as TUser).id;
+    console.log('yandexCheckAuthorization userId=', userId);
     return {
       isAuth: true,
       user: data,

@@ -1,18 +1,23 @@
-import {DataType, Model} from 'sequelize-typescript';
-import type {ModelAttributes} from 'sequelize/types';
-import {sequelize} from '../sequelize';
+import { DataType, Model } from 'sequelize-typescript';
+import type { ModelAttributes } from 'sequelize/types';
+import { sequelize } from 'server/api/sequelize';
 
-// Модель таблицы User
-export type TUser = {
+// Модель таблицы Users
+type TUser = {
   id: number;
   login: string;
-  display_name: string;
+  nickname: string;
   avatar: string;
 };
 
+const userOptions = {
+  timestamps: false,
+  paranoid: false,
+  tableName: 'Users',
+};
 const userModel: ModelAttributes<Model, TUser> = {
   id: {
-    type: DataType.INTEGER,
+    type: DataType.NUMBER,
     primaryKey: true,
     allowNull: false,
   },
@@ -20,7 +25,7 @@ const userModel: ModelAttributes<Model, TUser> = {
     type: DataType.STRING,
     allowNull: false,
   },
-  display_name: {
+  nickname: {
     type: DataType.STRING,
   },
   avatar: {
@@ -28,12 +33,5 @@ const userModel: ModelAttributes<Model, TUser> = {
   },
 };
 
-const userOptions = {
-  timestamps: false,
-  paranoid: false,
-  tableName: 'User',
-};
-
-const User = sequelize.define('Users', userModel, userOptions);
-
-export {User};
+const User = sequelize.define('User', userModel, userOptions);
+export { User };
