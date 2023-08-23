@@ -1,7 +1,6 @@
 import { DataType, Model } from 'sequelize-typescript';
 import type { ModelAttributes } from 'sequelize/types';
 import { sequelize } from 'server/api/sequelize';
-
 // Модель таблицы Users
 type TUser = {
   id: number;
@@ -9,7 +8,6 @@ type TUser = {
   nickname: string;
   avatar: string;
 };
-
 const userOptions = {
   timestamps: false,
   paranoid: false,
@@ -33,5 +31,6 @@ const userModel: ModelAttributes<Model, TUser> = {
   },
 };
 
-const User = sequelize.define('User', userModel, userOptions);
-export { User };
+const Users = sequelize.define('Users', userModel, userOptions);
+
+export { Users };

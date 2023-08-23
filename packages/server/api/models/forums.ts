@@ -1,23 +1,21 @@
 import { DataType, Model } from 'sequelize-typescript';
 import type { ModelAttributes } from 'sequelize/types';
 import { sequelize } from 'server/api/sequelize';
-import { User, Forum } from './';
+import { Users } from './';
 
-// Модель таблицы Topics
-type TTopic = {
+// Модель таблицы Forums
+type TForum = {
   id: number;
   name: string;
-  forum_id: number;
   user_id: number;
-  created_at?: Date;
+  created_at: Date;
 };
 
-const topicOptions = {
+const forumOptions = {
   timestamps: false,
-  tableName: 'Topics',
+  tableName: 'Forums',
 };
-
-const topicModel: ModelAttributes<Model, TTopic> = {
+const forumModel: ModelAttributes<Model, TForum> = {
   id: {
     type: DataType.INTEGER,
     autoIncrement: true,
@@ -28,31 +26,23 @@ const topicModel: ModelAttributes<Model, TTopic> = {
     type: DataType.STRING,
     allowNull: false,
   },
-  forum_id: {
-    type: DataType.INTEGER,
-    allowNull: false,
-    references: {
-      model: Forum,
-      key: 'id',
-    },
-  },
   user_id: {
     type: DataType.INTEGER,
     allowNull: false,
     references: {
-      model: User,
+      model: Users,
       key: 'id',
     },
   },
   created_at: {
     type: DataType.DATE,
+    allowNull: false,
     defaultValue: DataType.NOW,
   },
 };
 
-const Topic = sequelize.define('Topic', topicModel, topicOptions);
+const Forums = sequelize.define('Forums', forumModel, forumOptions);
 
-Topic.belongsTo(Forum, {foreignKey: 'forum_id'});
-Topic.belongsTo(User, {foreignKey: 'user_id'});
+Forums.belongsTo(Users, {foreignKey: 'user_id'});
 
-export { Topic };
+export { Forums };

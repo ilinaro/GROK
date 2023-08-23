@@ -7,10 +7,10 @@
 0 silly argv   pkg: '{react-hook-form}'
 0 silly argv }
 1 notice cli v5.4.3
-2 verbose rootPath C:\User\PtitsynAA\Documents\YandexMiddleFrontend\Module2\GROK
+2 verbose rootPath C:\Users\PtitsynAA\Documents\YandexMiddleFrontend\Module2\GROK
 3 error Error: Invalid tag name "{react-hook-form}": Tags may not have any characters that encodeURIComponent encodes.
-3 error     at invalidTagName (C:\User\PtitsynAA\Documents\YandexMiddleFrontend\Module2\GROK\node_modules\npm-package-arg\npa.js:94:15)
-3 error     at fromRegistry (C:\User\PtitsynAA\Documents\YandexMiddleFrontend\Module2\GROK\node_modules\npm-package-arg\npa.js:299:13)
-3 error     at resolve (C:\User\PtitsynAA\Documents\YandexMiddleFrontend\Module2\GROK\node_modules\npm-package-arg\npa.js:84:12)
-3 error     at npa (C:\User\PtitsynAA\Documents\YandexMiddleFrontend\Module2\GROK\node_modules\npm-package-arg\npa.js:55:10)
-3 error     at AddCommand.initialize (C:\User\PtitsynAA\Documents\YandexMiddleFrontend\Module2\GROK\node_modules\@lerna\add\index.js:39:17)
+3 error     at invalidTagName (C:\Users\PtitsynAA\Documents\YandexMiddleFrontend\Module2\GROK\node_modules\npm-package-arg\npa.js:94:15)
+3 error     at fromRegistry (C:\Users\PtitsynAA\Documents\YandexMiddleFrontend\Module2\GROK\node_modules\npm-package-arg\npa.js:299:13)
+3 error     at resolve (C:\Users\PtitsynAA\Documents\YandexMiddleFrontend\Module2\GROK\node_modules\npm-package-arg\npa.js:84:12)
+3 error     at npa (C:\Users\PtitsynAA\Documents\YandexMiddleFrontend\Module2\GROK\node_modules\npm-package-arg\npa.js:55:10)
+3 error     at AddCommand.initialize (C:\Users\PtitsynAA\Documents\YandexMiddleFrontend\Module2\GROK\node_modules\@lerna\add\index.js:39:17)
