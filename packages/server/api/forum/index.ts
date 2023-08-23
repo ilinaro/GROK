@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express';
-import type { TUserData } from '../../authMiddleware/typing';
+import type { TUser } from '../models';
 import type { TApiFunction } from 'server/api/forum/typing';
 import { dbConnect } from 'server/api/sequelize';
 import { isValidPostData } from 'server/api/utils/postDataValidator';
@@ -13,7 +13,7 @@ import { messageReactionApi } from './messageReactionApi';
 export const forumApiHandler = async (
   req: Request,
   res: Response,
-  userData: TUserData,
+  userData: TUser,
 ): Promise<void> => {
   const postData = req.body;
   const userId = userData.id;
