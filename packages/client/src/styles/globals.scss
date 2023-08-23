@@ -4,8 +4,8 @@ body {
   color: var(--color-black);
   overflow-x: hidden;
   margin-right: calc(-1 * (100vw - 100%));
-  background-color: var(--color-violet);
-  color: var(--color-white);
+  background-color: var(--background-main);
+  color: var(--color-main);
 }
 
 body * {
@@ -28,12 +28,15 @@ body * {
 .boldText {
   font-weight: 700;
 }
+
 .mediumText {
   font-weight: 500;
 }
+
 .normalText {
   font-weight: 400;
 }
+
 .lightText {
   font-weight: 300;
 }
@@ -63,11 +66,13 @@ input[type='number']:focus {
 .ql-align-center {
   text-align: center;
 }
+
 .ql-align-right {
   text-align: right;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) and (min-width: 768px) and (max-width: 1024px) {
+
   input,
   textarea,
   select select:focus,
@@ -78,6 +83,7 @@ input[type='number']:focus {
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) and (max-width: 767px) {
+
   input,
   textarea,
   select,
