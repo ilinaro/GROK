@@ -1,17 +1,19 @@
-import { User } from '../models';
-import type { TUser } from '../models';
+import {Users} from 'server/api/models';
+import type {TUser} from 'server/api/auth/typing';
+import {dbConnect} from 'server/api/sequelize';
 
 export const userAPI = {
-  createOrUpdate: async (data: TUser) => {
+  upsert: async (data: TUser) => {
     const {
       id,
       login,
       avatar,
     } = data;
-    await User.upsert({
+    await dbConnect();
+    await Users.upsert({
       id: id,
       login: login,
-      display_name: login,
+      nickname: login,
       avatar: avatar,
     });
   },
