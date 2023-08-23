@@ -35,6 +35,7 @@ const topicModel: ModelAttributes<Model, TTopic> = {
       model: Forums,
       key: 'id',
     },
+    onDelete: 'SET NULL',
   },
   user_id: {
     type: DataType.INTEGER,
@@ -43,6 +44,7 @@ const topicModel: ModelAttributes<Model, TTopic> = {
       model: Users,
       key: 'id',
     },
+    onDelete: 'SET NULL',
   },
   created_at: {
     type: DataType.DATE,

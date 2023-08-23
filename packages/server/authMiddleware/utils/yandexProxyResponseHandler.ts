@@ -3,6 +3,7 @@ import type { IncomingMessage } from 'http';
 import { userAPI } from 'server/api/user';
 import { yandexAuthUri } from 'server/authMiddleware/constants';
 import type { TUserData } from 'server/authMiddleware/typing';
+import { isValidPostData } from '../../api/utils/postDataValidator'
 
 const yandexProxyResponseHandler = (
   proxyRes: IncomingMessage,
@@ -21,19 +22,21 @@ const yandexProxyResponseHandler = (
     proxyRes.on('end', async () => {
       try {
         const data = JSON.parse(responseBody) as TUserData;
-        await userAPI.createOrUpadate({
-          id: data.id,
-          login: data.login,
-          display_name: data.login,
-          avatar: data.avatar,
-        });
+        if (res.statusCode === 200 && isValidPostData(data)) {
+          await userAPI.createOrUpadate({
+            id: data.id,
+            login: data.login,
+            display_name: data.login,
+            avatar: data.avatar,
+          });
 
-        const currentTheme = 100;
-        data.theme = currentTheme;
-        const modifiedResponse = JSON.stringify(data);
-        res.setHeader('Content-Type', 'application/json;charset=utf-8');
-        res.end(modifiedResponse);
-      } catch (error) {
+          const currentTheme = 100;
+          data.theme = currentTheme;
+        }
+          const modifiedResponse = JSON.stringify(data);
+          res.setHeader('Content-Type', 'application/json;charset=utf-8');
+          res.end(modifiedResponse);
+        } catch (error) {
         console.log(error);
       }
     });
