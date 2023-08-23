@@ -1,7 +1,8 @@
 import type { Request, Response } from 'express';
-import { yandexAuthUri } from '../constants';
 import type { IncomingMessage } from 'http';
-import { userAPI } from '../../api/user'
+import { userAPI } from 'server/api/user';
+import { yandexAuthUri } from 'server/authMiddleware/constants';
+import type { TUserData } from 'server/authMiddleware/typing';
 
 const yandexProxyResponseHandler = (
   proxyRes: IncomingMessage,
@@ -10,7 +11,7 @@ const yandexProxyResponseHandler = (
 ): void => {
   // Обрабатываем только запросы авторизации
   if (req.url === yandexAuthUri && req.method === 'GET') {
-    // Сначала грузим ответ
+    // Сначала загружаем ответ
     let responseBody = '';
     proxyRes.setEncoding('utf-8');
     proxyRes.on('data', (chunk) => {
@@ -19,10 +20,14 @@ const yandexProxyResponseHandler = (
     // Затем обрабатываем полученный ответ
     proxyRes.on('end', async () => {
       try {
-        const data = JSON.parse(responseBody);
-        await userAPI.createOrUpdate(data);
-        // Тут добавляем юзера в БД, если нет
-        // И грузим его тему
+        const data = JSON.parse(responseBody) as TUserData;
+        await userAPI.createOrUpadate({
+          id: data.id,
+          login: data.login,
+          display_name: data.login,
+          avatar: data.avatar,
+        });
+
         const currentTheme = 100;
         data.theme = currentTheme;
         const modifiedResponse = JSON.stringify(data);
@@ -34,5 +39,4 @@ const yandexProxyResponseHandler = (
     });
   }
 };
-
-export {yandexProxyResponseHandler};
+export { yandexProxyResponseHandler };
