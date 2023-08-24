@@ -2,13 +2,13 @@ import {
   yandexProxyAll,
   yandexProxyUserInfoOnly,
   yandexCheckAuthorization,
-} from 'server/authMiddleware';
+} from './authMiddleware';
 import type { ViteDevServer } from 'vite';
 import { createServer as createViteServer } from 'vite';
 import cors from 'cors';
 import express from 'express';
 import path from 'path';
-import { forumApiHandler } from 'server/api/forum';
+import { forumApiHandler } from './api/forum';
 import { getSsrPath, ssrContent } from './ssr';
 import cookieParser from 'cookie-parser';
 

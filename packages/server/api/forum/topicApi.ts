@@ -1,6 +1,6 @@
-import { Messages, Topics, Users } from 'server/api/models';
-import type { TTopic } from 'server/api/models';
-import type { TApiResponseData } from 'server/api/typing';
+import { Messages, Topics, Users } from '../models';
+import type { TTopic } from '../models';
+import type { TApiResponseData } from '../typing';
 import { sequelize } from '../sequelize';
 
 // Topic API

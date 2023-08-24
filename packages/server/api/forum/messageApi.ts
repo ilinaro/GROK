@@ -1,6 +1,6 @@
 import { Messages, Users, MessagesReactions } from 'server/api/models';
-import type { TMessage } from 'server/api/models';
-import type { TApiResponseData } from 'server/api/typing';
+import type { TMessage } from '../models';
+import type { TApiResponseData } from '../typing';
 import {sequelize} from 'server/api/sequelize';
 
 // Messages API

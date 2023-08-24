@@ -1,7 +1,7 @@
-import {Users } from './users';
-import {Forums } from './forums';
-import {Topics } from './topics';
-import {Messages } from './messages';
+import { Users } from './users';
+import { Forums } from './forums';
+import { Topics } from './topics';
+import { Messages } from './messages';
 import { MessagesReactions } from './messagesReactions';
 
 import type { TUser } from './users';

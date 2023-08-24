@@ -1,5 +1,5 @@
-import { yandexProxyAll, yandexProxyUserInfoOnly } from 'server/authMiddleware/authorization';
-import { yandexCheckAuthorization } from 'server/authMiddleware/checking';
+import { yandexProxyAll, yandexProxyUserInfoOnly } from './authorization';
+import { yandexCheckAuthorization } from './checking';
 
 export {
   yandexProxyAll,

@@ -37,7 +37,7 @@ CREATE TABLE "MessagesReactions" (
   "user_id" INT NOT NULL,
   "reaction_id" INT NOT NULL,
   PRIMARY KEY ("message_id", "user_id"),
-  FOREIGN KEY ("message_id") REFERENCES "Messages" ("id"),
+  FOREIGN KEY ("message_id") REFERENCES "Messages" ("id")
 );
 CREATE TABLE "Themes" (
   "id" SERIAL PRIMARY KEY,

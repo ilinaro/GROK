@@ -1,7 +1,7 @@
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import type { RequestHandler } from 'http-proxy-middleware';
-import { yandexEndpoint } from 'server/authMiddleware/constants';
-import { filterCookies, yandexProxyResponseHandler } from 'server/authMiddleware/utils';
+import { yandexEndpoint } from './constants';
+import { filterCookies, yandexProxyResponseHandler } from './utils';
 
 export const yandexProxyAll = (): RequestHandler => {
   return createProxyMiddleware({

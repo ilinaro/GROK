@@ -6,3 +6,5 @@ dist
 tmp
 package-lock.json
 yarn.lock
+tmp
+/db/postgresdata/

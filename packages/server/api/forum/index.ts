@@ -1,8 +1,8 @@
 import type { Request, Response } from 'express';
 import type { TUser } from '../models';
-import type { TApiFunction } from 'server/api/forum/typing';
-import { dbConnect } from 'server/api/sequelize';
-import { isValidPostData } from 'server/api/utils/postDataValidator';
+import type { TApiFunction } from './typing';
+import { dbConnect } from '../sequelize';
+import { isValidPostData } from '../utils/postDataValidator';
 import type { TApiResponseData } from '../typing';
 import { forumApi } from './forumApi';
 import { topicApi } from './topicApi';
@@ -56,6 +56,6 @@ export const forumApiHandler = async (
     }
 
     res.status(400)
-      .json({reason: apiResponse.reason ?? 'Неизвестная ошибка в Апи Форума'});
+      .json({reason: apiResponse.reason ?? 'Неизвестная ошибка в Forum API'});
     return;
 };
