@@ -1,4 +1,4 @@
-import { GAME_BONUS, GAME_LIFE, GAME_TOTAL_COUNT } from '@store/constants/game';
+import { GAME_BONUS, GAME_LIFE, GAME_SCORE, GAME_TOTAL_COUNT } from '@store/constants/game';
 
 export type BonusGameACType = {
   type: typeof GAME_BONUS;
@@ -15,5 +15,10 @@ export type LifeGameACType = {
   life: number | undefined;
 };
 
+export type ScoreGameACType = {
+  type: typeof GAME_SCORE;
+  score: number | undefined;
+};
+
 // Union type
-export type GameActionsTypes = LifeGameACType | BonusGameACType | TotalCountGameACType;
+export type GameActionsTypes = LifeGameACType | BonusGameACType | TotalCountGameACType | ScoreGameACType;

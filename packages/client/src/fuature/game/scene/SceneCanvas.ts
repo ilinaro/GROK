@@ -9,7 +9,8 @@ export class SceneCanvas {
     canvas: HTMLCanvasElement | null,
     ball: HTMLImageElement,
     setBonus: React.Dispatch<React.SetStateAction<number | undefined>>,
-    setLife: React.Dispatch<React.SetStateAction<number | undefined>>
+    setLife: React.Dispatch<React.SetStateAction<number | undefined>>,
+    setScore: React.Dispatch<React.SetStateAction<number | undefined>>
   ) {
     if (!canvas) return;
     const context = canvas.getContext('2d');
@@ -44,8 +45,9 @@ export class SceneCanvas {
       });
       player.draw();
       player.update();
-      setBonus(player.bonus);
       setLife(player.life);
+      setBonus(player.bonus);
+      setScore(player.score);
     };
 
     animate();

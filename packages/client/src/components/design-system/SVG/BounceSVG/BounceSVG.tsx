@@ -1,9 +1,6 @@
 import { SVGType } from '@typings/SVG';
-import { useGetCSSVars } from '@lib/useGetCSSVars';
 
-export const BounceSVG: React.FC<SVGType & { life?: number }> = ({ color = 'yellow', life = 3 }) => {
-  const currentColor = useGetCSSVars('color', color);
-  console.log('life', life);
+export const BounceSVG: React.FC<SVGType> = () => {
   return (
     <>
       <svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">

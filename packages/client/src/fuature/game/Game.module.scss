@@ -9,6 +9,7 @@
 .Life {
     display: flex;
     align-items: center;
+    width: 125px;
     & > :nth-child(1n) {
         margin-right: 5px;
     }

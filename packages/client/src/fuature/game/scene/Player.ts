@@ -12,6 +12,7 @@ class Player {
   maxSpeed: number;
   life: number;
   bonus: number;
+  score: number;
   constructor(
     private context: CanvasRenderingContext2D | null,
     private mapBlocks: {
@@ -45,6 +46,7 @@ class Player {
     this.canvasHeight = canvasHeight;
     this.life = 3;
     this.bonus = 3;
+    this.score = 0;
     this.ball = ball;
     this.ball.onload = () => {
       this.draw();
@@ -116,6 +118,7 @@ class Player {
         if (this.mapBlocks[i].type === 'step') {
           if (!this.mapBlocks[i].used) {
             this.bonus = this.bonus - 1;
+            this.score = this.score + 500;
           }
           this.mapBlocks[i].used = true;
         }
@@ -158,6 +161,7 @@ class Player {
         if (this.mapBlocks[i].type === 'step') {
           if (!this.mapBlocks[i].used) {
             this.bonus = this.bonus - 1;
+            this.score = this.score + 500;
           }
           this.mapBlocks[i].used = true;
         }

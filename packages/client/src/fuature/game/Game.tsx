@@ -12,20 +12,22 @@ import { useAppSelector } from '@store/hooks';
 type GameT = {};
 
 export const Game: React.FC<GameT> = () => {
+  const { bonus: bonusStore } = useAppSelector((store) => store.game);
+  const { life: lifeStore } = useAppSelector((store) => store.game);
+  const { score: scoreStore } = useAppSelector((store) => store.game);
+
+  console.log(scoreStore);
+  const canvasRef = WindowCanvas();
+
   const [menu, setMenu] = useState(false);
   const [end, setEnd] = useState(false);
   const [lavel, setLavel] = useState(0);
-  const [count, setCount] = useState(0);
   const [status, setStatus] = useState<'pause' | 'end' | 'geme_over'>('pause');
-  const canvasRef = WindowCanvas();
-
-  const { bonus: bonusStore } = useAppSelector((store) => store.game);
-  const { life: lifeStore } = useAppSelector((store) => store.game);
+  const [isLife, setIsLife] = useState<React.ReactElement[] | []>(Array(lifeStore).fill(<BounceSVG />));
 
   const ALL_LAVEL = 10;
 
   useEffect(() => {
-    console.log('lifeStore', lifeStore);
     if (lifeStore !== undefined && lifeStore < 1) {
       setStatus('geme_over');
       setMenu(true);
@@ -64,7 +66,14 @@ export const Game: React.FC<GameT> = () => {
     setStatus('pause');
   };
 
-  const isLife: React.ReactNode[] = Array(3).fill(<BounceSVG />);
+  useEffect(() => {
+    if (!lifeStore) {
+      setIsLife([]);
+    }
+    if (lifeStore) {
+      setIsLife(Array(lifeStore).fill(<BounceSVG />));
+    }
+  }, [lifeStore]);
 
   return (
     <div className={styles.Game}>
@@ -76,12 +85,10 @@ export const Game: React.FC<GameT> = () => {
           <PortSVG bonus={bonusStore} />
         </div>
         <div className={styles.Life}>
-          {isLife.map((life, i) => (
-            <div key={i}>{life}</div>
-          ))}
+          {!!isLife.length && isLife?.map((life: React.ReactElement, i: number) => <div key={i}>{life}</div>)}
         </div>
         <div className={styles.Count}>
-          <Subheader>{count}</Subheader>
+          <Subheader>{scoreStore}</Subheader>
         </div>
       </div>
       <canvas ref={canvasRef} />
@@ -90,7 +97,7 @@ export const Game: React.FC<GameT> = () => {
           onClose={handleCloseMenu}
           open={menu}
           end={end}
-          count={count}
+          count={scoreStore ?? 0}
           status={status}
           onRestart={handleOnRestart}
           onNext={handleOnNext}
