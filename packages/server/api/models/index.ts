@@ -2,8 +2,7 @@ import {Users } from './users';
 import {Forums } from './forums';
 import {Topics } from './topics';
 import {Messages } from './messages';
-import { Reactions } from './reactions';
-import {MessagesReactions } from './messagesReactions';
+import { MessagesReactions } from './messagesReactions';
 
 import type { TUser } from './users';
 import type { TForum } from './forums';
@@ -16,7 +15,6 @@ export {
   Forums,
   Topics,
   Messages,
-  Reactions,
   MessagesReactions,
   TUser,
   TForum,
