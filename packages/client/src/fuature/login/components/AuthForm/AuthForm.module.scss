@@ -52,7 +52,10 @@
 		color: var(--color-blue);
 		text-decoration: none;
 		padding: 0 5px;
-		transition: color 0.2s;
+
+		@media (prefers-reduced-motion: no-preference) {
+			transition: color 0.2s;
+		}
 
 		&:hover {
 			color: var(--color-blue-dark);
