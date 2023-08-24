@@ -15,5 +15,7 @@ export default {
     '^@utils/(.*)$': '<rootDir>/src/utils/$1',
     '^@lib/(.*)$': '<rootDir>/src/lib/$1',
     '\\.module\\.scss$': 'identity-obj-proxy',
+    "\\.(png|jpg|ico|jpeg|gif)$":
+      "<rootDir>/src/__mocks__/image-mock.js",
   },
 }
