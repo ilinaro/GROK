@@ -11,7 +11,7 @@ describe('BlockLeader', () => {
     const { getByAltText, getByText, getByTestId } = render(<BlockLeader {...mockProps} />);
 
     const avatarImg: any = getByAltText('avatar');
-    expect(avatarImg.src).toBe(mockProps.avatar);
+    expect(avatarImg.src).toBe(`https://ya-praktikum.tech/api/v2/resources/${mockProps.avatar}`);
 
     const usernameText = getByTestId('username').textContent;
     expect(usernameText).toBe(`1. ${mockProps.username}`);

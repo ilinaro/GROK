@@ -1,26 +1,40 @@
+import { useMemo } from 'react';
 import { Title } from '@components/design-system/Fonts';
 import styles from './Leader.module.scss';
-import { leadersMock } from './mocks';
 import { BlockLeader } from './components/block-leader/BlockLeader';
+import { useQuery } from 'react-query';
+import { getStatistics } from '@services/game.service';
+import { formatLeaderBoard } from '@utils/formatters';
 
 type LeaderT = {};
 
-export const Leader: React.FC<LeaderT> = () => (
-  <div className={styles.Wrapper}>
-    <Title weight={'bold'}>Лидеры</Title>
-    {leadersMock.map((leader, index) => {
-      // Исходи из того что лидеры уже отсортированы на бэке по очкам
-      const currentPlace = index + 1;
+export const Leader: React.FC<LeaderT> = () => {
+  const { isLoading, data, error } = useQuery('getLeaderBoard', () =>
+    getStatistics({
+      ratingFieldName: 'GROKpoints',
+      cursor: 0,
+      limit: 5,
+    })
+  );
 
-      return (
-        <BlockLeader
-          key={index}
-          avatar={leader.avatar}
-          username={leader.username}
-          points={leader.points}
-          place={currentPlace}
-        />
-      );
-    })}
-  </div>
-);
+  const leaders = useMemo(() => formatLeaderBoard(data), [data]);
+
+  return (
+    <div className={styles.Wrapper}>
+      <Title weight={'bold'}>Лидеры</Title>
+      {leaders.map((leader, index) => {
+        const currentPlace = index + 1;
+
+        return (
+          <BlockLeader
+            key={index}
+            avatar={leader.avatar}
+            username={leader.username}
+            points={leader.points}
+            place={currentPlace}
+          />
+        );
+      })}
+    </div>
+  );
+};
