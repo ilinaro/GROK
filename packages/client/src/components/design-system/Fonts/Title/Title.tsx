@@ -7,16 +7,15 @@ import { useGetCSSVars } from '@lib/useGetCSSVars';
 export const Title: React.FC<FontPropsT> = ({
   children,
   className = '',
-  color = 'inherit',
+  color = 'main',
   weight = 'medium',
   sx,
   ...props
 }) => {
-  const currentColor = useGetCSSVars('color', color);
   const currentWeight = correctWeight(weight);
   return (
     <span
-      style={{ color: currentColor, fontWeight: currentWeight, ...sx }}
+      style={{ color: `var(--color-${color})`, fontWeight: currentWeight, ...sx }}
       className={clsx(styles.Title, className)}
       {...props}
     >
