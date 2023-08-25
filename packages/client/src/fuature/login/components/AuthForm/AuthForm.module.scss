@@ -47,6 +47,7 @@
 	color: var(--color-main);
 	background-color: var(--background-main);
 	border-radius: 12px;
+	mix-blend-mode: difference;
 
 	& a {
 		color: var(--color-blue);
