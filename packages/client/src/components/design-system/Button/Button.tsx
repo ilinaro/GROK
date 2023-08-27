@@ -46,7 +46,7 @@ export const Button: React.FC<ButtonProps> = ({
       {loading ? (
         <>
           <Spinner size={14} strokeWidth={1} color={'white'} type={'usual'} />
-          <div className={styles[`Button__content`]}>
+          <div className={styles[`Button__content_load`]}>
             <BodyNormal className={styles.s} weight={'normal'}>
               {loadingText}
             </BodyNormal>

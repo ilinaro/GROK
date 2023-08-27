@@ -12,13 +12,21 @@
     position: absolute;
     right: 20px;
     top: 20px;
-    transition: all 1s;
-    & > :nth-child(1n) {
-        border-radius: 9999px;
-        transition: all 0.3s;
+
+    @media (prefers-reduced-motion: no-preference) {
+        transition: all 1s;
     }
+
+    &> :nth-child(1n) {
+        border-radius: 9999px;
+
+        @media (prefers-reduced-motion: no-preference) {
+            transition: all 0.3s;
+        }
+    }
+
     &:hover {
-        & > :nth-child(1n) {
+        &> :nth-child(1n) {
             fill: var(--color-pink);
         }
     }
