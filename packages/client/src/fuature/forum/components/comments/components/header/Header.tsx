@@ -1,18 +1,18 @@
-import React from 'react'
-import styles from './Header.module.scss'
-import { Title } from '@components/design-system/Fonts'
+import React from 'react';
+import styles from './Header.module.scss';
+import { Title } from '@components/design-system/Fonts';
 
-export const Header:React.FC = () => {
+interface IHeader {
+  title: string;
+}
+
+export const Header: React.FC<IHeader> = ({ title }) => {
   return (
-    <div className={ styles.Header }>
-    <div className={ styles.topic__info }>
-      <p className={ styles.username }>Username</p>
-      <p className={ styles.time__topic }>Timestamp</p>
+    <div className={styles.Header}>
+      <div className={styles.topic__info}></div>
+      <div className={styles.topic}>
+        <Title className={styles.title}>{title}</Title>
+      </div>
     </div>
-    <div className={ styles.topic }>
-      <Title className={ styles.title }>This is Topic tittle</Title>
-      <textarea readOnly={ true } className={ styles.Desc }>this is descriptions posts</textarea>
-    </div>
-  </div>
-  )
+  );
 };

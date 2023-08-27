@@ -1,7 +1,5 @@
 import { ErrorPage } from '../pages/error';
 import { ForumActionCreate } from '../fuature/forum/actions/create';
-import { ForumAnswers } from '../fuature/forum/components/answers';
-import { ForumEventsPage } from '../pages/forum/id';
 import { ForumPage } from '../pages/forum';
 import { ForumTopics } from '../fuature/forum/components/topics';
 import { GamePage } from '../pages/game';
@@ -20,6 +18,7 @@ import { useAppDispatch } from '@store/hooks';
 import { useQuery } from 'react-query';
 import { authApi } from '@api/auth';
 import { userActions } from '@store/slices/user/userSlice';
+import { TopicPage } from '@pages/topic';
 
 type PrivateRouteProps = {
   children: ReactElement;
@@ -80,11 +79,10 @@ export const SSRRouters = () => {
       <Route path={RouteNames.PROFILE} element={privatRouter(<ProfilePage />, { layout: true, priv: true })} />
       <Route path={RouteNames.LEADERS} element={privatRouter(<LeadersPage />, { layout: true, priv: true })} />
       <Route path={RouteNames.FORUM} element={privatRouter(<ForumPage />, { layout: true, priv: true })} />
-      <Route path={RouteNames.FORUM_EVENTS} element={privatRouter(<ForumEventsPage />, { layout: true, priv: true })} />
       <Route path={RouteNames.PROGRESS} element={privatRouter(<ProgressPage />, { layout: true, priv: true })} />
       <Route path={RouteNames.NOMATCH} element={privatRouter(<NoMatchPage />, { layout: true })} />
       <Route path={RouteNames.FORUM_TOPICS} element={privatRouter(<ForumTopics />, { layout: true, priv: true })} />
-      <Route path={RouteNames.FORUM_ANSWERS} element={privatRouter(<ForumAnswers />, { layout: true, priv: true })} />
+      <Route path={RouteNames.TOPIC} element={privatRouter(<TopicPage />, { layout: true, priv: true })} />
       <Route
         path={RouteNames.FORUM_CREATE}
         element={privatRouter(<ForumActionCreate />, { layout: true, priv: true })}
