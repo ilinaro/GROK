@@ -17,6 +17,8 @@ import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { authApi } from '@api/auth';
 import { loadUser } from '@store/thunks/user';
+import { YandexSVG } from '@components/design-system/SVG/YandexSVG';
+import authService from '@services/auth.service';
 
 type LoginT = {};
 
@@ -89,6 +91,10 @@ export const LoginForm: React.FC<LoginT> = () => {
     );
   };
 
+  const handleClick = () => {
+    authService.oauthGetServiceId();
+  };
+
   useEffect(() => {
     if (auth === true) {
       navigate(RouteNames.START);
@@ -118,6 +124,9 @@ export const LoginForm: React.FC<LoginT> = () => {
       />
       <Button color={'pink'} style={{ marginTop: '22px' }} type={'submit'} loading={isLoading}>
         <BodyNormal weight={'normal'}>Войти</BodyNormal>
+      </Button>
+      <Button color={'red'} style={{ marginTop: '22px' }} type={'button'} onClick={handleClick}>
+        <YandexSVG />
       </Button>
     </AuthForm>
   );
