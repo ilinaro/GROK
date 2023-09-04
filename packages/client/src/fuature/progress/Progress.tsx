@@ -9,9 +9,12 @@ export const Progress: React.FC<ProgressT> = () => {
     <div className={styles.Wrapper}>
       <Title weight={'bold'}>Прогресс</Title>
       <div className={styles.Levels}>
-        <ProgressBlock isCompleted />
         <ProgressBlock isCompleted color="yellow" />
-        <ProgressBlock />
+        <ProgressBlock isCompleted />
+        <ProgressBlock isCompleted />
+        <ProgressBlock isCompleted />
+        <ProgressBlock isCompleted />
+        <ProgressBlock isCompleted />
       </div>
     </div>
   );

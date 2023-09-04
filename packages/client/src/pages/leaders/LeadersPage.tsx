@@ -1,4 +1,4 @@
-import { Leader } from 'fuature/leader';
+import { Leader } from '../../fuature/leader';
 
 type LeadersPageT = {};
 

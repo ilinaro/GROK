@@ -9,14 +9,15 @@
         background-position: 10% center;
         background-repeat: no-repeat;
         border-left: 4px solid transparent;
+        transition: all 0.2s;
 
         &.Active {
-            background-color: var(--color-white-transparent);
-            border-left: 4px solid var(--color-white-darken);
+            background-color: var(--background-navigate);
+            border-left: 4px solid var(--border-left-navigate);
         }
 
         &:hover {
-            background-color: var(--color-white-transparent);
+            background-color: var(--background-navigate);
         }
 
         &.Home {

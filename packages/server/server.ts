@@ -14,8 +14,11 @@ import cookieParser from 'cookie-parser';
 
 export async function startServer(isDev: boolean, port: number) {
   const app = express();
+  
   app.use(cors());
+  
   let vite: ViteDevServer;
+  
   if (isDev) {
     vite = await createViteServer({
       server: {middlewareMode: true},
@@ -27,8 +30,11 @@ export async function startServer(isDev: boolean, port: number) {
     const distPath = path.dirname(require.resolve('client/dist/index.html'));
     app.use('/assets', express.static(path.resolve(distPath, 'assets')));
   }
+  
   app.use('/api/v2/auth/user', yandexProxyUserInfoOnly());
+  
   app.use('/api/v2', yandexProxyAll());
+  
   app.use('/api/forum', async (req, res) => {
     try {
       const authUserData = await yandexCheckAuthorization(req);
@@ -44,6 +50,7 @@ export async function startServer(isDev: boolean, port: number) {
       }
     }
   });
+  
   app.use('*', cookieParser() as any, async (req, res, next) => {
     const requestType = req.method;
     if (requestType !== 'GET') {
@@ -51,7 +58,7 @@ export async function startServer(isDev: boolean, port: number) {
     }
     try {
       const url = req.originalUrl;
-      const html = await ssrContent(vite, url, isDev);
+      const html = await ssrContent(vite, url, isDev, req);
       res.status(200).set({'Content-Type': 'text/html'}).end(html);
     } catch (e) {
       if (isDev) {
@@ -60,6 +67,7 @@ export async function startServer(isDev: boolean, port: number) {
       next(e);
     }
   });
+  
   app.listen(port, () => {
     console.log(`  ➜ 🎸 Server is listening on port: ${port}`);
   });

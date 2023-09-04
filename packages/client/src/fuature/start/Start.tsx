@@ -1,12 +1,11 @@
-import { BodyNormal, Title } from '@components/design-system/Fonts';
-import { Question, XCircle } from '@phosphor-icons/react';
-
-import { Ball } from '@components/specific/Ball';
-import { Link } from 'react-router-dom';
-import { Performance } from './components';
-import clsx from 'clsx';
-import styles from './Start.module.scss';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import clsx from 'clsx';
+import { Title } from '@components/design-system/Fonts';
+import { Ball } from '@components/specific/Ball';
+import { Performance } from './components';
+import styles from './Start.module.scss';
+import { Question, XCircle } from '@phosphor-icons/react';
 
 type StartT = {};
 

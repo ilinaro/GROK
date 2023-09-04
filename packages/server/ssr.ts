@@ -1,7 +1,13 @@
 import type { ViteDevServer } from 'vite';
-import type { TSsrRenderProps } from 'client/ssr/typing';
 import fs from 'fs';
 import path from 'path';
+import { Request } from 'express'
+import { ApiRepository } from './repository/ApiRepository'
+
+type TSsrRenderProps = (
+  url: string,
+  repository: ApiRepository
+) => Promise<[string, Record<string, unknown>]>
 
 export const getClientDir = () => {
   let clientDir: string;
@@ -24,14 +30,13 @@ const ssrProdPath = path.resolve(getClientDir(), 'ssr-dist/client.cjs');
 const distPath = path.dirname(path.resolve(getClientDir(), 'dist/index.html'));
 
 export const getSsrPath = (isDev: boolean) => isDev ? ssrDevPath : ssrProdPath;
-export async function ssrContent(vite: ViteDevServer, url: string, isDev: boolean) {
+
+export async function ssrContent(vite: ViteDevServer, url: string, isDev: boolean, req: Request) {
   if (isDev && !vite) {
     throw Error('Не запущен ViteDevServer');
   }
 
   let render: TSsrRenderProps;
-  let setupStore;
-  let initialState;
 
   const templatePath = isDev
     ? path.resolve(ssrDevPath, 'index.html')
@@ -47,21 +52,13 @@ export async function ssrContent(vite: ViteDevServer, url: string, isDev: boolea
     render = (await import(ssrProdPath)).render;
   }
 
-  const [initialStateRender, appHtml] = render(url);
+  const [appHtml, store] = render(url, new ApiRepository(req.headers['cookie']));
 
-  if (isDev) {
-    const pathFileStore = path.resolve(ssrDevPath, 'src/stores/store.ts');
-    setupStore = (await vite.ssrLoadModule(pathFileStore)).setupStore;
-    const store = setupStore();
-    initialState = store.getState();
-  } else {
-    initialState = initialStateRender;
-  }
+  const initialState = JSON.stringify(store).replace(/</g, '\\u003c')
 
-  const stringifyState = JSON.stringify(initialState).replace(/</g, '\\u003c');
-  const stateMarkup = `<script>window.__PRELOADED_STATE__ = ${stringifyState}</script>`;
-
-  return template
+  const html = template
     .replace('<!--ssr-outlet-->', appHtml)
-    .replace('<!--preloadedState-->', stateMarkup);
+    .replace('<!--store-data-->', `window.initialState = ${initialState}`)
+
+  return html
 }

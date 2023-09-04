@@ -1,19 +1,21 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { rootReducer } from './reducers/rootReducer';
+import { UserState } from './types/userTypes';
+import { GameState } from './types/gameTypes';
+import { UserService } from '@services/user.service';
 
-export const store = configureStore({
-  reducer: rootReducer,
-});
-export const setupStore = () => {
-  let preloadedState;
+export type StoreState = {
+  user?: UserState;
+  game?: GameState;
+};
 
-  if (typeof window !== 'undefined') {
-    preloadedState = window.__PRELOADED_STATE__;
-    delete window?.__PRELOADED_STATE__;
-  }
+export const createStore = (service: UserService, preloadedState?: StoreState) => {
   return configureStore({
     reducer: rootReducer,
     preloadedState,
-    devTools: process.env.NODE_ENV !== 'production',
+    middleware: (getDefaultMiddleWare) =>
+      getDefaultMiddleWare({
+        thunk: { extraArgument: service },
+      }),
   });
 };
