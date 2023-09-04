@@ -51,7 +51,7 @@ export async function startServer(isDev: boolean, port: number) {
     }
   })
 
-  app.use('*', cookieParser() as any, async (req, res, next) => {
+  app.use('*', cookieParser(), async (req, res, next) => {
     const requestType = req.method
     if (requestType !== 'GET') {
       res.sendStatus(500)
