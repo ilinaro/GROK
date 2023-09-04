@@ -19,6 +19,13 @@ export interface User {
   avatar: string;
 }
 
+export interface UserState {
+  user: User | null;
+  loading: boolean;
+  auth: boolean;
+  error: null | string;
+}
+
 export type SetUserACType = {
   type: typeof SET_USER;
   user: User;

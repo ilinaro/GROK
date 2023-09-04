@@ -1,4 +1,5 @@
-import { store } from '..';
+import { UserService } from '@services/user.service';
+import { createStore } from '..';
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<ReturnType<typeof createStore>['getState']>;
+export type AppDispatch = ReturnType<typeof createStore>['dispatch'];

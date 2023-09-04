@@ -1,5 +1,5 @@
 import { PrimaryLayout } from '@layouts/PrimaryLayout';
-import { Registration } from 'fuature/registration';
+import { Registration } from '../../fuature/registration';
 
 type RegistrationPageT = {};
 

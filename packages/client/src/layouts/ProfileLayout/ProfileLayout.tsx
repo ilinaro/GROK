@@ -21,6 +21,7 @@ export const ProfileLayout: React.FC<ProfileLayoutT> = ({ children }) => {
           <Navigate />
         </div>
         <div className={styles.Outlet}>
+          {children}
           <ErrorBoundary FallbackComponent={ErrorFallback}>
             <Outlet />
           </ErrorBoundary>

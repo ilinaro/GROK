@@ -1,18 +1,17 @@
 import { BodyNormal } from '@components/design-system/Fonts';
 
 import { Button } from '@components/design-system';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FormInput } from '@components/specific/FormInput/FormInput';
 import { useForm } from 'react-hook-form';
 import styles from './RegistrationForm.module.scss';
 import { RouteNames } from '@routes/routeNames';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { HidePassSVG } from '@components/design-system/SVG/HidePassSVG';
 import { ShowPassSVG } from '@components/design-system/SVG/ShowPassSVG';
-import { AuthForm } from 'fuature/login/components/AuthForm';
+import { AuthForm } from '@fuature/login/components/AuthForm';
 import { useMutation, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
-import authService from '@services/auth.service';
 import { FormError } from '@components/specific/FormError';
 import {
   baseValidationRules,
@@ -21,7 +20,9 @@ import {
   nameValidationScheme,
   passwordValidationScheme,
   phoneValidationScheme,
-} from 'fuature/profile/validation';
+} from '@fuature/profile/validation';
+import { useAppSelector } from '@store/hooks';
+import { authApi } from '@api/auth';
 
 type RegistrationT = {};
 
@@ -35,14 +36,16 @@ export interface RegistrationFormT {
 }
 
 export const RegistrationForm: React.FC<RegistrationT> = () => {
+  const navigate = useNavigate();
+
+  const { auth } = useAppSelector((state) => state.user);
+
   const queryClient = useQueryClient();
 
   const [isPasswordShow, setIsPasswordShow] = useState(false);
 
-  const { mutate, isLoading, isError, error } = useMutation<void, AxiosError, RegistrationFormT>(
-    async (data) => {
-      await authService.signup(data);
-    },
+  const { mutate, isLoading, error } = useMutation<string, AxiosError<{ reason: string }>, RegistrationFormT>(
+    (refisterData: RegistrationFormT) => authApi.signup(refisterData),
     {
       onSuccess: () => {
         queryClient.refetchQueries(['user']);
@@ -50,12 +53,7 @@ export const RegistrationForm: React.FC<RegistrationT> = () => {
     }
   );
 
-  const {
-    control,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<RegistrationFormT>({
+  const { control, handleSubmit, watch } = useForm<RegistrationFormT>({
     defaultValues: {
       first_name: '',
       second_name: '',
@@ -100,6 +98,12 @@ export const RegistrationForm: React.FC<RegistrationT> = () => {
     );
   };
 
+  useEffect(() => {
+    if (auth === true) {
+      navigate(RouteNames.START);
+    }
+  }, [auth]);
+
   return (
     <AuthForm
       title="Регистрация"
@@ -107,10 +111,11 @@ export const RegistrationForm: React.FC<RegistrationT> = () => {
       footer={footer()}
       className={styles.containerRegistration}
     >
-      {!!isError && <FormError view={'error'} description={error.response?.data!.reason} />}
+      {Boolean(error) && <FormError view={'error'} description={error?.response?.data.reason ?? ''} />}
       <FormInput
         name="first_name"
         label="Имя"
+        //@ts-ignore
         control={control}
         rules={nameValidationScheme}
         style={{ marginTop: '22px' }}
@@ -118,6 +123,7 @@ export const RegistrationForm: React.FC<RegistrationT> = () => {
       <FormInput
         name="second_name"
         label="Фамилия"
+        //@ts-ignore
         control={control}
         rules={nameValidationScheme}
         style={{ marginTop: '22px' }}
@@ -125,6 +131,7 @@ export const RegistrationForm: React.FC<RegistrationT> = () => {
       <FormInput
         name="login"
         label="Логин"
+        //@ts-ignore
         control={control}
         rules={loginValidationScheme}
         style={{ marginTop: '22px' }}
@@ -132,6 +139,7 @@ export const RegistrationForm: React.FC<RegistrationT> = () => {
       <FormInput
         name="email"
         label="Электронная почта"
+        //@ts-ignore
         control={control}
         rules={emailValidationScheme}
         style={{ marginTop: '22px' }}
@@ -139,6 +147,7 @@ export const RegistrationForm: React.FC<RegistrationT> = () => {
       <FormInput
         name={'phone'}
         label={'Телефон'}
+        //@ts-ignore
         control={control}
         type={'tel'}
         mask={'+7 (999) 999-99-99'}
@@ -149,6 +158,7 @@ export const RegistrationForm: React.FC<RegistrationT> = () => {
         name="password"
         label="Пароль"
         type={isPasswordShow ? 'text' : 'password'}
+        //@ts-ignore
         control={control}
         rules={passwordValidationScheme}
         rightAddon={showOrHidddenIcon()}
@@ -158,6 +168,7 @@ export const RegistrationForm: React.FC<RegistrationT> = () => {
         name="repeatPassword"
         label="Повторите пароль"
         type={isPasswordShow ? 'text' : 'password'}
+        //@ts-ignore
         control={control}
         rules={{
           validate: validatePasswordMatch,
