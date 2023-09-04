@@ -4,7 +4,9 @@ import type { TApiResponseData } from '../typing'
 
 // Reaction API
 export const messageReactionApi = {
-  createOrUpdate: async (data: TMessageReaction): Promise<TApiResponseData> => {
+  createOrUpdate: async (
+    data: TMessageReaction
+  ): Promise<TApiResponseData<object>> => {
     const { message_id, reaction_id, user_id } = data
     if (!message_id || !reaction_id) {
       return { reason: 'Неправильные параметры для метода set messageReaction' }
@@ -24,7 +26,7 @@ export const messageReactionApi = {
       }
     }
   },
-  delete: async (data: TMessageReaction): Promise<TApiResponseData> => {
+  delete: async (data: TMessageReaction): Promise<TApiResponseData<object>> => {
     const { message_id, user_id } = data
     if (!message_id) {
       return {

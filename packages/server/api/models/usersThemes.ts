@@ -1,7 +1,7 @@
 import { DataType, Model } from 'sequelize-typescript'
 import type { ModelAttributes } from 'sequelize/types'
 import { sequelize } from '../sequelize'
-import { Users, Themes } from './'
+import { Users } from './users'
 
 // Модель таблицы UsersThemes
 type TUsersThemes = {
@@ -27,7 +27,7 @@ const usersThemesModel: ModelAttributes<Model, TUsersThemes> = {
   theme_id: {
     type: DataType.INTEGER,
     references: {
-      model: Themes, // Связь с моделью Theme
+      // model: Themes, // Связь с моделью Theme
       key: 'id',
     },
   },
@@ -40,6 +40,6 @@ const UsersThemes = sequelize.define(
 )
 
 UsersThemes.belongsTo(Users, { foreignKey: 'user_id' })
-UsersThemes.belongsTo(Themes, { foreignKey: 'theme_id' })
+// UsersThemes.belongsTo(Themes, { foreignKey: 'theme_id' })
 
 export { UsersThemes }

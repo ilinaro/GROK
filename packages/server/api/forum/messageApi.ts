@@ -2,10 +2,11 @@ import { Messages, Users, MessagesReactions } from 'server/api/models'
 import type { TMessage } from '../models'
 import type { TApiResponseData } from '../typing'
 import { sequelize } from 'server/api/sequelize'
+import { Comment, DeleteCommentResponse, FullComment } from './typing'
 
 // Messages API
 export const messageApi = {
-  create: async (data: TMessage): Promise<TApiResponseData> => {
+  create: async (data: TMessage): Promise<TApiResponseData<Comment>> => {
     const { text, topic_id, parent_message_id = 0, user_id } = data
     if (!text || !topic_id) {
       return { reason: 'Неправильные параметры для метода create message' }
@@ -18,13 +19,13 @@ export const messageApi = {
         user_id,
       })
       return {
-        data: newMessage,
+        data: newMessage as unknown as Comment,
       }
     } catch (e) {
       return { reason: 'Ошибка при создании строки в методе create message' }
     }
   },
-  edit: async (data: TMessage): Promise<TApiResponseData> => {
+  edit: async (data: TMessage): Promise<TApiResponseData<Comment>> => {
     const { id, text, user_id } = data
     if (!id || !text) {
       return { reason: 'Неправильные параметры для метода rename message' }
@@ -33,13 +34,15 @@ export const messageApi = {
       await Messages.update({ text }, { where: { id, user_id } })
       const updatedMessage = await Messages.findOne({ where: { id } })
       return {
-        data: updatedMessage as object,
+        data: updatedMessage as unknown as Comment,
       }
     } catch (e) {
       return { reason: 'Ошибка при изменении строки в методе rename message' }
     }
   },
-  delete: async (data: TMessage): Promise<TApiResponseData> => {
+  delete: async (
+    data: TMessage
+  ): Promise<TApiResponseData<DeleteCommentResponse>> => {
     const { id, user_id } = data
     if (!id) {
       return { reason: 'Неправильные параметры для метода delete message' }
@@ -49,16 +52,16 @@ export const messageApi = {
         where: { id, user_id },
       })
       return {
-        data: { deleted: isDeleted },
+        data: { deleted: Boolean(isDeleted) },
       }
     } catch (e) {
       return { reason: 'Ошибка удаления строки в методе delete message' }
     }
   },
-  list: async (data: TMessage): Promise<TApiResponseData> => {
+  list: async (data: TMessage): Promise<TApiResponseData<FullComment[]>> => {
     const { parent_message_id = 0, topic_id, user_id } = data
     if (!topic_id) {
-      return { reason: 'Неправильные параметры для метода lest message' }
+      return { reason: 'Неправильные параметры для метода list message' }
     }
     try {
       const messages = await Messages.findAll({
@@ -88,7 +91,7 @@ export const messageApi = {
         order: [['id', 'ASC']],
       })
       return {
-        data: messages,
+        data: messages as unknown as FullComment[],
       }
     } catch (e) {
       return {

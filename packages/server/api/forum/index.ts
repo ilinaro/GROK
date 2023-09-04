@@ -21,7 +21,7 @@ export const forumApiHandler = async (
   if (!isValid) res.status(400).json({ reason: 'Неправильный запрос' })
   await dbConnect()
   const { action, data } = postData
-  let apiResponse: TApiResponseData = {}
+  let apiResponse: TApiResponseData<object> = {}
 
   data.user_id = userId
 
@@ -43,6 +43,7 @@ export const forumApiHandler = async (
   }
 
   if (action in actions) {
+    // @ts-expect-error
     const apiFunction = actions[action] as TApiFunction
     apiResponse = await apiFunction(data)
   }
