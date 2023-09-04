@@ -1,17 +1,17 @@
-import { DataType, Model } from 'sequelize-typescript';
-import type { ModelAttributes } from 'sequelize/types';
-import { sequelize } from '../sequelize';
+import { DataType, Model } from 'sequelize-typescript'
+import type { ModelAttributes } from 'sequelize/types'
+import { sequelize } from '../sequelize'
 
 // Модель таблицы Themes
 type TTheme = {
-  id: number;
-  name: string;
-};
+  id: number
+  name: string
+}
 
 const themeOptions = {
   timestamps: false,
   tableName: 'Themes',
-};
+}
 
 const themeModel: ModelAttributes<Model, TTheme> = {
   id: {
@@ -24,8 +24,8 @@ const themeModel: ModelAttributes<Model, TTheme> = {
     type: DataType.STRING,
     unique: true,
   },
-};
+}
 
-const Themes = sequelize.define('Themes', themeModel, themeOptions);
+const Themes = sequelize.define('Themes', themeModel, themeOptions)
 
-export { Themes };
+export { Themes }

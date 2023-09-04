@@ -6,5 +6,5 @@ dist
 tmp
 package-lock.json
 yarn.lock
-/db/postgresdata/
 lerna-debug.log
+/db/postgresdata/

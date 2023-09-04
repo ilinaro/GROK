@@ -12,27 +12,50 @@ import { ProgressPage } from '../pages/progress';
 import { RegistrationPage } from '../pages/registration';
 import { RouteNames } from './routeNames';
 import { StartPage } from '../pages/start';
-import { createBrowserRouter } from 'react-router-dom';
 import { ReactElement } from 'react';
+import { Navigate, createBrowserRouter, useLocation } from 'react-router-dom';
+import { OAuth } from 'fuature/login/components/OAuth/OAuth';
 import { ToggleTheme } from '@components/specific/Toggle';
 import { isServerSide } from '@lib/isServerSide';
+import { userActions } from '@store/slices/user/userSlice';
+import { useAppDispatch } from '@store/hooks';
+import { useQuery } from 'react-query';
+import { authApi } from '@api/auth';
 
 type PrivateRouteProps = {
   children: ReactElement;
 };
 
 export const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
-  const previousPath = typeof window !== 'undefined' ? window.location.pathname : '';
-  const authPath = ['/login', '/registration'];
-  const isExcludePath: boolean = authPath.includes(previousPath);
+  const { search } = useLocation();
+  const authCode = search.slice(6);
 
-  /*if (isSuccess && isExcludePath && !isLoading) {
+  const dispatch = useAppDispatch();
+
+  const {
+    data: user,
+    isLoading,
+    isError,
+    isSuccess,
+  } = useQuery(['user'], () => authApi.getCurrentUser(), {
+    enabled: !authCode,
+    onSuccess: (data) => {
+      dispatch(userActions.setUserData(data));
+    },
+  });
+
+  if (authCode) return <OAuth code={authCode} />;
+
+  const previousPath = typeof window !== 'undefined' ? window.location.pathname : '';
+  const authPath = [RouteNames.LOGIN, RouteNames.REGISTRATION];
+  const isExcludePath: boolean = authPath.includes(previousPath as RouteNames);
+
+  if (isSuccess && isExcludePath && !isLoading) {
     return <Navigate to="/" />;
   } else if (!isSuccess && !isExcludePath && !isLoading) {
-    return <Navigate to="/" />;
-  } else {
-    return children;
-  }*/
+    return <Navigate to="/login" />;
+  }
+
   return children;
 };
 

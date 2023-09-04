@@ -10,7 +10,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   fullWidth?: boolean;
   active?: boolean;
   border?: boolean;
-  color?: 'blue' | 'pink';
+  color?: 'blue' | 'pink' | 'red';
   loading?: boolean;
   loadingText?: string;
   disabled?: boolean;

@@ -1,20 +1,20 @@
-import { DataType, Model } from 'sequelize-typescript';
-import type { ModelAttributes } from 'sequelize/types';
-import { sequelize } from '../sequelize';
-import { Users } from './';
+import { DataType, Model } from 'sequelize-typescript'
+import type { ModelAttributes } from 'sequelize/types'
+import { sequelize } from '../sequelize'
+import { Users } from './'
 
 // Модель таблицы Forums
 export type TForum = {
-  id: number;
-  name: string;
-  user_id: number;
-  created_at: Date;
-};
+  id: number
+  name: string
+  user_id: number
+  created_at: Date
+}
 
 const forumOptions = {
   timestamps: false,
   tableName: 'Forums',
-};
+}
 
 const forumModel: ModelAttributes<Model, TForum> = {
   id: {
@@ -41,10 +41,10 @@ const forumModel: ModelAttributes<Model, TForum> = {
     allowNull: false,
     defaultValue: DataType.NOW,
   },
-};
+}
 
-const Forums = sequelize.define('Forums', forumModel, forumOptions);
+const Forums = sequelize.define('Forums', forumModel, forumOptions)
 
-Forums.belongsTo(Users, {foreignKey: 'user_id'});
+Forums.belongsTo(Users, { foreignKey: 'user_id' })
 
-export { Forums };
+export { Forums }

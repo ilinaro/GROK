@@ -1,7 +1,7 @@
-import { createProxyMiddleware } from 'http-proxy-middleware';
-import type { RequestHandler } from 'http-proxy-middleware';
-import { yandexEndpoint } from './constants';
-import { filterCookies, yandexProxyResponseHandler } from './utils';
+import { createProxyMiddleware } from 'http-proxy-middleware'
+import type { RequestHandler } from 'http-proxy-middleware'
+import { yandexEndpoint } from './constants'
+import { filterCookies, yandexProxyResponseHandler } from './utils'
 
 export const yandexProxyAll = (): RequestHandler => {
   return createProxyMiddleware({
@@ -11,11 +11,11 @@ export const yandexProxyAll = (): RequestHandler => {
     },
     target: yandexEndpoint,
     onProxyReq: (proxyReq, req) => {
-      const filteredCookies = filterCookies(req);
-      proxyReq.setHeader('cookie', filteredCookies);
+      const filteredCookies = filterCookies(req)
+      proxyReq.setHeader('cookie', filteredCookies)
     },
-  });
-};
+  })
+}
 export const yandexProxyUserInfoOnly = (): RequestHandler => {
   return createProxyMiddleware({
     changeOrigin: true,
@@ -24,10 +24,10 @@ export const yandexProxyUserInfoOnly = (): RequestHandler => {
     },
     target: yandexEndpoint,
     onProxyReq: (proxyReq, req) => {
-      const filteredCookies = filterCookies(req);
-      proxyReq.setHeader('cookie', filteredCookies);
+      const filteredCookies = filterCookies(req)
+      proxyReq.setHeader('cookie', filteredCookies)
     },
     selfHandleResponse: true,
     onProxyRes: yandexProxyResponseHandler,
-  });
-};
+  })
+}

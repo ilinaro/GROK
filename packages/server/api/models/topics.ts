@@ -1,21 +1,21 @@
-import { DataType, Model } from 'sequelize-typescript';
-import type { ModelAttributes } from 'sequelize/types';
-import { sequelize } from '../sequelize';
-import { Users, Forums } from './';
+import { DataType, Model } from 'sequelize-typescript'
+import type { ModelAttributes } from 'sequelize/types'
+import { sequelize } from '../sequelize'
+import { Users, Forums } from './'
 
 // Модель таблицы Topics
 export type TTopic = {
-  id: number;
-  name: string;
-  forum_id: number;
-  user_id: number;
-  created_at: Date;
-};
+  id: number
+  name: string
+  forum_id: number
+  user_id: number
+  created_at: Date
+}
 
 const topicOptions = {
   timestamps: false,
   tableName: 'Topics',
-};
+}
 
 const topicModel: ModelAttributes<Model, TTopic> = {
   id: {
@@ -51,11 +51,11 @@ const topicModel: ModelAttributes<Model, TTopic> = {
     allowNull: false,
     defaultValue: DataType.NOW,
   },
-};
+}
 
-const Topics = sequelize.define('Topics', topicModel, topicOptions);
+const Topics = sequelize.define('Topics', topicModel, topicOptions)
 
-Topics.belongsTo(Forums, {foreignKey: 'forum_id'});
-Topics.belongsTo(Users, {foreignKey: 'user_id'});
+Topics.belongsTo(Forums, { foreignKey: 'forum_id' })
+Topics.belongsTo(Users, { foreignKey: 'user_id' })
 
-export { Topics };
+export { Topics }

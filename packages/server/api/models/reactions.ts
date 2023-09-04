@@ -1,18 +1,18 @@
-import { DataType, Model } from 'sequelize-typescript';
-import type { ModelAttributes } from 'sequelize/types';
-import { sequelize } from '../sequelize';
+import { DataType, Model } from 'sequelize-typescript'
+import type { ModelAttributes } from 'sequelize/types'
+import { sequelize } from '../sequelize'
 
 // Модель таблицы Reactions
 export type TReaction = {
-  id: number;
-  name: string;
-  image: string;
-};
+  id: number
+  name: string
+  image: string
+}
 
 const reactionOptions = {
   timestamps: false,
   tableName: 'Reactions',
-};
+}
 
 const reactionModel: ModelAttributes<Model, TReaction> = {
   id: {
@@ -30,8 +30,8 @@ const reactionModel: ModelAttributes<Model, TReaction> = {
     type: DataType.STRING,
     allowNull: false,
   },
-};
+}
 
-const Reactions = sequelize.define('Reactions', reactionModel, reactionOptions);
+const Reactions = sequelize.define('Reactions', reactionModel, reactionOptions)
 
-export { Reactions };
+export { Reactions }

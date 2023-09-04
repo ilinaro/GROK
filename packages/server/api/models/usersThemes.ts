@@ -1,18 +1,18 @@
-import { DataType, Model } from 'sequelize-typescript';
-import type { ModelAttributes } from 'sequelize/types';
-import { sequelize } from '../sequelize';
-import { Users, Themes } from './';
+import { DataType, Model } from 'sequelize-typescript'
+import type { ModelAttributes } from 'sequelize/types'
+import { sequelize } from '../sequelize'
+import { Users } from './users'
 
 // Модель таблицы UsersThemes
 type TUsersThemes = {
-  user_id: number;
-  theme_id?: number;
-};
+  user_id: number
+  theme_id?: number
+}
 
 const usersThemesOptions = {
   timestamps: false,
   tableName: 'UsersThemes',
-};
+}
 
 const usersThemesModel: ModelAttributes<Model, TUsersThemes> = {
   user_id: {
@@ -27,15 +27,19 @@ const usersThemesModel: ModelAttributes<Model, TUsersThemes> = {
   theme_id: {
     type: DataType.INTEGER,
     references: {
-      model: Themes, // Связь с моделью Theme
+      // model: Themes, // Связь с моделью Theme
       key: 'id',
     },
   },
-};
+}
 
-const UsersThemes = sequelize.define('UsersThemes', usersThemesModel, usersThemesOptions);
+const UsersThemes = sequelize.define(
+  'UsersThemes',
+  usersThemesModel,
+  usersThemesOptions
+)
 
-UsersThemes.belongsTo(Users, {foreignKey: 'user_id'});
-UsersThemes.belongsTo(Themes, {foreignKey: 'theme_id'});
+UsersThemes.belongsTo(Users, { foreignKey: 'user_id' })
+// UsersThemes.belongsTo(Themes, { foreignKey: 'theme_id' })
 
-export { UsersThemes };
+export { UsersThemes }

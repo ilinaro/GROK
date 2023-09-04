@@ -1,6 +1,6 @@
-import type { ViteDevServer } from 'vite';
-import fs from 'fs';
-import path from 'path';
+import type { ViteDevServer } from 'vite'
+import fs from 'fs'
+import path from 'path'
 import { Request } from 'express'
 import { ApiRepository } from './repository/ApiRepository'
 
@@ -10,49 +10,57 @@ type TSsrRenderProps = (
 ) => Promise<[string, Record<string, unknown>]>
 
 export const getClientDir = () => {
-  let clientDir: string;
+  let clientDir: string
   try {
-    clientDir = require.resolve('client');
+    clientDir = require.resolve('client')
   } catch (e) {
     // хак для docker, чтобы дать ему корректный путь до папки проекта client
-    clientDir = '/client/index.html';
+    clientDir = '/client/index.html'
   }
-  return path.dirname(clientDir);
-};
+  return path.dirname(clientDir)
+}
 
 // Путь до подпроекта client
-const ssrDevPath = getClientDir();
+const ssrDevPath = getClientDir()
 
 // Путь до билда скрипта для SSR (из client)
-const ssrProdPath = path.resolve(getClientDir(), 'ssr-dist/client.cjs');
+const ssrProdPath = path.resolve(getClientDir(), 'ssr-dist/client.cjs')
 
 // Путь до билда подпроекта client
-const distPath = path.dirname(path.resolve(getClientDir(), 'dist/index.html'));
+const distPath = path.dirname(path.resolve(getClientDir(), 'dist/index.html'))
 
-export const getSsrPath = (isDev: boolean) => isDev ? ssrDevPath : ssrProdPath;
+export const getSsrPath = (isDev: boolean) => (isDev ? ssrDevPath : ssrProdPath)
 
-export async function ssrContent(vite: ViteDevServer, url: string, isDev: boolean, req: Request) {
+export async function ssrContent(
+  vite: ViteDevServer,
+  url: string,
+  isDev: boolean,
+  req: Request
+) {
   if (isDev && !vite) {
-    throw Error('Не запущен ViteDevServer');
+    throw Error('Не запущен ViteDevServer')
   }
 
-  let render: TSsrRenderProps;
+  let render: TSsrRenderProps
 
   const templatePath = isDev
     ? path.resolve(ssrDevPath, 'index.html')
-    : path.resolve(distPath, 'index.html');
+    : path.resolve(distPath, 'index.html')
 
-  let template = fs.readFileSync(templatePath, 'utf-8');
+  let template = fs.readFileSync(templatePath, 'utf-8')
 
   if (isDev) {
-    template = await vite.transformIndexHtml(url, template);
-    const pathFileSSR = path.resolve(ssrDevPath, 'ssr/ssr.tsx');
-    render = (await vite.ssrLoadModule(pathFileSSR)).render;
+    template = await vite.transformIndexHtml(url, template)
+    const pathFileSSR = path.resolve(ssrDevPath, 'ssr/ssr.tsx')
+    render = (await vite.ssrLoadModule(pathFileSSR)).render
   } else {
-    render = (await import(ssrProdPath)).render;
+    render = (await import(ssrProdPath)).render
   }
 
-  const [appHtml, store] = render(url, new ApiRepository(req.headers['cookie']));
+  const [appHtml, store] = await render(
+    url,
+    new ApiRepository(req.headers['cookie'])
+  )
 
   const initialState = JSON.stringify(store).replace(/</g, '\\u003c')
 

@@ -1,13 +1,13 @@
-import type { TPostData } from '../typing';
+import type { TPostData } from '../typing'
 
 // Проверка валидности пост-запроса
 export const isValidPostData = (postData: any): postData is TPostData => {
   if (postData === null || typeof postData !== 'object') {
-    return false;
+    return false
   }
-  const { action, data } = postData;
+  const { action, data } = postData
   if (typeof action !== 'string' || typeof data !== 'object') {
-    return false;
+    return false
   }
-  return true;
-};
+  return true
+}

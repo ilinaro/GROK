@@ -1,22 +1,22 @@
-import { DataType, Model } from 'sequelize-typescript';
-import type { ModelAttributes } from 'sequelize/types';
-import { sequelize } from '../sequelize';
-import { Users, Topics } from './';
+import { DataType, Model } from 'sequelize-typescript'
+import type { ModelAttributes } from 'sequelize/types'
+import { sequelize } from '../sequelize'
+import { Users, Topics } from './'
 
 // Модель таблицы Messages
 export type TMessage = {
-  id: number;
-  user_id: number;
-  text: string;
-  topic_id: number;
-  parent_message_id?: number;
-  created_at?: Date;
-};
+  id: number
+  user_id: number
+  text: string
+  topic_id: number
+  parent_message_id?: number
+  created_at?: Date
+}
 
 const messageOptions = {
   timestamps: false,
   tableName: 'Messages',
-};
+}
 
 const messageModel: ModelAttributes<Model, TMessage> = {
   id: {
@@ -45,7 +45,7 @@ const messageModel: ModelAttributes<Model, TMessage> = {
       model: Topics,
       key: 'id',
     },
-    onDelete: 'SET NULL'
+    onDelete: 'SET NULL',
   },
   parent_message_id: {
     type: DataType.INTEGER,
@@ -53,18 +53,21 @@ const messageModel: ModelAttributes<Model, TMessage> = {
       model: 'Messages',
       key: 'id',
     },
-    onDelete: 'SET NULL'
+    onDelete: 'SET NULL',
   },
   created_at: {
     type: DataType.DATE,
     defaultValue: DataType.NOW,
   },
-};
+}
 
-const Messages = sequelize.define('Messages', messageModel, messageOptions);
+const Messages = sequelize.define('Messages', messageModel, messageOptions)
 
-Messages.belongsTo(Topics, {foreignKey: 'topic_id'});
-Messages.belongsTo(Users, {foreignKey: 'user_id'});
-Messages.belongsTo(Messages, {foreignKey: 'parent_message_id', as: 'parentMessage'});
+Messages.belongsTo(Topics, { foreignKey: 'topic_id' })
+Messages.belongsTo(Users, { foreignKey: 'user_id' })
+Messages.belongsTo(Messages, {
+  foreignKey: 'parent_message_id',
+  as: 'parentMessage',
+})
 
-export { Messages };
+export { Messages }

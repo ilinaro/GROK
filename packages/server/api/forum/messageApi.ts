@@ -1,14 +1,15 @@
-import { Messages, Users, MessagesReactions } from 'server/api/models';
-import type { TMessage } from '../models';
-import type { TApiResponseData } from '../typing';
-import {sequelize} from 'server/api/sequelize';
+import { Messages, Users, MessagesReactions } from 'server/api/models'
+import type { TMessage } from '../models'
+import type { TApiResponseData } from '../typing'
+import { sequelize } from 'server/api/sequelize'
+import { Comment, DeleteCommentResponse, FullComment } from './typing'
 
 // Messages API
 export const messageApi = {
-  create: async (data: TMessage): Promise<TApiResponseData> => {
-    const {text, topic_id, parent_message_id= 0, user_id} = data;
+  create: async (data: TMessage): Promise<TApiResponseData<Comment>> => {
+    const { text, topic_id, parent_message_id = 0, user_id } = data
     if (!text || !topic_id) {
-      return {reason: 'Неправильные параметры для метода create message'};
+      return { reason: 'Неправильные параметры для метода create message' }
     }
     try {
       const newMessage = await Messages.create({
@@ -16,56 +17,55 @@ export const messageApi = {
         topic_id,
         parent_message_id,
         user_id,
-      });
+      })
       return {
-        data: newMessage,
-      };
+        data: newMessage as unknown as Comment,
+      }
     } catch (e) {
-      return {reason: 'Ошибка при создании строки в методе create message'};
+      return { reason: 'Ошибка при создании строки в методе create message' }
     }
   },
-  edit: async (data: TMessage): Promise<TApiResponseData> => {
-    const {id, text, user_id} = data;
-    if (!id || !text){
-      return {reason: 'Неправильные параметры для метода rename message'};
+  edit: async (data: TMessage): Promise<TApiResponseData<Comment>> => {
+    const { id, text, user_id } = data
+    if (!id || !text) {
+      return { reason: 'Неправильные параметры для метода rename message' }
     }
     try {
-      await Messages.update(
-        {text},
-        {where: {id, user_id}},
-      );
-      const updatedMessage = await Messages.findOne({where: {id}});
+      await Messages.update({ text }, { where: { id, user_id } })
+      const updatedMessage = await Messages.findOne({ where: { id } })
       return {
-        data: updatedMessage as object,
-      };
+        data: updatedMessage as unknown as Comment,
+      }
     } catch (e) {
-      return {reason: 'Ошибка при изменении строки в методе rename message'};
+      return { reason: 'Ошибка при изменении строки в методе rename message' }
     }
   },
-  delete: async (data: TMessage): Promise<TApiResponseData> => {
-    const {id, user_id} = data;
-    if (!id){
-      return {reason: 'Неправильные параметры для метода delete message'};
+  delete: async (
+    data: TMessage
+  ): Promise<TApiResponseData<DeleteCommentResponse>> => {
+    const { id, user_id } = data
+    if (!id) {
+      return { reason: 'Неправильные параметры для метода delete message' }
     }
     try {
       const isDeleted = await Messages.destroy({
-        where: {id, user_id},
-      });
+        where: { id, user_id },
+      })
       return {
-        data: {deleted: isDeleted},
-      };
+        data: { deleted: Boolean(isDeleted) },
+      }
     } catch (e) {
-      return {reason: 'Ошибка удаления строки в методе delete message'};
+      return { reason: 'Ошибка удаления строки в методе delete message' }
     }
   },
-  list: async (data: TMessage): Promise<TApiResponseData> => {
-    const {parent_message_id = 0, topic_id, user_id} = data;
+  list: async (data: TMessage): Promise<TApiResponseData<FullComment[]>> => {
+    const { parent_message_id = 0, topic_id, user_id } = data
     if (!topic_id) {
-      return {reason: 'Неправильные параметры для метода lest message'};
+      return { reason: 'Неправильные параметры для метода list message' }
     }
     try {
       const messages = await Messages.findAll({
-        where: {parent_message_id, topic_id},
+        where: { parent_message_id, topic_id },
         include: [
           {
             model: Users,
@@ -83,18 +83,20 @@ export const messageApi = {
             model: MessagesReactions,
             as: 'user_reaction',
             attributes: [],
-            where: {user_id},
+            where: { user_id },
             required: false,
           },
         ],
         group: ['Messages.id', 'reactions.reaction_id'],
         order: [['id', 'ASC']],
-      });
+      })
       return {
-        data: messages,
-      };
+        data: messages as unknown as FullComment[],
+      }
     } catch (e) {
-      return {reason: 'Ошибка при получении списка топиков в методе list topic'};
+      return {
+        reason: 'Ошибка при получении списка топиков в методе list topic',
+      }
     }
   },
-};
+}

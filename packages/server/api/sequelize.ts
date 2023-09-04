@@ -1,11 +1,11 @@
-import { Sequelize } from 'sequelize-typescript';
-import type { SequelizeOptions } from 'sequelize-typescript';
-import dotenv from 'dotenv';
-import { isDev } from '../utils/isDev';
+import { Sequelize } from 'sequelize-typescript'
+import type { SequelizeOptions } from 'sequelize-typescript'
+import dotenv from 'dotenv'
+import { isDev } from '../utils/isDev'
 import * as process from 'process'
 
 // Читаем .env
-dotenv.config();
+dotenv.config()
 
 // Стартуем Sequelize
 const sequelizeOptions: SequelizeOptions = {
@@ -16,19 +16,19 @@ const sequelizeOptions: SequelizeOptions = {
   database: process.env.POSTGRES_DB,
   dialect: 'postgres',
   logging: isDev ? console.log : false,
-};
+}
 
-const sequelize = new Sequelize(sequelizeOptions);
+const sequelize = new Sequelize(sequelizeOptions)
 
 // Подключение к БД
 const dbConnect = async () => {
   try {
-    await sequelize.authenticate();
-    await sequelize.sync();
-    console.log('🎸 Connected to the Postgres DB');
+    await sequelize.authenticate()
+    await sequelize.sync()
+    console.log('🎸 Connected to the Postgres DB')
   } catch (error) {
-    console.error('Unable to connect to the database:', error);
+    console.error('Unable to connect to the database:', error)
   }
-};
+}
 
-export {sequelize, dbConnect};
+export { sequelize, dbConnect }

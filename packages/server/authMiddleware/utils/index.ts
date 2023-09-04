@@ -1,7 +1,4 @@
-import { yandexProxyResponseHandler } from './yandexProxyResponseHandler';
-import { filterCookies } from './filterCookies';
+import { yandexProxyResponseHandler } from './yandexProxyResponseHandler'
+import { filterCookies } from './filterCookies'
 
-export {
-  yandexProxyResponseHandler,
-  filterCookies,
-};
+export { yandexProxyResponseHandler, filterCookies }
