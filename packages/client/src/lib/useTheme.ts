@@ -2,9 +2,10 @@ import themeService from '@services/theme.service';
 import { AxiosError } from 'axios';
 import { useLayoutEffect, useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
+import { isServerSide } from './isServerSide';
 
 // проверяем тему системы
-const isDarkTheme = window?.matchMedia('(prefers-color-scheme: dark)').matches;
+const isDarkTheme = !isServerSide ? window?.matchMedia('(prefers-color-scheme: dark)').matches : false;
 const defaultTheme = isDarkTheme ? 'dark' : 'light';
 
 type Theme = 'dark' | 'ligth';

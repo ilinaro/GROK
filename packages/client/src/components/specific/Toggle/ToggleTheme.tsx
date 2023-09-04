@@ -2,11 +2,11 @@ import { useTheme } from '@lib/useTheme';
 import styles from './ToggleTheme.module.scss';
 import clsx from 'clsx';
 
-interface ToggleTheme {
+interface IToggleTheme {
   className?: string;
 }
 
-export const ToggleTheme = ({ className }: ToggleTheme) => {
+export const ToggleTheme = ({ className }: IToggleTheme) => {
   const { theme, setTheme } = useTheme();
 
   const changeTheme = () => {
