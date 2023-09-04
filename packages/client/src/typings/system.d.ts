@@ -7,7 +7,8 @@ export type SystemColor =
   | 'pink'
   | 'yellow'
   | 'black'
-  | 'black-light';
+  | 'black-light'
+  | 'main';
 
 export type SystemFontWeight = 'light' | 'normal' | 'medium' | 'bold';
 

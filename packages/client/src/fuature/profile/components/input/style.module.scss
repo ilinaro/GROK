@@ -17,7 +17,10 @@
 			border: 1px solid var(--color-black-light);
 			-webkit-text-fill-color: var(--color-black-light);
 			-webkit-box-shadow: 0 0 0px 1000px var(--color-white-darken) inset;
-			transition: background-color 5000s ease-in-out 0s;
+
+			@media (prefers-reduced-motion: no-preference) {
+				transition: background-color 5000s ease-in-out 0s;
+			}
 		}
 
 		& .input {
@@ -53,7 +56,11 @@
 			line-height: 20px;
 			pointer-events: none;
 			transform-origin: 0 50%;
-			transition: transform 200ms;
+
+			@media (prefers-reduced-motion: no-preference) {
+				transition: transform 200ms;
+			}
+
 			border-radius: 5px;
 		}
 	}
