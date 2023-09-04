@@ -1,4 +1,4 @@
-import { Error } from 'fuature/error';
+import { Error } from '../../fuature/error';
 import React from 'react';
 
 type ErrorPageT = {};

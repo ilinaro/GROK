@@ -1,24 +1,25 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import styles from './Navigate.module.scss';
 import clsx from 'clsx';
 import { Button } from '@components/design-system';
-import authService from '@services/auth.service';
 import { useMutation, useQueryClient } from 'react-query';
+import { RouteNames } from '@routes/routeNames';
+import { AxiosError } from 'axios';
+import { authApi } from '@api/auth';
 
 type NavigateT = {};
 
 export const Navigate: React.FC<NavigateT> = () => {
+  const navigate = useNavigate();
+
   const queryClient = useQueryClient();
-  const { mutate } = useMutation(
-    async () => {
-      await authService.logout();
+
+  const { mutate } = useMutation<string, AxiosError<{ reason: string }>>(() => authApi.logout(), {
+    onSuccess: () => {
+      queryClient.refetchQueries(['user']);
+      navigate(RouteNames.LOGIN);
     },
-    {
-      onSuccess: () => {
-        queryClient.refetchQueries(['user']);
-      },
-    }
-  );
+  });
 
   return (
     <nav className={styles.Navigate}>

@@ -1,13 +1,18 @@
-import { BodyNormal, Title } from '@components/design-system/Fonts';
+import { useNavigate } from 'react-router-dom';
+import { useMutation, useQueryClient } from 'react-query';
+import { Title } from '@components/design-system/Fonts';
 import { Button } from '@components/design-system';
-import { Link } from 'react-router-dom';
 import styles from './Profile.module.scss';
 import { ProfileForm } from './components/profile-form/profile-form';
 import { ReactNode, useState } from 'react';
 import { ChangePasswordForm } from './components/change-password-form';
-import { logout } from '@store/thunks/user';
+import { authApi } from '@api/auth';
+import { RouteNames } from '@routes/routeNames';
+import { AxiosError } from 'axios';
 
 export const Profile: React.FC = () => {
+  const navigate = useNavigate();
+
   const [mode, setMode] = useState('profile');
 
   const modes: Record<string, ReactNode> = {
@@ -15,24 +20,27 @@ export const Profile: React.FC = () => {
     changePassword: <ChangePasswordForm setMode={setMode} />,
   };
 
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation<string, AxiosError<{ reason: string }>>(() => authApi.logout(), {
+    onSuccess: () => {
+      queryClient.refetchQueries(['user']);
+      navigate(RouteNames.LOGIN);
+    },
+  });
+
   return (
     <div className={styles.Wrapper}>
       <Title weight={'bold'}>Профиль</Title>
-      <div className={styles.container}>
-        {modes[mode]}
-        {mode !== 'changePassword' && (
-          <Button
-            style={{
-              backgroundColor: 'var(--color-button-changePass',
-              borderColor: 'var(--color-button-changePass',
-            }}
-            fullWidth={true}
-            onClick={() => setMode('changePassword')}
-          >
-            Сменить пароль
-          </Button>
-        )}
-      </div>
+      {modes[mode]}
+      {mode !== 'changePassword' && (
+        <Button color={'blue'} onClick={() => setMode('changePassword')}>
+          Сменить пароль
+        </Button>
+      )}
+      <Button color={'pink'} onClick={() => mutate()}>
+        Выйти
+      </Button>
     </div>
   );
 };

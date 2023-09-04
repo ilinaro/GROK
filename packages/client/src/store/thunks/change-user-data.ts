@@ -1,7 +1,7 @@
 import { IChangePasswordRequest, User } from '@store/types/userTypes';
 import axios from 'axios';
-import { user } from 'config/apiRoutes.config';
-import { IUpdateUser } from 'fuature/profile/components/profile-form/profile-form';
+import { user } from '@config/apiRoutes.config';
+import { IUpdateUser } from '@fuature/profile/components/profile-form/profile-form';
 
 export const setAvatar = async (data: FormData) => {
   try {
