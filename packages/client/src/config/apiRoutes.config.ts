@@ -1,5 +1,6 @@
 export const BASE_URL = 'http://localhost:3001/api/v2';
 export const RESOURCE_URL = 'https://ya-praktikum.tech/api/v2/resources';
+export const FORUM_API_URL = 'http://localhost:3001/api';
 
 export const auth = {
   signup: `${BASE_URL}/auth/signup`,
@@ -17,4 +18,12 @@ export const user = {
 export const game = {
   sendStatistics: `${BASE_URL}/leaderboard`,
   getStatistict: `${BASE_URL}/leaderboard/all`,
+};
+
+export const forum = {
+  path: `${FORUM_API_URL}/forum`,
+};
+
+export const topic = {
+  path: `${FORUM_API_URL}/theme`,
 };

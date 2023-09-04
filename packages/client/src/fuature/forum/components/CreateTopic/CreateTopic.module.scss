@@ -13,30 +13,31 @@
   flex-direction: column;
   margin-left: 2.5rem;
   justify-content: start;
-  height: 30%;
   width: 100%;
 }
 
-.topic__container input, textarea{
-  width: 90%;
+.topic__title {
+  font-size: 2rem;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.topic__container textarea{
+  width: 95%;
   background: white;
   color: black;
   border: none;
   border-radius: 0 7px 7px 7px;
 }
 
-.topic__container input {
-  margin-bottom: 2rem;
-  height: 90px;
-}
-
 .topic__container textarea {
-  height: 350px;
+  height: 90px;
+  padding: 0.5rem;
   resize: none;
 }
 
 .topic_btn__create {
-  margin-top: 2.5rem;
+  margin-top: 2rem;
   display: flex;
   width: 300px !important;
   height: 70px !important;
