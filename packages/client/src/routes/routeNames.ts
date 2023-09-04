@@ -7,6 +7,7 @@ export enum RouteNames {
   GAME = '/game',
   FORUM_EVENTS = '/forum/:id',
   FORUM_TOPICS = 'forum/topics',
+  TOPIC = 'forum/topics/:forumId/:topicId',
   FORUM_ANSWERS = 'forum/answers',
   FORUM_CREATE = 'forum/create',
   LEADERS = '/leaders',

@@ -1,7 +1,5 @@
 import { ErrorPage } from '../pages/error';
 import { ForumActionCreate } from '../fuature/forum/actions/create';
-import { ForumAnswers } from '../fuature/forum/components/answers';
-import { ForumEventsPage } from '../pages/forum/id';
 import { ForumPage } from '../pages/forum';
 import { ForumTopics } from '../fuature/forum/components/topics';
 import { GamePage } from '../pages/game';
@@ -64,11 +62,6 @@ export const Routers = createBrowserRouter([
         element: <ForumPage />,
       },
       {
-        path: RouteNames.FORUM_EVENTS,
-        element: <ForumEventsPage />,
-        // loader: eventLoader, - здесь можно добавить запрос
-      },
-      {
         path: RouteNames.PROGRESS,
         element: <ProgressPage />,
       },
@@ -83,10 +76,6 @@ export const Routers = createBrowserRouter([
       {
         path: RouteNames.FORUM_TOPICS,
         element: <ForumTopics />,
-      },
-      {
-        path: RouteNames.FORUM_ANSWERS,
-        element: <ForumAnswers />,
       },
       {
         path: RouteNames.FORUM_CREATE,
