@@ -1,25 +1,21 @@
+import {
+  yandexProxyAll,
+  yandexProxyUserInfoOnly,
+  yandexCheckAuthorization,
+} from './authMiddleware'
 import type { ViteDevServer } from 'vite'
 import { createServer as createViteServer } from 'vite'
 import cors from 'cors'
 import express from 'express'
 import path from 'path'
-import { createProxyMiddleware } from 'http-proxy-middleware'
-import cookieParser from 'cookie-parser'
-
+import { forumApiHandler } from './api/forum'
 import { getSsrPath, ssrContent } from './ssr'
+import cookieParser from 'cookie-parser'
 
 export async function startServer(isDev: boolean, port: number) {
   const app = express()
-  app.use(cors())
 
-  app.use(
-    '/api/v2',
-    createProxyMiddleware({
-      changeOrigin: true,
-      cookieDomainRewrite: { '*': '' },
-      target: 'https://ya-praktikum.tech',
-    })
-  )
+  app.use(cors())
 
   let vite: ViteDevServer
 
@@ -35,11 +31,31 @@ export async function startServer(isDev: boolean, port: number) {
     app.use('/assets', express.static(path.resolve(distPath, 'assets')))
   }
 
-  app.get('/api', (_, res) => {
-    res.json('👋 Howdy from the server :)')
+  app.use('/api/v2/auth/user', yandexProxyUserInfoOnly())
+
+  app.use('/api/v2', yandexProxyAll())
+
+  app.use('/api/forum', async (req, res) => {
+    try {
+      const authUserData = await yandexCheckAuthorization(req)
+      if (!authUserData.isAuth || !authUserData.user) {
+        res.sendStatus(403)
+        return
+      }
+      app.use(express.json())
+      await forumApiHandler(req, res, authUserData.user)
+    } catch (e) {
+      if (!res.headersSent) {
+        res.sendStatus(500)
+      }
+    }
   })
 
-  app.use('*', cookieParser(), async (req, res, next) => {
+  app.use('*', cookieParser() as any, async (req, res, next) => {
+    const requestType = req.method
+    if (requestType !== 'GET') {
+      res.sendStatus(500)
+    }
     try {
       const url = req.originalUrl
       const html = await ssrContent(vite, url, isDev, req)

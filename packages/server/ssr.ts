@@ -9,8 +9,25 @@ type TSsrRenderProps = (
   repository: ApiRepository
 ) => Promise<[string, Record<string, unknown>]>
 
-const ssrDevPath = path.dirname(require.resolve('client'))
-const ssrProdPath = require.resolve('client/ssr-dist/ssr.cjs')
+export const getClientDir = () => {
+  let clientDir: string
+  try {
+    clientDir = require.resolve('client')
+  } catch (e) {
+    // хак для docker, чтобы дать ему корректный путь до папки проекта client
+    clientDir = '/client/index.html'
+  }
+  return path.dirname(clientDir)
+}
+
+// Путь до подпроекта client
+const ssrDevPath = getClientDir()
+
+// Путь до билда скрипта для SSR (из client)
+const ssrProdPath = path.resolve(getClientDir(), 'ssr-dist/client.cjs')
+
+// Путь до билда подпроекта client
+const distPath = path.dirname(path.resolve(getClientDir(), 'dist/index.html'))
 
 export const getSsrPath = (isDev: boolean) => (isDev ? ssrDevPath : ssrProdPath)
 
@@ -20,17 +37,22 @@ export async function ssrContent(
   isDev: boolean,
   req: Request
 ) {
+  if (isDev && !vite) {
+    throw Error('Не запущен ViteDevServer')
+  }
+
   let render: TSsrRenderProps
 
-  let template = fs.readFileSync(
-    path.resolve(getSsrPath(isDev), 'index.html'),
-    'utf-8'
-  )
+  const templatePath = isDev
+    ? path.resolve(ssrDevPath, 'index.html')
+    : path.resolve(distPath, 'index.html')
 
-  if (isDev && vite) {
+  let template = fs.readFileSync(templatePath, 'utf-8')
+
+  if (isDev) {
     template = await vite.transformIndexHtml(url, template)
-    render = (await vite.ssrLoadModule(path.resolve(ssrDevPath, 'ssr/ssr.tsx')))
-      .render
+    const pathFileSSR = path.resolve(ssrDevPath, 'ssr/ssr.tsx')
+    render = (await vite.ssrLoadModule(pathFileSSR)).render
   } else {
     render = (await import(ssrProdPath)).render
   }

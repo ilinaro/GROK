@@ -7,3 +7,4 @@ tmp
 package-lock.json
 yarn.lock
 lerna-debug.log
+/db/postgresdata/
