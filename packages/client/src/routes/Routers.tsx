@@ -16,11 +16,8 @@ import { RouteNames } from './routeNames';
 import { StartPage } from '../pages/start';
 import { createBrowserRouter } from 'react-router-dom';
 import { ReactElement } from 'react';
-import { useAppDispatch } from '@store/hooks';
-import { useQuery } from 'react-query';
-import userService from '@services/user.service';
-import { setUserAC } from '@store/actions/userAction';
 import { ToggleTheme } from '@components/specific/Toggle';
+import { isServerSide } from '@lib/isServerSide';
 
 type PrivateRouteProps = {
   children: ReactElement;
@@ -102,7 +99,7 @@ export const Routers = createBrowserRouter([
     element: (
       <PrivateRoute>
         <>
-          <ToggleTheme />
+          {!isServerSide && <ToggleTheme />}
           <LoginPage />
         </>
       </PrivateRoute>
@@ -113,7 +110,7 @@ export const Routers = createBrowserRouter([
     element: (
       <PrivateRoute>
         <>
-          <ToggleTheme />
+          {!isServerSide && <ToggleTheme />}
           <RegistrationPage />
         </>
       </PrivateRoute>
