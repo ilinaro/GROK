@@ -20,6 +20,7 @@ import { useAppDispatch } from '@store/hooks';
 import { useQuery } from 'react-query';
 import userService from '@services/user.service';
 import { setUserAC } from '@store/actions/userAction';
+import { ToggleTheme } from '@components/specific/Toggle';
 
 type PrivateRouteProps = {
   children: ReactElement;
@@ -43,13 +44,14 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
   const authPath = ['/login', '/registration'];
   const isExcludePath: boolean = authPath.includes(previousPath);
 
-  if (isSuccess && isExcludePath && !isLoading) {
+  /*if (isSuccess && isExcludePath && !isLoading) {
     return <Navigate to="/" />;
   } else if (!isSuccess && !isExcludePath && !isLoading) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/" />;
   } else {
     return children;
-  }
+  }*/
+  return children;
 };
 
 export const Routers = createBrowserRouter([
@@ -112,7 +114,10 @@ export const Routers = createBrowserRouter([
     path: RouteNames.LOGIN,
     element: (
       <PrivateRoute>
-        <LoginPage />
+        <>
+          <ToggleTheme />
+          <LoginPage />
+        </>
       </PrivateRoute>
     ),
   },
@@ -120,7 +125,10 @@ export const Routers = createBrowserRouter([
     path: RouteNames.REGISTRATION,
     element: (
       <PrivateRoute>
-        <RegistrationPage />
+        <>
+          <ToggleTheme />
+          <RegistrationPage />
+        </>
       </PrivateRoute>
     ),
   },

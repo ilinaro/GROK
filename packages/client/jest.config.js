@@ -10,4 +10,12 @@ export default {
   globals: {
     __SERVER_PORT__: process.env.SERVER_PORT,
   },
+  moduleNameMapper: {
+    '^@components/(.*)$': '<rootDir>/src/components/$1',
+    '^@utils/(.*)$': '<rootDir>/src/utils/$1',
+    '^@lib/(.*)$': '<rootDir>/src/lib/$1',
+    '\\.module\\.scss$': 'identity-obj-proxy',
+    "\\.(png|jpg|ico|jpeg|gif)$":
+      "<rootDir>/src/__mocks__/image-mock.js",
+  },
 }

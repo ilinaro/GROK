@@ -12,17 +12,23 @@
     top: 0;
     border-radius: 99999px;
     cursor: pointer;
-    & > :nth-child(1n) {
-        transition: all 0.3s;
+
+    &> :nth-child(1n) {
+        @media (prefers-reduced-motion: no-preference) {
+            transition: all 0.3s;
+        }
+
         fill: var(--color-white);
     }
+
     &:hover {
-        & > :nth-child(1n) {
+        &> :nth-child(1n) {
             fill: var(--color-pink);
         }
     }
 
 }
+
 .start {
     margin: 0 auto;
     cursor: pointer;
@@ -30,17 +36,24 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    & > :nth-child(1n) {
+
+    &> :nth-child(1n) {
         margin-right: 25px;
     }
 }
 
 .performance {
     opacity: 0;
-    transition: 1s opacity;
+
+    @media (prefers-reduced-motion: no-preference) {
+        transition: 1s opacity;
+    }
 }
 
 .next {
     opacity: 1;
-    transition: 1s opacity;
+
+    @media (prefers-reduced-motion: no-preference) {
+        transition: 1s opacity;
+    }
 }
