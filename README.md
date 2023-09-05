@@ -56,16 +56,8 @@
 
 Откройте issue, я приду :)
 
-## Автодеплой статики на vercel
-Зарегистрируйте аккаунт на [vercel](https://vercel.com/)
-Следуйте [инструкции](https://vitejs.dev/guide/static-deploy.html#vercel-for-git)
-В качестве `root directory` укажите `packages/client`
-
-Все ваши PR будут автоматически деплоиться на vercel. URL вам предоставит деплоящий бот
-
 ## Production окружение в докере
 Перед первым запуском выполните `node init.js`
-
 
 `docker compose up` - запустит три сервиса
 1. nginx, раздающий клиентскую статику (client)
