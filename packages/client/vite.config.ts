@@ -2,7 +2,6 @@ import { defineConfig } from 'vite';
 import dotenv from 'dotenv';
 import react from '@vitejs/plugin-react';
 import viteTsconfigPaths from 'vite-tsconfig-paths';
-import path from 'path';
 dotenv.config();
 
 //конфиг для клиентской сборки (html, css)

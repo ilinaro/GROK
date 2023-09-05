@@ -24,7 +24,7 @@ export const getClientDir = () => {
 const ssrDevPath = getClientDir()
 
 // Путь до билда скрипта для SSR (из client)
-const ssrProdPath = path.resolve(getClientDir(), 'ssr-dist/client.cjs')
+const ssrProdPath = path.resolve(getClientDir(), 'ssr-dist/ssr.cjs')
 
 // Путь до билда подпроекта client
 const distPath = path.dirname(path.resolve(getClientDir(), 'dist/index.html'))

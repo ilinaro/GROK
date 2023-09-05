@@ -9,8 +9,9 @@ import cors from 'cors'
 import express from 'express'
 import path from 'path'
 import { forumApiHandler } from './api/forum'
-import { getSsrPath, ssrContent } from './ssr'
+import { getClientDir, getSsrPath, ssrContent } from './ssr'
 import cookieParser from 'cookie-parser'
+import { dbConnect } from './api/sequelize'
 
 export async function startServer(isDev: boolean, port: number) {
   const app = express()
@@ -18,6 +19,8 @@ export async function startServer(isDev: boolean, port: number) {
   app.use(cors())
 
   let vite: ViteDevServer
+
+  await dbConnect()
 
   if (isDev) {
     vite = await createViteServer({
@@ -27,7 +30,9 @@ export async function startServer(isDev: boolean, port: number) {
     })
     app.use(vite.middlewares)
   } else {
-    const distPath = path.dirname(require.resolve('client/dist/index.html'))
+    const distPath = path.dirname(
+      path.resolve(getClientDir(), 'dist/index.html')
+    )
     app.use('/assets', express.static(path.resolve(distPath, 'assets')))
   }
 

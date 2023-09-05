@@ -1,7 +1,7 @@
-export const BASE_URL = 'http://localhost:3001/api/v2';
+export const BASE_URL = 'https://ya-praktikum.tech/api/v2';
 export const RESOURCE_URL = 'https://ya-praktikum.tech/api/v2/resources';
-export const FORUM_API_URL = 'http://localhost:3001/api';
-export const REDIRECT_URI = 'http://localhost:3001';
+export const FORUM_API_URL = 'http://localhost:5000/api';
+export const REDIRECT_URI = 'https://ya-praktikum.tech';
 
 export const auth = {
   signup: `${BASE_URL}/auth/signup`,

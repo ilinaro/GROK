@@ -1,7 +1,7 @@
-import { Messages, Users, MessagesReactions } from 'server/api/models'
+import { Messages, Users, MessagesReactions } from '../models'
 import type { TMessage } from '../models'
 import type { TApiResponseData } from '../typing'
-import { sequelize } from 'server/api/sequelize'
+import { sequelize } from '../sequelize'
 import { Comment, DeleteCommentResponse, FullComment } from './typing'
 
 // Messages API
