@@ -1,4 +1,4 @@
-import { game } from 'config/apiRoutes.config';
+import { game } from '@config/apiRoutes.config';
 import httpService from './http.service';
 
 interface ISendToLeaderBoardRequest {

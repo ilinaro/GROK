@@ -42,9 +42,9 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
   const authPath = ['/login', '/registration'];
   const isExcludePath: boolean = authPath.includes(previousPath);
 
-  if (isSuccess && isExcludePath && !isLoading) {
+  if (isSuccess && isExcludePath && user) {
     return <Navigate to="/" />;
-  } else if (!isSuccess && !isExcludePath && !isLoading) {
+  } else if (!isSuccess && !isExcludePath && !user) {
     return <Navigate to="/login" />;
   } else {
     return children;
@@ -57,7 +57,7 @@ type Params = {
 };
 
 export const SSRRouters = () => {
-  const privatRouter = (route: ReactElement, params: Params) => {
+  const privateRouter = (route: ReactElement, params: Params) => {
     const { layout = false, priv = false } = params;
 
     if (layout && priv) {
@@ -75,21 +75,21 @@ export const SSRRouters = () => {
 
   return (
     <Routes>
-      <Route path={RouteNames.START} element={privatRouter(<StartPage />, { layout: true, priv: true })} />
-      <Route path={RouteNames.PROFILE} element={privatRouter(<ProfilePage />, { layout: true, priv: true })} />
-      <Route path={RouteNames.LEADERS} element={privatRouter(<LeadersPage />, { layout: true, priv: true })} />
-      <Route path={RouteNames.FORUM} element={privatRouter(<ForumPage />, { layout: true, priv: true })} />
-      <Route path={RouteNames.PROGRESS} element={privatRouter(<ProgressPage />, { layout: true, priv: true })} />
-      <Route path={RouteNames.NOMATCH} element={privatRouter(<NoMatchPage />, { layout: true })} />
-      <Route path={RouteNames.FORUM_TOPICS} element={privatRouter(<ForumTopics />, { layout: true, priv: true })} />
-      <Route path={RouteNames.TOPIC} element={privatRouter(<TopicPage />, { layout: true, priv: true })} />
+      <Route path={RouteNames.START} element={privateRouter(<StartPage />, { layout: true, priv: true })} />
+      <Route path={RouteNames.PROFILE} element={privateRouter(<ProfilePage />, { layout: true, priv: true })} />
+      <Route path={RouteNames.LEADERS} element={privateRouter(<LeadersPage />, { layout: true, priv: true })} />
+      <Route path={RouteNames.FORUM} element={privateRouter(<ForumPage />, { layout: true, priv: true })} />
+      <Route path={RouteNames.PROGRESS} element={privateRouter(<ProgressPage />, { layout: true, priv: true })} />
+      <Route path={RouteNames.NOMATCH} element={privateRouter(<NoMatchPage />, { layout: true })} />
+      <Route path={RouteNames.FORUM_TOPICS} element={privateRouter(<ForumTopics />, { layout: true, priv: true })} />
+      <Route path={RouteNames.TOPIC} element={privateRouter(<TopicPage />, { layout: true, priv: true })} />
       <Route
         path={RouteNames.FORUM_CREATE}
-        element={privatRouter(<ForumActionCreate />, { layout: true, priv: true })}
+        element={privateRouter(<ForumActionCreate />, { layout: true, priv: true })}
       />
-      <Route path={RouteNames.LOGIN} element={privatRouter(<LoginPage />, {})} />
-      <Route path={RouteNames.REGISTRATION} element={privatRouter(<RegistrationPage />, {})} />
-      <Route path={RouteNames.GAME} element={privatRouter(<GamePage />, { priv: true })} />
+      <Route path={RouteNames.LOGIN} element={privateRouter(<LoginPage />, {})} />
+      <Route path={RouteNames.REGISTRATION} element={privateRouter(<RegistrationPage />, {})} />
+      <Route path={RouteNames.GAME} element={privateRouter(<GamePage />, { priv: true })} />
       <Route path={RouteNames.ERROR} element={<ErrorPage />} />
       <Route path={RouteNames.NOMATCH} element={<NoMatchPage />} />
     </Routes>

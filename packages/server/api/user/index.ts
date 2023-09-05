@@ -1,11 +1,10 @@
-import { Users } from 'server/api/models'
-import type { TUser } from 'server/api/models'
-import { dbConnect } from 'server/api/sequelize'
+import { Users } from '../models'
+import type { TUser } from '../models'
 
 export const userAPI = {
   createOrUpadate: async (data: TUser) => {
     const { id, login, avatar } = data
-    await dbConnect()
+
     await Users.upsert({
       id: id,
       login: login,

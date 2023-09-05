@@ -16,7 +16,6 @@ export const Navigate: React.FC<NavigateT> = () => {
 
   const { mutate } = useMutation<string, AxiosError<{ reason: string }>>(() => authApi.logout(), {
     onSuccess: () => {
-      queryClient.refetchQueries(['user']);
       navigate(RouteNames.LOGIN);
     },
   });

@@ -1,8 +1,5 @@
-import { RegistrationFormT } from 'fuature/registration/components/RegistrationForm/RegistrationForm';
 import httpService from './http.service';
-import { LoginFormT } from 'fuature/login/components/LoginForm/LoginForm';
-import { AxiosError } from 'axios';
-import { REDIRECT_URI, auth } from 'config/apiRoutes.config';
+import { REDIRECT_URI, auth } from '@config/apiRoutes.config';
 
 // Переходим на сервис яндекса для получения кода
 

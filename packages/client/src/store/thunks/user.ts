@@ -1,4 +1,3 @@
-import { AxiosResponse } from 'axios';
 import { setUserLoadingAC, clearUserErrorsAC } from '@store/actions/userAction';
 import { AppDispatch } from '@store/types';
 import { User } from '@store/types/userTypes';

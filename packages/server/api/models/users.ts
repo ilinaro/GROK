@@ -9,14 +9,16 @@ export type TUser = {
   display_name: string
   avatar: string
 }
+
 const userOptions = {
   timestamps: false,
   paranoid: false,
   tableName: 'Users',
 }
+
 const userModel: ModelAttributes<Model, TUser> = {
   id: {
-    type: DataType.NUMBER,
+    type: DataType.INTEGER,
     primaryKey: true,
     allowNull: false,
   },
@@ -31,5 +33,7 @@ const userModel: ModelAttributes<Model, TUser> = {
     type: DataType.STRING,
   },
 }
+
 const Users = sequelize.define('Users', userModel, userOptions)
+
 export { Users }

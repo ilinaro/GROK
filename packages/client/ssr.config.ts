@@ -39,14 +39,7 @@ export default defineConfig({
       output: {
         dir: 'ssr-dist',
       },
-      external: [
-        'utils/sw/Cache',
-        'utils/sw/sw',
-        'utils/hashCode',
-        'utils/logger',
-        'routes',
-        'config/apiRoutes.config',
-      ],
+      external: ['utils/sw/Cache', 'utils/sw/sw', 'utils/hashCode', 'utils/logger', 'routes'],
     },
   },
   ssr: {
