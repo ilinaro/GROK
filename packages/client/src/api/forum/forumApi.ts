@@ -1,5 +1,5 @@
 import { forumAxiosInstance } from '@api/axiosInstance';
-import { forum, topic } from '@config/apiRoutes.config';
+import { forum } from '@config/apiRoutes.config';
 import {
   CreateTopicRequest,
   DeleteTopicRequest,
@@ -26,42 +26,42 @@ class ForumApi implements IForumApi {
   }
 
   async createTopic(createTopicData: CreateTopicRequest) {
-    const { data } = await forumAxiosInstance.post<Topic>(topic.path, createTopicData);
+    const { data } = await forumAxiosInstance.post<Topic>(forum.path, createTopicData);
     return data;
   }
 
   async renameTopic(renameTopicData: RenameTopicRequest) {
-    const { data } = await forumAxiosInstance.post<Topic>(topic.path, renameTopicData);
+    const { data } = await forumAxiosInstance.post<Topic>(forum.path, renameTopicData);
     return data;
   }
 
   async deleteTopic(deleteTopicData: DeleteTopicRequest) {
-    const { data } = await forumAxiosInstance.post<DeleteTopicResponse>(topic.path, deleteTopicData);
+    const { data } = await forumAxiosInstance.post<DeleteTopicResponse>(forum.path, deleteTopicData);
     return data;
   }
 
   async getListTopic(listTopicData: GetListTopicRequest) {
-    const { data } = await forumAxiosInstance.post<Topic[]>(topic.path, listTopicData);
+    const { data } = await forumAxiosInstance.post<Topic[]>(forum.path, listTopicData);
     return data;
   }
 
   async addComment(createCommentData: CreateCommentRequest) {
-    const { data } = await forumAxiosInstance.post<Comment>(topic.path, createCommentData);
+    const { data } = await forumAxiosInstance.post<Comment>(forum.path, createCommentData);
     return data;
   }
 
   async editComment(editCommentData: EditCommentRequest) {
-    const { data } = await forumAxiosInstance.post<Comment>(topic.path, editCommentData);
+    const { data } = await forumAxiosInstance.post<Comment>(forum.path, editCommentData);
     return data;
   }
 
   async deleteComment(deleteCommentData: DeleteCommentRequest) {
-    const { data } = await forumAxiosInstance.post<DeleteCommentResponse>(topic.path, deleteCommentData);
+    const { data } = await forumAxiosInstance.post<DeleteCommentResponse>(forum.path, deleteCommentData);
     return data;
   }
 
   async getCommentsList(commentsListData: GetCommentsListRequest) {
-    const { data } = await forumAxiosInstance.post<FullComment[]>(topic.path, commentsListData);
+    const { data } = await forumAxiosInstance.post<FullComment[]>(forum.path, commentsListData);
     return data;
   }
 }

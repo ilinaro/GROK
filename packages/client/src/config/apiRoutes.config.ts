@@ -1,7 +1,15 @@
+const getLocationHost = () => {
+  return typeof location !== 'undefined' ? `${location.protocol}//${location.host}` : '';
+};
+
+const getLocationOrigin = () => {
+  return typeof location !== 'undefined' ? location.origin : '';
+};
+
 export const BASE_URL = 'https://ya-praktikum.tech/api/v2';
 export const RESOURCE_URL = 'https://ya-praktikum.tech/api/v2/resources';
-export const FORUM_API_URL = 'http://localhost:5000/api';
-export const REDIRECT_URI = 'https://ya-praktikum.tech';
+export const FORUM_API_URL = `${getLocationHost()}/api`;
+export const REDIRECT_URI = getLocationOrigin();
 
 export const auth = {
   signup: `${BASE_URL}/auth/signup`,
@@ -27,6 +35,6 @@ export const forum = {
   path: `${FORUM_API_URL}/forum`,
 };
 
-export const topic = {
+export const theme = {
   path: `${FORUM_API_URL}/theme`,
 };
