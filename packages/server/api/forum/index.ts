@@ -1,7 +1,6 @@
 import type { Request, Response } from 'express'
 import type { TUser } from '../models'
 import type { TApiFunction } from './typing'
-import { dbConnect } from '../sequelize'
 import { isValidPostData } from '../utils/postDataValidator'
 import type { TApiResponseData } from '../typing'
 import { forumApi } from './forumApi'
@@ -18,8 +17,12 @@ export const forumApiHandler = async (
   const postData = req.body
   const userId = userData.id
   const isValid = isValidPostData(postData)
-  if (!isValid) res.status(400).json({ reason: 'Неправильный запрос' })
-  await dbConnect()
+
+  if (!isValid) {
+    res.status(400).json({ reason: 'Неправильный запрос' })
+    return
+  }
+
   const { action, data } = postData
   let apiResponse: TApiResponseData<object> = {}
 
@@ -43,7 +46,6 @@ export const forumApiHandler = async (
   }
 
   if (action in actions) {
-    // @ts-expect-error
     const apiFunction = actions[action] as TApiFunction
     apiResponse = await apiFunction(data)
   }
