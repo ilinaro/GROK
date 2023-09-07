@@ -1,13 +1,20 @@
-export interface Forum {
+export type Forum = {
   id: number;
   name: string;
   user_id: number;
   created_at: number;
-}
+};
 
 export interface GetForumsListRequest {
   action: 'forum.list';
   data: {};
+}
+
+export interface CreateForumRequest {
+  action: 'forum.create';
+  data: {
+    name: string;
+  };
 }
 
 export interface Topic {
@@ -119,6 +126,7 @@ export interface GetCommentsListRequest {
 
 export interface IForumApi {
   getForumsList: (data: GetForumsListRequest) => Promise<Forum[]>;
+  createForum: (data: CreateForumRequest) => Promise<Forum>;
   createTopic: (data: CreateTopicRequest) => Promise<Topic>;
   renameTopic: (data: RenameTopicRequest) => Promise<Topic>;
   deleteTopic: (data: DeleteTopicRequest) => Promise<DeleteTopicResponse>;

@@ -19,9 +19,9 @@ export const Content: React.FC<IContent> = ({ comments }) => {
   }
 
   return (
-    <ul>
+    <ul className={styles.content__list}>
       {comments?.map((comment) => (
-        <li key={comment.id}>
+        <li className={styles.content__item} key={comment.id}>
           <CommentItem comment={comment} />
         </li>
       ))}

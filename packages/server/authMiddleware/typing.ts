@@ -1,3 +1,5 @@
+import { Request } from 'express'
+
 export type TUserData = {
   id: number
   first_name: string
@@ -13,3 +15,7 @@ export type TCheckAuth = {
   isAuth: boolean
   user?: TUserData
 }
+
+export type TRequestWithUserData = {
+  authUserData?: TUserData
+} & Request

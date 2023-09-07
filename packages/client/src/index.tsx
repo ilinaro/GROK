@@ -10,11 +10,11 @@ import { createStore } from './store';
 import { UserService } from '@services/user.service';
 import { ApiRepository } from 'repository/ApiRepository';
 
-const initialState = window.initialState;
+const initialState = window.__PRELOADED_STATE__;
 
 const store = createStore(new UserService(new ApiRepository()), initialState);
 
-delete window.initialState;
+delete window.__PRELOADED_STATE__;
 
 ReactDOM.hydrateRoot(
   document.getElementById('root') as HTMLElement,

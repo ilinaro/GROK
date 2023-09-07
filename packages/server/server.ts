@@ -1,8 +1,4 @@
-import {
-  yandexProxyAll,
-  yandexProxyUserInfoOnly,
-  yandexCheckAuthorization,
-} from './authMiddleware'
+import { yandexProxyAll, yandexProxyUserInfoOnly } from './authMiddleware'
 import type { ViteDevServer } from 'vite'
 import { createServer as createViteServer } from 'vite'
 import cors from 'cors'
@@ -12,6 +8,8 @@ import { forumApiHandler } from './api/forum'
 import { getClientDir, getSsrPath, ssrContent } from './ssr'
 import cookieParser from 'cookie-parser'
 import { dbConnect } from './api/sequelize'
+import { checkAuthorizationMiddleware } from './authMiddleware/checking'
+import { apiMiddleware } from './api/middleware'
 
 export async function startServer(isDev: boolean, port: number) {
   const app = express()
@@ -40,21 +38,10 @@ export async function startServer(isDev: boolean, port: number) {
 
   app.use('/api/v2', yandexProxyAll())
 
-  app.use('/api/forum', async (req, res) => {
-    try {
-      const authUserData = await yandexCheckAuthorization(req)
-      if (!authUserData.isAuth || !authUserData.user) {
-        res.sendStatus(403)
-        return
-      }
-      app.use(express.json())
-      await forumApiHandler(req, res, authUserData.user)
-    } catch (e) {
-      if (!res.headersSent) {
-        res.sendStatus(500)
-      }
-    }
-  })
+  app.use(express.json())
+
+  app.use('/api/forum', checkAuthorizationMiddleware)
+  app.use('/api/forum', apiMiddleware(forumApiHandler))
 
   app.use('*', cookieParser(), async (req, res, next) => {
     const requestType = req.method

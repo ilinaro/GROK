@@ -17,7 +17,7 @@ export const TopicItem: React.FC<ITopicItem> = (props) => {
   return (
     <div itemID={topic.id.toString()} className={styles.topicsWrapper}>
       <div className={styles.leftSide}>
-        <Link to={`${topic.forum_id}/${topic.id}`}>
+        <Link to={`topics/${topic.forum_id}/${topic.id}`}>
           <h1 className={styles.subj__title}>
             {index + 1}. {topic.name}
           </h1>

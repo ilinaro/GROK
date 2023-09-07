@@ -96,14 +96,6 @@ export const Routers = createBrowserRouter([
         path: RouteNames.ERROR,
         element: <ErrorPage />,
       },
-      {
-        path: RouteNames.FORUM_TOPICS,
-        element: <ForumTopics />,
-      },
-      {
-        path: RouteNames.FORUM_CREATE,
-        element: <ForumActionCreate />,
-      },
     ],
   },
   {

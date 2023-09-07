@@ -1,6 +1,6 @@
 import type { TApiData, TApiResponseData } from '../typing'
 
-export type TApiFunction = (data: TApiData) => Promise<TApiResponseData<object>>
+export type TApiFunction = (data: TApiData) => Promise<TApiResponseData>
 
 export interface Forum {
   id: number

@@ -1,7 +1,9 @@
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { useState } from 'react';
+import { QueryClient, QueryClientProvider, useQueries, useQuery } from 'react-query';
+import React, { useState } from 'react';
 
 import { SSRRouters } from './routes';
+import { useAppDispatch, useAppSelector } from '@store/hooks';
+import { loadUser } from '@store/thunks/user';
 
 function App() {
   const [queryClient] = useState(
@@ -18,9 +20,16 @@ function App() {
       })
   );
 
+  const { user } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+
+  React.useEffect(() => {
+    dispatch(loadUser);
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
-      <SSRRouters />
+      <SSRRouters user={user} />
     </QueryClientProvider>
   );
 }

@@ -34,7 +34,6 @@
   display: grid;
   grid-template-areas:
   "header"
-  "nav"
   "frame";
   grid-template-rows: 60px 1fr;
 }
@@ -52,4 +51,28 @@
   height: 75vh;
   width: 100%;
   background: rgba(0, 0, 0, 0.27);
+}
+
+.ForumForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 70%;
+  gap: 1rem;
+}
+
+.NoForumWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.NoForumText {
+  align-self: center;
+  justify-self: center;
+  font-size: 24px;
+  font-weight: 500;
 }

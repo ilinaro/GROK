@@ -1,7 +1,6 @@
 import React from 'react';
 import { useQuery } from 'react-query';
 import { ForumLayout } from '../../layouts/ForumLayout';
-import { TopicElements } from './TopicElements';
 import { forumApi } from '@api/forum';
 import { GetListTopicRequest, Topic } from '@api/forum/types';
 
@@ -54,9 +53,5 @@ export const ForumTopics: React.FC = () => {
 
   if (!topics) return null;
 
-  return (
-    <ForumLayout>
-      <TopicElements topics={topicsData} />
-    </ForumLayout>
-  );
+  return <ForumLayout>{/* <TopicElements topics={topicsData} /> */}</ForumLayout>;
 };

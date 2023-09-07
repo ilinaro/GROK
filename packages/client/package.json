@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "cross-env NODE_ENV=production vite",
     "build": "tsc && yarn build:ssr && vite build --config vite.config.ts",
     "build:ssr": "tsc && vite build --config ssr.config.ts",
     "preview": "vite preview --config vite.config.ts",
@@ -22,6 +22,7 @@
     "axios": "1.4.0",
     "classnames": "2.3.2",
     "clsx": "1.2.1",
+    "cross-env": "7.0.3",
     "dotenv": "16.0.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",

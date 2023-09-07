@@ -1,4 +1,6 @@
+import { Response } from 'express'
 import type { TForum, TTopic, TMessage, TMessageReaction } from './models'
+import { TRequestWithUserData } from '../authMiddleware/typing'
 
 type TForumAction = 'forum.list' | 'forum.create' | 'forum.delete'
 type TTopicAction = 'topic.list' | 'topic.create' | 'topic.delete'
@@ -12,7 +14,9 @@ export type TPostData = {
   data: TApiData
 }
 
-export type TApiResponseData<T extends object> = {
+export type TApiResponseData = {
   reason?: string
-  data?: T
+  data?: object
 }
+
+export type TApi = (req: TRequestWithUserData, res: Response) => Promise<void>
