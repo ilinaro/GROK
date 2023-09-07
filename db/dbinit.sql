@@ -62,3 +62,4 @@ CREATE INDEX idx_messagesreactions_message ON "MessagesReactions" ("message_id")
 CREATE INDEX idx_themes_id ON "Themes" ("id");
 CREATE INDEX idx_usersthemes_user ON "UsersThemes" ("user_id");
 INSERT INTO "Themes" (id, name) VALUES (1, 'light'), (2, 'dark');
+INSERT INTO "Forums" (id, name, user_id) VALUES (1, 'Форум', 1344907);

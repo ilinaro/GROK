@@ -34,7 +34,8 @@ const forumModel: ModelAttributes<Model, TForum> = {
       model: Users,
       key: 'id',
     },
-    onDelete: 'SET NULL',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
   },
   created_at: {
     type: DataType.DATE,
@@ -46,5 +47,6 @@ const forumModel: ModelAttributes<Model, TForum> = {
 const Forums = sequelize.define('Forums', forumModel, forumOptions)
 
 Forums.belongsTo(Users, { foreignKey: 'user_id' })
+Users.hasMany(Forums, { foreignKey: 'user_id' })
 
 export { Forums }

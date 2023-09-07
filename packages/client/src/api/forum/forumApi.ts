@@ -17,11 +17,17 @@ import {
   FullComment,
   GetForumsListRequest,
   Forum,
+  CreateForumRequest,
 } from './types';
 
 class ForumApi implements IForumApi {
   async getForumsList(forumsListData: GetForumsListRequest) {
     const { data } = await forumAxiosInstance.post<Forum[]>(forum.path, forumsListData);
+    return data;
+  }
+
+  async createForum(createForumData: CreateForumRequest) {
+    const { data } = await forumAxiosInstance.post<Forum>(forum.path, createForumData);
     return data;
   }
 

@@ -1,7 +1,5 @@
 import { ErrorPage } from '../pages/error';
-import { ForumActionCreate } from '../fuature/forum/actions/create';
 import { ForumPage } from '../pages/forum';
-import { ForumTopics } from '../fuature/forum/components/topics';
 import { GamePage } from '../pages/game';
 import { LeadersPage } from '../pages/leaders';
 import { LoginPage } from '../pages/login';
@@ -12,43 +10,21 @@ import { ProgressPage } from '../pages/progress';
 import { RegistrationPage } from '../pages/registration';
 import { RouteNames } from './routeNames';
 import { StartPage } from '../pages/start';
-import { Navigate, Route, Routes } from 'react-router-dom';
-import { ReactElement, ReactNode } from 'react';
-import { useAppDispatch } from '@store/hooks';
-import { useQuery } from 'react-query';
-import { authApi } from '@api/auth';
-import { userActions } from '@store/slices/user/userSlice';
+import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
+import React, { PropsWithChildren } from 'react';
 import { TopicPage } from '@pages/topic';
+import { User } from '@store/types/userTypes';
 
-type PrivateRouteProps = {
-  children: ReactElement;
-};
+type IProtectedRoute = {
+  user: User | null;
+} & PropsWithChildren;
 
-export const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
-  const dispatch = useAppDispatch();
-
-  const {
-    data: user,
-    isLoading,
-    isSuccess,
-  } = useQuery(['user'], () => authApi.getCurrentUser(), {
-    enabled: true,
-    onSuccess: (data) => {
-      dispatch(userActions.setUserData(data));
-    },
-  });
-
-  const previousPath = typeof window !== 'undefined' ? window.location.pathname : '';
-  const authPath = ['/login', '/registration'];
-  const isExcludePath: boolean = authPath.includes(previousPath);
-
-  if (isSuccess && isExcludePath && user) {
-    return <Navigate to="/" />;
-  } else if (!isSuccess && !isExcludePath && !user) {
-    return <Navigate to="/login" />;
-  } else {
-    return children;
+const ProtectedRoute: React.FC<IProtectedRoute> = ({ user, children }) => {
+  if (!user) {
+    return <Navigate to={RouteNames.LOGIN} />;
   }
+
+  return children ? <>{children}</> : <Outlet />;
 };
 
 type Params = {
@@ -56,40 +32,66 @@ type Params = {
   priv?: boolean;
 };
 
-export const SSRRouters = () => {
-  const privateRouter = (route: ReactElement, params: Params) => {
-    const { layout = false, priv = false } = params;
+interface ISSRRouters {
+  user: User | null;
+}
 
-    if (layout && priv) {
-      return (
-        <PrivateRoute>
-          <ProfileLayout>{route}</ProfileLayout>
-        </PrivateRoute>
-      ) as ReactNode;
-    } else if (layout && !priv) {
-      return (<ProfileLayout>{route}</ProfileLayout>) as ReactNode;
-    } else {
-      return (<>{route}</>) as ReactNode;
-    }
-  };
-
+export const SSRRouters: React.FC<ISSRRouters> = ({ user }) => {
   return (
     <Routes>
-      <Route path={RouteNames.START} element={privateRouter(<StartPage />, { layout: true, priv: true })} />
-      <Route path={RouteNames.PROFILE} element={privateRouter(<ProfilePage />, { layout: true, priv: true })} />
-      <Route path={RouteNames.LEADERS} element={privateRouter(<LeadersPage />, { layout: true, priv: true })} />
-      <Route path={RouteNames.FORUM} element={privateRouter(<ForumPage />, { layout: true, priv: true })} />
-      <Route path={RouteNames.PROGRESS} element={privateRouter(<ProgressPage />, { layout: true, priv: true })} />
-      <Route path={RouteNames.NOMATCH} element={privateRouter(<NoMatchPage />, { layout: true })} />
-      <Route path={RouteNames.FORUM_TOPICS} element={privateRouter(<ForumTopics />, { layout: true, priv: true })} />
-      <Route path={RouteNames.TOPIC} element={privateRouter(<TopicPage />, { layout: true, priv: true })} />
       <Route
-        path={RouteNames.FORUM_CREATE}
-        element={privateRouter(<ForumActionCreate />, { layout: true, priv: true })}
+        path={RouteNames.START}
+        element={
+          <ProfileLayout>
+            <StartPage />
+          </ProfileLayout>
+        }
       />
-      <Route path={RouteNames.LOGIN} element={privateRouter(<LoginPage />, {})} />
-      <Route path={RouteNames.REGISTRATION} element={privateRouter(<RegistrationPage />, {})} />
-      <Route path={RouteNames.GAME} element={privateRouter(<GamePage />, { priv: true })} />
+      <Route element={<ProtectedRoute user={user} />}>
+        <Route
+          path={RouteNames.PROFILE}
+          element={
+            <ProfileLayout>
+              <ProfilePage />
+            </ProfileLayout>
+          }
+        />
+        <Route
+          path={RouteNames.LEADERS}
+          element={
+            <ProfileLayout>
+              <LeadersPage />
+            </ProfileLayout>
+          }
+        />
+        <Route
+          path={RouteNames.PROGRESS}
+          element={
+            <ProfileLayout>
+              <ProgressPage />
+            </ProfileLayout>
+          }
+        />
+        <Route
+          path={RouteNames.FORUM}
+          element={
+            <ProfileLayout>
+              <ForumPage />
+            </ProfileLayout>
+          }
+        />
+        <Route
+          path={RouteNames.TOPIC}
+          element={
+            <ProfileLayout>
+              <TopicPage />
+            </ProfileLayout>
+          }
+        />
+        <Route path={RouteNames.GAME} element={<GamePage />} />
+      </Route>
+      <Route path={RouteNames.LOGIN} element={<LoginPage />} />
+      <Route path={RouteNames.REGISTRATION} element={<RegistrationPage />} />
       <Route path={RouteNames.ERROR} element={<ErrorPage />} />
       <Route path={RouteNames.NOMATCH} element={<NoMatchPage />} />
     </Routes>

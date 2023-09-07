@@ -66,7 +66,10 @@ export async function ssrContent(
 
   const html = template
     .replace('<!--ssr-outlet-->', appHtml)
-    .replace('<!--store-data-->', `window.initialState = ${initialState}`)
+    .replace(
+      '<!--store-data-->',
+      `window.__PRELOADED_STATE__ = ${initialState}`
+    )
 
   return html
 }

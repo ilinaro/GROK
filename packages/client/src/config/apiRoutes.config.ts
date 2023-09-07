@@ -6,8 +6,8 @@ const getLocationOrigin = () => {
   return typeof location !== 'undefined' ? location.origin : '';
 };
 
-export const BASE_URL = 'https://ya-praktikum.tech/api/v2';
-export const RESOURCE_URL = 'https://ya-praktikum.tech/api/v2/resources';
+export const BASE_URL = `${getLocationHost()}/api/v2`;
+export const RESOURCE_URL = `${getLocationHost()}/api/v2/resources`;
 export const FORUM_API_URL = `${getLocationHost()}/api`;
 export const REDIRECT_URI = getLocationOrigin();
 

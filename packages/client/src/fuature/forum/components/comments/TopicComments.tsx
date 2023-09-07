@@ -1,7 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import styles from './TopicComments.module.scss';
-import { ForumLayout } from '../../layouts/ForumLayout';
 import { Header } from './components/header';
 import { Content } from './components/content';
 import { Footer } from './components/footer';
@@ -21,13 +20,22 @@ export const TopicComments: React.FC = () => {
   };
 
   const { data: topics } = useQuery(['topics'], async () => {
-    return await forumApi.getListTopic(getListTopicData);
+    const topics = await forumApi.getListTopic(getListTopicData);
+    return topics;
   });
 
   const topic = topics?.find((t) => t.id === Number(topicId));
 
+  // const testTopic: Topic = {
+  //   id: 1,
+  //   name: 'Топик 1',
+  //   forum_id: Number(forumId),
+  //   user_id: 111111,
+  //   created_at: 123123123,
+  // };
+
   if (!topic) {
-    return <div>Тема не найдена</div>;
+    return <div className={styles.TopicCommentsWrapper}>Тема не найдена</div>;
   }
 
   const getCommentsListData: GetCommentsListRequest = {
@@ -36,16 +44,42 @@ export const TopicComments: React.FC = () => {
   };
 
   const { data: comments } = useQuery(['comments'], async () => {
-    return await forumApi.getCommentsList(getCommentsListData);
+    const comments = await forumApi.getCommentsList(getCommentsListData);
+    return comments;
   });
 
+  // const testComments: Comment[] = [
+  //   {
+  //     id: 1,
+  //     created_at: 123123,
+  //     parent_message_id: 0,
+  //     text: 'adadsfasdfafgafg',
+  //     topic_id: 1,
+  //     user_id: 111111,
+  //   },
+  //   {
+  //     id: 2,
+  //     created_at: 223123,
+  //     parent_message_id: 1,
+  //     text: 'FFFFFFFFFFFF',
+  //     topic_id: 1,
+  //     user_id: 111112,
+  //   },
+  //   {
+  //     id: 3,
+  //     created_at: 323123,
+  //     parent_message_id: 0,
+  //     text: 'FfFfFfFfFfFfFf',
+  //     topic_id: 1,
+  //     user_id: 111113,
+  //   },
+  // ];
+
   return (
-    <ForumLayout>
-      <div className={styles.wrapper}>
-        <Header title={topic.name ?? 'название топика'} />
-        <Content comments={comments} />
-        <Footer topicId={topic.id} />
-      </div>
-    </ForumLayout>
+    <div className={styles.TopicCommentsWrapper}>
+      <Header title={topic.name ?? 'название темы'} />
+      <Content comments={comments} />
+      <Footer topic_id={topic.id} />
+    </div>
   );
 };

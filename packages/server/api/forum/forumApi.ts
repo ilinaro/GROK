@@ -1,12 +1,12 @@
 import { Forums } from '../models'
 import type { TForum } from '../models'
 import type { TApiResponseData } from '../typing'
-import { GetForumsListRequest } from './typing'
 
 // Forum API
 export const forumApi = {
-  create: async (data: TForum): Promise<TApiResponseData<object>> => {
+  create: async (data: TForum): Promise<TApiResponseData> => {
     const { name, user_id } = data
+
     if (!name) {
       return { reason: 'Неправильные параметры для метода create forum' }
     }
@@ -15,14 +15,16 @@ export const forumApi = {
         name,
         user_id,
       })
+
       return {
         data: newForum,
       }
     } catch (e) {
+      console.log(e)
       return { reason: 'Ошибка при создании строки в методе create forum' }
     }
   },
-  edit: async (data: TForum): Promise<TApiResponseData<object>> => {
+  edit: async (data: TForum): Promise<TApiResponseData> => {
     const { id, name, user_id } = data
     if (!id || !name) {
       return { reason: 'Неправильные параметры для метода rename forum' }
@@ -37,7 +39,7 @@ export const forumApi = {
       return { reason: 'Ошибка при изменении строки в методе rename forum' }
     }
   },
-  delete: async (data: TForum): Promise<TApiResponseData<object>> => {
+  delete: async (data: TForum): Promise<TApiResponseData> => {
     const { id, user_id } = data
     if (!id) {
       return { reason: 'Неправильные параметры для метода delete forum' }
@@ -53,11 +55,12 @@ export const forumApi = {
       return { reason: 'Ошибка удаления строки в методе delete forum' }
     }
   },
-  list: async (): Promise<TApiResponseData<GetForumsListRequest['data']>> => {
+  list: async (): Promise<TApiResponseData> => {
     try {
       const forums = await Forums.findAll({
         order: [['id', 'DESC']],
       })
+
       return {
         data: forums,
       }

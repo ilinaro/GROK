@@ -3,7 +3,6 @@ import type { IncomingMessage } from 'http'
 import { userAPI } from '../../api/user'
 import { yandexAuthUri } from '../constants'
 import type { TUserData } from '../typing'
-import { isValidPostData } from '../../api/utils/postDataValidator'
 
 const yandexProxyResponseHandler = (
   proxyRes: IncomingMessage,
@@ -22,16 +21,14 @@ const yandexProxyResponseHandler = (
     proxyRes.on('end', async () => {
       try {
         const data = JSON.parse(responseBody) as TUserData
-        if (res.statusCode === 200 && isValidPostData(data)) {
+
+        if (res.statusCode === 200) {
           await userAPI.createOrUpadate({
             id: data.id,
             login: data.login,
             display_name: data.login,
             avatar: data.avatar,
           })
-
-          const currentTheme = 100
-          data.theme = currentTheme
         }
         const modifiedResponse = JSON.stringify(data)
         res.setHeader('Content-Type', 'application/json;charset=utf-8')

@@ -1,21 +1,19 @@
-import type { Request, Response } from 'express'
-import type { TUser } from '../models'
 import type { TApiFunction } from './typing'
 import { isValidPostData } from '../utils/postDataValidator'
-import type { TApiResponseData } from '../typing'
+import type { TApi, TApiResponseData } from '../typing'
 import { forumApi } from './forumApi'
 import { topicApi } from './topicApi'
 import { messageApi } from './messageApi'
 import { messageReactionApi } from './messageReactionApi'
 
 // Forum API
-export const forumApiHandler = async (
-  req: Request,
-  res: Response,
-  userData: TUser
+export const forumApiHandler: TApi = async (
+  req,
+  res
+  // userData: TUser
 ): Promise<void> => {
   const postData = req.body
-  const userId = userData.id
+  const userId = req.authUserData!.id
   const isValid = isValidPostData(postData)
 
   if (!isValid) {
@@ -24,7 +22,7 @@ export const forumApiHandler = async (
   }
 
   const { action, data } = postData
-  let apiResponse: TApiResponseData<object> = {}
+  let apiResponse: TApiResponseData = {}
 
   data.user_id = userId
 
@@ -51,10 +49,7 @@ export const forumApiHandler = async (
   }
 
   if (apiResponse.data) {
-    res.json({
-      action: action,
-      data: apiResponse.data,
-    })
+    res.json(apiResponse.data)
     return
   }
 

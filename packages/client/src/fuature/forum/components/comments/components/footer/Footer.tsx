@@ -8,10 +8,10 @@ import { CreateCommentRequest } from '@api/forum/types';
 import { forumApi } from '@api/forum';
 
 interface IFooter {
-  topicId: number;
+  topic_id: number;
 }
 
-export const Footer: React.FC<IFooter> = ({ topicId }) => {
+export const Footer: React.FC<IFooter> = ({ topic_id }) => {
   const { notify } = useNotification();
   const [comment, setComment] = useState('');
 
@@ -22,7 +22,7 @@ export const Footer: React.FC<IFooter> = ({ topicId }) => {
       const createCommentData: CreateCommentRequest = {
         action: 'message.create',
         data: {
-          topic_id: topicId,
+          topic_id,
           parent_message_id: 0,
           text: comment,
         },

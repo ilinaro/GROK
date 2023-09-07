@@ -16,6 +16,16 @@ export type TMessage = {
 const messageOptions = {
   timestamps: false,
   tableName: 'Messages',
+  indexes: [
+    {
+      unique: false,
+      fields: ['topic_id'],
+    },
+    {
+      unique: false,
+      fields: ['parent_message_id'],
+    },
+  ],
 }
 
 const messageModel: ModelAttributes<Model, TMessage> = {
@@ -32,7 +42,8 @@ const messageModel: ModelAttributes<Model, TMessage> = {
       model: Users,
       key: 'id',
     },
-    onDelete: 'SET NULL',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
   },
   text: {
     type: DataType.TEXT,
@@ -45,7 +56,8 @@ const messageModel: ModelAttributes<Model, TMessage> = {
       model: Topics,
       key: 'id',
     },
-    onDelete: 'SET NULL',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
   },
   parent_message_id: {
     type: DataType.INTEGER,
@@ -53,7 +65,8 @@ const messageModel: ModelAttributes<Model, TMessage> = {
       model: 'Messages',
       key: 'id',
     },
-    onDelete: 'SET NULL',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
   },
   created_at: {
     type: DataType.DATE,
@@ -64,10 +77,9 @@ const messageModel: ModelAttributes<Model, TMessage> = {
 const Messages = sequelize.define('Messages', messageModel, messageOptions)
 
 Messages.belongsTo(Topics, { foreignKey: 'topic_id' })
+Topics.hasMany(Messages, { foreignKey: 'topic_id' })
 Messages.belongsTo(Users, { foreignKey: 'user_id' })
-Messages.belongsTo(Messages, {
-  foreignKey: 'parent_message_id',
-  as: 'parentMessage',
-})
+Messages.belongsTo(Messages, { foreignKey: 'parent_message_id' })
+Messages.hasMany(Messages, { foreignKey: 'parent_message_id' })
 
 export { Messages }

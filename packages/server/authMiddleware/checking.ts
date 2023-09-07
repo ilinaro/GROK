@@ -1,8 +1,8 @@
 import axios from 'axios'
-import type { Request } from 'express'
+import type { NextFunction, Request, Response } from 'express'
 import { filterCookies } from './utils'
 import { yandexEndpoint } from './constants'
-import type { TUserData, TCheckAuth } from './typing'
+import type { TUserData, TCheckAuth, TRequestWithUserData } from './typing'
 
 export const yandexCheckAuthorization = async (
   req: Request
@@ -30,5 +30,26 @@ export const yandexCheckAuthorization = async (
       }
     }
     throw new Error('Ошибка в проверке авторизации на стороне сервера')
+  }
+}
+
+export const checkAuthorizationMiddleware = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const authUserData = await yandexCheckAuthorization(req)
+    if (!authUserData.isAuth || !authUserData.user) {
+      res.sendStatus(401)
+      return
+    }
+    // Сохраняем данные в Request для использования в API
+    ;(req as TRequestWithUserData).authUserData = authUserData.user
+    next()
+  } catch (e) {
+    if (!res.headersSent) {
+      res.sendStatus(500)
+    }
   }
 }
