@@ -1,31 +1,33 @@
-import React from 'react'
+import React from 'react';
 import styles from './TopicItem.module.scss';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { Topic } from '@api/forum/types';
+import { dateParser } from '@utils/date-parser';
 
-type TopicsItemT = {
-  topics: Record<string, string>;
-};
+interface ITopicItem {
+  topic: Topic;
+  index: number;
+}
 
-export const TopicsItem: React.FC<TopicsItemT> = (props) => {
-  const { topics } = props;
+export const TopicItem: React.FC<ITopicItem> = (props) => {
+  const { topic, index } = props;
+
+  const createdAt = dateParser(new Date(topic.created_at).toISOString());
+
   return (
-    <div itemID={ topics.id } className={ styles.topicsWrapper }>
-      <div className={ styles.leftSide }>
-        <h1 className={ styles.subj__title }>{ topics.title }</h1>
-        <p className={styles.subj_desc}>{ topics.desc }</p>
+    <div itemID={topic.id.toString()} className={styles.topicsWrapper}>
+      <div className={styles.leftSide}>
+        <Link to={`topics/${topic.forum_id}/${topic.id}`}>
+          <h1 className={styles.subj__title}>
+            {index + 1}. {topic.name}
+          </h1>
+        </Link>
       </div>
-      <div className={ styles.rightSide }>
-        <div className={ styles.subj__countries }>
-          <div className={ styles.subj__icons }>
-            <i className={ styles.subj_icon__like }></i>
-            <Link className={ styles.subj_icon__addMsg } to={ '/forum/' + topics.id }></Link>
-          </div>
-        </div>
-        <div className={ styles.subj__profileEnv }>
-          <div className={ styles.subj__avatar }></div>
-          <div className={ styles.subj__timestamp }>{ topics.timestamp }</div>
+      <div className={styles.rightSide}>
+        <div className={styles.subj__profileEnv}>
+          <p className={styles.subj__desc}>{`Дата создания: ${createdAt}`}</p>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

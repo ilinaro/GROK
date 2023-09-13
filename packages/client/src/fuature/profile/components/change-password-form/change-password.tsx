@@ -5,10 +5,10 @@ import { Button } from '@components/design-system';
 import { FormInput } from '@components/specific/FormInput/FormInput';
 import { HidePassSVG } from '@components/design-system/SVG/HidePassSVG';
 import { ShowPassSVG } from '@components/design-system/SVG/ShowPassSVG';
-import { PASSWORD_REGEX, REQUIRED } from 'fuature/profile/constants';
+import { PASSWORD_REGEX, REQUIRED } from '@fuature/profile/constants';
 import { changePassword } from '@store/thunks/change-user-data';
 import { IChangePasswordRequest } from '@store/types/userTypes';
-import { baseValidationRules, passwordValidationScheme } from 'fuature/profile/validation';
+import { baseValidationRules, passwordValidationScheme } from '@fuature/profile/validation';
 interface IChangePasswordForm {
   setMode(value: string): void;
 }
@@ -82,38 +82,52 @@ export const ChangePasswordForm: React.FC<IChangePasswordForm> = ({ setMode }) =
   };
 
   return (
-    <form className={styles.FormContainer}>
-      <FormInput
-        name="old_password"
-        label="Cтарый пароль"
-        type={isPasswordShow.old_password ? 'text' : 'password'}
-        control={control}
-        rules={baseValidationRules}
-        rightAddon={showOrHidddenIcon('old_password')}
-      />
-      <FormInput
-        name="new_password"
-        label="Новый пароль"
-        type={isPasswordShow.new_password ? 'text' : 'password'}
-        control={control}
-        rules={passwordValidationScheme}
-        rightAddon={showOrHidddenIcon('new_password')}
-      />
-      <FormInput
-        name="confirmPassword"
-        label="Повторите пароль"
-        type={isPasswordShow.confirmPassword ? 'text' : 'password'}
-        control={control}
-        rules={{
-          validate: validatePasswordMatch,
-          ...baseValidationRules,
+    <>
+      <form className={styles.FormContainer}>
+        <fieldset>
+          <FormInput
+            name="old_password"
+            label="Cтарый пароль"
+            type={isPasswordShow.old_password ? 'text' : 'password'}
+            control={control}
+            rules={baseValidationRules}
+            rightAddon={showOrHidddenIcon('old_password')}
+          />
+          <FormInput
+            name="new_password"
+            label="Новый пароль"
+            type={isPasswordShow.new_password ? 'text' : 'password'}
+            control={control}
+            rules={passwordValidationScheme}
+            rightAddon={showOrHidddenIcon('new_password')}
+          />
+          <FormInput
+            name="confirmPassword"
+            label="Повторите пароль"
+            type={isPasswordShow.confirmPassword ? 'text' : 'password'}
+            control={control}
+            rules={{
+              validate: validatePasswordMatch,
+              ...baseValidationRules,
+            }}
+            rightAddon={showOrHidddenIcon('confirmPassword')}
+          />
+        </fieldset>
+
+        <Button fullWidth={true} disabled={!formState.isValid} onClick={handleSubmit(onSubmit)} loading={loading}>
+          Сохранить
+        </Button>
+      </form>
+      <Button
+        style={{
+          backgroundColor: 'var(--color-button-changePass',
+          borderColor: 'var(--color-button-changePass',
         }}
-        rightAddon={showOrHidddenIcon('confirmPassword')}
-      />
-      <Button disabled={!formState.isValid} onClick={handleSubmit(onSubmit)} loading={loading}>
-        Сохранить
+        fullWidth={true}
+        onClick={() => setMode('profile')}
+      >
+        Назад
       </Button>
-      <Button onClick={() => setMode('profile')}>Назад</Button>
-    </form>
+    </>
   );
 };

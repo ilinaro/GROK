@@ -4,7 +4,7 @@ import { Control, FieldValues, RegisterOptions, useController } from 'react-hook
 import styles from './style.module.scss';
 import { setAvatar } from '@store/thunks/change-user-data';
 import { useAppDispatch } from '@store/hooks';
-import { checkAuth } from '@store/thunks/user';
+import { loadUser } from '@store/thunks/user';
 
 interface IAvatarInput {
   name: string;
@@ -37,7 +37,7 @@ export const AvatarInput: React.FC<IAvatarInput> = ({ name, control, rules }) =>
     formData.append('avatar', file);
 
     setAvatar(formData).then(() => {
-      dispatch(checkAuth());
+      dispatch(loadUser());
     });
   };
 

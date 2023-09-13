@@ -1,55 +1,62 @@
-import { ErrorPage } from '@pages/error';
+import { ErrorPage } from '../pages/error';
 import { ForumActionCreate } from '../fuature/forum/actions/create';
-import { ForumAnswers } from '../fuature/forum/components/answers';
-import { ForumEventsPage } from '@pages/forum/id';
-import { ForumPage } from '@pages/forum';
+import { ForumPage } from '../pages/forum';
 import { ForumTopics } from '../fuature/forum/components/topics';
-import { GamePage } from '@pages/game';
-import { LeadersPage } from '@pages/leaders';
-import { LoginPage } from '@pages/login';
-import { NoMatchPage } from '@pages/nomatch/NoMatch';
-import { ProfileLayout } from '@layouts/ProfileLayout';
-import { ProfilePage } from '@pages/profile';
-import { ProgressPage } from '@pages/progress';
-import { RegistrationPage } from '@pages/registration';
+import { GamePage } from '../pages/game';
+import { LeadersPage } from '../pages/leaders';
+import { LoginPage } from '../pages/login';
+import { NoMatchPage } from '../pages/nomatch/NoMatch';
+import { ProfileLayout } from '../layouts/ProfileLayout';
+import { ProfilePage } from '../pages/profile';
+import { ProgressPage } from '../pages/progress';
+import { RegistrationPage } from '../pages/registration';
 import { RouteNames } from './routeNames';
-import { StartPage } from '@pages/start';
-import { Navigate, createBrowserRouter } from 'react-router-dom';
+import { StartPage } from '../pages/start';
 import { ReactElement } from 'react';
+import { Navigate, createBrowserRouter, useLocation } from 'react-router-dom';
+import { OAuth } from 'fuature/login/components/OAuth/OAuth';
+import { ToggleTheme } from '@components/specific/Toggle';
+import { isServerSide } from '@lib/isServerSide';
+import { userActions } from '@store/slices/user/userSlice';
 import { useAppDispatch } from '@store/hooks';
 import { useQuery } from 'react-query';
-import userService from '@services/user.service';
-import { setUserAC } from '@store/actions/userAction';
+import { authApi } from '@api/auth';
 
 type PrivateRouteProps = {
   children: ReactElement;
 };
 
-const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
+export const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
+  const { search } = useLocation();
+  const authCode = search.slice(6);
+
   const dispatch = useAppDispatch();
+
   const {
     data: user,
     isLoading,
     isError,
     isSuccess,
-  } = useQuery(['user'], () => userService.getUser(), {
-    enabled: true,
+  } = useQuery(['user'], () => authApi.getCurrentUser(), {
+    enabled: !authCode,
     onSuccess: (data) => {
-      dispatch(setUserAC(data));
+      dispatch(userActions.setUserData(data));
     },
   });
 
-  const previousPath = window.location.pathname;
-  const authPath = ['/login', '/registration'];
-  const isExcludePath: boolean = authPath.includes(previousPath);
+  if (authCode) return <OAuth code={authCode} />;
+
+  const previousPath = typeof window !== 'undefined' ? window.location.pathname : '';
+  const authPath = [RouteNames.LOGIN, RouteNames.REGISTRATION];
+  const isExcludePath: boolean = authPath.includes(previousPath as RouteNames);
 
   if (isSuccess && isExcludePath && !isLoading) {
     return <Navigate to="/" />;
   } else if (!isSuccess && !isExcludePath && !isLoading) {
     return <Navigate to="/login" />;
-  } else {
-    return children;
   }
+
+  return children;
 };
 
 export const Routers = createBrowserRouter([
@@ -78,11 +85,6 @@ export const Routers = createBrowserRouter([
         element: <ForumPage />,
       },
       {
-        path: RouteNames.FORUM_EVENTS,
-        element: <ForumEventsPage />,
-        // loader: eventLoader, - здесь можно добавить запрос
-      },
-      {
         path: RouteNames.PROGRESS,
         element: <ProgressPage />,
       },
@@ -94,25 +96,16 @@ export const Routers = createBrowserRouter([
         path: RouteNames.ERROR,
         element: <ErrorPage />,
       },
-      {
-        path: RouteNames.FORUM_TOPICS,
-        element: <ForumTopics />,
-      },
-      {
-        path: RouteNames.FORUM_ANSWERS,
-        element: <ForumAnswers />,
-      },
-      {
-        path: RouteNames.FORUM_CREATE,
-        element: <ForumActionCreate />,
-      },
     ],
   },
   {
     path: RouteNames.LOGIN,
     element: (
       <PrivateRoute>
-        <LoginPage />
+        <>
+          {!isServerSide && <ToggleTheme />}
+          <LoginPage />
+        </>
       </PrivateRoute>
     ),
   },
@@ -120,7 +113,10 @@ export const Routers = createBrowserRouter([
     path: RouteNames.REGISTRATION,
     element: (
       <PrivateRoute>
-        <RegistrationPage />
+        <>
+          {!isServerSide && <ToggleTheme />}
+          <RegistrationPage />
+        </>
       </PrivateRoute>
     ),
   },

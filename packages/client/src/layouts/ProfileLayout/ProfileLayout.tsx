@@ -3,6 +3,8 @@ import { Outlet } from 'react-router-dom';
 import { Header, Navigate } from '@components/specific';
 import { ErrorFallback } from '@utils/ErrorFallback';
 import styles from './ProfileLayout.module.scss';
+import { ToggleTheme } from '@components/specific/Toggle';
+import { isServerSide } from '@lib/isServerSide';
 
 type ProfileLayoutT = {
   children?: React.ReactNode;
@@ -11,6 +13,7 @@ type ProfileLayoutT = {
 export const ProfileLayout: React.FC<ProfileLayoutT> = ({ children }) => {
   return (
     <div className={styles.ProfileLayout}>
+      {!isServerSide && <ToggleTheme />}
       <div className={styles.Head}>
         <Header />
       </div>
@@ -19,6 +22,7 @@ export const ProfileLayout: React.FC<ProfileLayoutT> = ({ children }) => {
           <Navigate />
         </div>
         <div className={styles.Outlet}>
+          {children}
           <ErrorBoundary FallbackComponent={ErrorFallback}>
             <Outlet />
           </ErrorBoundary>

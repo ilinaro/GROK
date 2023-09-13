@@ -1,28 +1,29 @@
 .comment__footer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   width: 90%;
 }
 
 .comment_add__form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  width: 50%;
 }
 
 .comment__textaria {
   resize: none;
+  width: 100%;
   height: 100px;
   background: #1a0f1a2e;
   color: white;
+  padding: 0.5rem;
 }
 
 .comment_add__title {
-  margin: 0 0 0.5rem 2rem;
   font-size: 18px;
 }
 
 .comment_add__btn {
-  margin-top: 0.5rem;
+  margin-top: 1rem;
   border-radius: 12px !important;
   border: 1px solid #1c7983 !important;
   background-color: #2b6870;

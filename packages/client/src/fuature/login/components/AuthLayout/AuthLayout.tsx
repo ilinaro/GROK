@@ -14,7 +14,7 @@ export const AuthLayout: React.FC<AuthFormT> = ({ children }) => {
         <Logo />
       </div>
       <div className={styles.backgroundItem}>
-        <UnionSVG />
+        <UnionSVG color={'main'} />
       </div>
       {children}
       <div className={styles.backgroundItem}>

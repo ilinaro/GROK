@@ -1,5 +1,5 @@
 .Container {
-    background-color: var(--color-violet);
+    background-color: var(--background-leader);
     display: flex;
     align-items: center;
     border-radius: 20px;
@@ -10,23 +10,26 @@
     @media (max-width: 768px) {
         flex-direction: column;
         align-items: flex-start;
-      }
+    }
 
     .Avatar {
-        display: block;
+        display: flex;
+        align-items: center;
         width: 90px;
         height: 90px;
         margin-right: 25px;
-        
 
         img {
             max-width: 100%;
             border-radius: 50%;
+            height: 100%;
         }
     }
-    
+
     .Username {
-        width: 200px;
+        width: 400px;
+        display: flex;
+        gap: 5px;
     }
 
     .TopPlace {
@@ -44,7 +47,7 @@
             height: 50px;
             background-size: cover;
             top: 10%;
-          }
+        }
     }
 
 }

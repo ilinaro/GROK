@@ -1,10 +1,18 @@
 import Events from './Events';
 import Player from './Player';
-import { mapBlocks } from './../data/map';
+import { mapBlocks } from '../data/map';
 
 export class SceneCanvas {
   private animationId = 0;
-  init(canvas: HTMLCanvasElement | null, ball: HTMLImageElement) {
+  private bonus = 0;
+  private life = 0;
+
+  init(
+    canvas: HTMLCanvasElement | null,
+    ball: HTMLImageElement,
+    setBonus: React.Dispatch<React.SetStateAction<number>>,
+    setLife: React.Dispatch<React.SetStateAction<number>>
+  ) {
     if (!canvas) return;
     const context = canvas.getContext('2d');
     const canvasWidth = canvas.width || 0;
@@ -18,6 +26,7 @@ export class SceneCanvas {
 
     resizeCanvas();
     const player = new Player(context, mapBlocks, ball, canvasWidth, canvasHeight);
+
     const events = new Events(player);
     const animate = () => {
       if (!context) return;
@@ -37,6 +46,8 @@ export class SceneCanvas {
       });
       player.draw();
       player.update();
+      setBonus(player.bonus);
+      setLife(player.life);
     };
 
     animate();

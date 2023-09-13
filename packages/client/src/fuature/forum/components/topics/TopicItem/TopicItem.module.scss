@@ -17,11 +17,11 @@
 
 .rightSide {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
 }
 
 .leftSide, .rightSide {
-  margin: auto 0.5rem;
+  margin: auto 2rem;
 }
 
 .subj__countries, .subj__profileEnv {
